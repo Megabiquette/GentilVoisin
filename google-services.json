@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "856989090011",
+    "firebase_url": "https://gentilvoisin-62dc8.firebaseio.com",
+    "project_id": "gentilvoisin-62dc8",
+    "storage_bucket": "gentilvoisin-62dc8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:856989090011:android:8be3a7059303d22ef78cfe",
+        "android_client_info": {
+          "package_name": "com.albanfontaine.gentilvoisin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "856989090011-qi15642d55u4toonnk5p97lj3edivdb8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.albanfontaine.gentilvoisin",
+            "certificate_hash": "359be5fd2aa8d8bff575d6d5ee02ebae27454d47"
+          }
+        },
+        {
+          "client_id": "856989090011-prr3akisur8madec4cek7d1e37ski5uv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCa7ZgXyAhlK3y0LNigc65SyrT_9u8VVhU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "856989090011-prr3akisur8madec4cek7d1e37ski5uv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
