@@ -4,10 +4,10 @@
     <dimen name="app_name_size">72sp</dimen>
 
     <!-- View paddings and margins -->
-    <dimen name="padding_horizontal_primary">30dp</dimen>
+    <dimen name="padding_horizontal_primary">20dp</dimen>
     <dimen name="padding_horizontal_second">30dp</dimen>
     <dimen name="margin_top">20dp</dimen>
 
     <!-- Buttons -->
-    <dimen name="button_horizontal_padding">20dp</dimen>
+    <dimen name="button_horizontal_padding">25dp</dimen>
 </resources>
