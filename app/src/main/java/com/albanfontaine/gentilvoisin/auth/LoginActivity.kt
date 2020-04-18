@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import com.albanfontaine.gentilvoisin.R
+import com.albanfontaine.gentilvoisin.helper.Constants
+import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -19,27 +21,31 @@ class LoginActivity : AppCompatActivity() {
         configurateButtons()
     }
 
-    private fun connectWithEmail() {
-        Log.e("connect", "mail")
-    }
-
-    private fun connectWithFacebook() {
-        Log.e("connect", "fb")
-    }
-
-    private fun connectWithGoogle() {
-        Log.e("connect", "gg")
-    }
-
     private fun enterRegisterMode() {
         Log.e("connect", "reg")
     }
 
-    private fun configurateButtons() {
-        connectEmailButton = login_button_email.apply { setOnClickListener { connectWithEmail() } }
-        connectFacebookButton = login_button_facebook.apply { setOnClickListener { connectWithFacebook() } }
-        connectGoogleButton = login_button_google.apply { setOnClickListener { connectWithGoogle() } }
-        registerModeButton =login_button_create_account.apply { setOnClickListener { enterRegisterMode() } }
+    private fun connect(idpConfigBuilder: AuthUI.IdpConfig.Builder) {
+        startActivityForResult(
+            AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setAvailableProviders(listOf(idpConfigBuilder.build()))
+                .setIsSmartLockEnabled(false)
+                .build(),
+            Constants.RC_SIGN_IN
+        )
+    }
 
+    private fun configurateButtons() {
+        connectEmailButton = login_button_email.apply { setOnClickListener {
+            connect(AuthUI.IdpConfig.EmailBuilder())
+        }}
+        connectFacebookButton = login_button_facebook.apply { setOnClickListener {
+            connect(AuthUI.IdpConfig.FacebookBuilder())
+        }}
+        connectGoogleButton = login_button_google.apply { setOnClickListener {
+            connect(AuthUI.IdpConfig.GoogleBuilder())
+        }}
+        registerModeButton = login_button_create_account.apply { setOnClickListener { enterRegisterMode() } }
     }
 }

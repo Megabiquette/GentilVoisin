@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">"Gentil Voisin"</string>
-    <string name="facebook_app_id">265526807801547</string>
-    <string name="fb_login_protocol_scheme">fb265526807801547</string>
+    <string name="facebook_application_id" translatable="false">265526807801547</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb265526807801547</string>
 
     <string name="login_text_app_name">" Gentil Voisin</string>
     <string name="login_text_mode_email">Se connecter par email</string>
