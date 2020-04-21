@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".core.MainActivity"></activity>
         <activity
             android:name=".auth.LoginActivity"
             android:screenOrientation="portrait">
