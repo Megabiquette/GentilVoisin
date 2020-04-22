@@ -1,10 +1,10 @@
 package com.albanfontaine.gentilvoisin.auth
 
+import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import com.albanfontaine.gentilvoisin.core.MainActivity
@@ -19,12 +19,25 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var connectEmailButton: Button
     private lateinit var connectFacebookButton: Button
     private lateinit var connectGoogleButton: Button
-    private lateinit var registerModeButton: Button // ?
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         configurateButtons()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val image = login_image
+        val appTitle = login_app_title
+        ObjectAnimator.ofFloat(image, "translationY", 500f, 0f).apply {
+            duration = 1500
+            start()
+        }
+        ObjectAnimator.ofFloat(appTitle, "translationY", -500f, 0f).apply {
+            duration = 1500
+            start()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -54,11 +67,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun enterRegisterMode() {
-        Log.e("connect", "reg")
-        // TODO
-    }
-
     private fun connect(idpConfigBuilder: AuthUI.IdpConfig.Builder) {
         startActivityForResult(
             AuthUI.getInstance()
@@ -80,6 +88,5 @@ class LoginActivity : AppCompatActivity() {
         connectGoogleButton = login_button_google.apply { setOnClickListener {
             connect(AuthUI.IdpConfig.GoogleBuilder())
         }}
-        registerModeButton = login_button_create_account.apply { setOnClickListener { enterRegisterMode() } }
     }
 }

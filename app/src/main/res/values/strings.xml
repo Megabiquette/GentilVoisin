@@ -4,15 +4,11 @@
     <string name="fb_login_protocol_scheme" translatable="false">fb265526807801547</string>
 
     <string name="login_text_app_name">"{ Gentil Voisin }</string>
-    <string name="login_text_mode_email">Se connecter par email</string>
     <string name="login_email_edit_text_hint">Email</string>
     <string name="login_password_edit_text_hint">Mot de passe</string>
-    <string name="login_button_email">Se connecter</string>
-    <string name="login_text_password_forgotten"><u>Mot de passe oublié ?</u></string>
+    <string name="login_button_email">Se connecter par Email</string>
     <string name="login_button_facebook">Se connecter avec Facebook</string>
     <string name="login_button_google">Se connecter avec Google</string>
-    <string name="login_text_no_account">Pas encore inscrit ?</string>
-    <string name="login_button_create_account">Créer un compte</string>
     <string name="login_error_no_internet">Erreur: vérifiez votre connexion internet</string>
     <string name="login_error_unknown">Une erreur inconnue est survenue</string>
 
