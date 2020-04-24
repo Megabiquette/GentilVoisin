@@ -31,4 +31,10 @@
         <item name="android:textColorSecondary">@color/white</item>
         <item name="colorPrimary">@color/colorPrimary</item>
     </style>
+
+    <style name="NavigationDrawer">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="itemTextColor">@color/white</item>
+        <item name="menu">@menu/menu_drawer</item>
+    </style>
 </resources>

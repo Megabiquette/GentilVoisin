@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.animation.doOnEnd
 import com.albanfontaine.gentilvoisin.core.MainActivity
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Constants
@@ -28,16 +29,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val image = login_image
-        val appTitle = login_app_title
-        ObjectAnimator.ofFloat(image, "translationY", 500f, 0f).apply {
-            duration = 1500
-            start()
-        }
-        ObjectAnimator.ofFloat(appTitle, "translationY", -500f, 0f).apply {
-            duration = 1500
-            start()
-        }
+        animateViews()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -48,20 +40,20 @@ class LoginActivity : AppCompatActivity() {
                 // Go to MainActivity
                 startActivity(Intent(this, MainActivity::class.java))
             } else {
-                if (response?.error?.errorCode == ErrorCodes.NO_NETWORK) {
-                    Toast.makeText(
-                        this,
-                        resources.getString(R.string.login_error_no_internet),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else if (response?.error?.errorCode == ErrorCodes.UNKNOWN_ERROR) {
-                    Toast.makeText(
-                        this,
-                        resources.getString(R.string.login_error_unknown),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else {
-                    return
+                when(response?.error?.errorCode) {
+                    ErrorCodes.NO_NETWORK ->
+                        Toast.makeText(
+                            this,
+                            resources.getString(R.string.login_error_no_internet),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    ErrorCodes.UNKNOWN_ERROR ->
+                        Toast.makeText(
+                            this,
+                            resources.getString(R.string.login_error_unknown),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    else -> return
                 }
             }
         }
@@ -88,5 +80,37 @@ class LoginActivity : AppCompatActivity() {
         connectGoogleButton = login_button_google.apply { setOnClickListener {
             connect(AuthUI.IdpConfig.GoogleBuilder())
         }}
+    }
+
+    private fun animateViews() {
+        connectEmailButton.translationX = -1000f
+        connectFacebookButton.translationX = -1000f
+        connectGoogleButton.translationX = -1000f
+        val image = login_image
+        val appTitle = login_app_title
+        ObjectAnimator.ofFloat(image, "translationY", 1000f, 0f).apply {
+            duration = 1000
+            start()
+        }
+        ObjectAnimator.ofFloat(appTitle, "translationY", -500f, 0f).apply {
+            duration = 1000
+            start()
+        }
+        ObjectAnimator.ofFloat(connectEmailButton, "translationX",  0f).apply {
+            duration = 500
+            start()
+            doOnEnd {
+                ObjectAnimator.ofFloat(connectFacebookButton, "translationX",  0f).apply {
+                    duration = 300
+                    start()
+                    doOnEnd {
+                        ObjectAnimator.ofFloat(connectGoogleButton, "translationX",  0f).apply {
+                            duration = 200
+                            start()
+                        }
+                    }
+                }
+            }
+        }
     }
 }
