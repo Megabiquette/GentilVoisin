@@ -9,4 +9,7 @@
 
     <!-- Buttons -->
     <dimen name="button_horizontal_padding">25dp</dimen>
+
+    <!-- Menu drawer -->
+    <dimen name="drawer_padding">20dp</dimen>
 </resources>

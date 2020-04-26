@@ -25,6 +25,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         configurateButtons()
+
+        // TODO if user is already logged in, go to main
     }
 
     override fun onStart() {
@@ -39,12 +41,24 @@ class LoginActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 // Go to MainActivity
                 startActivity(Intent(this, MainActivity::class.java))
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(
+                    this,
+                    resources.getString(R.string.login_error_cancel),
+                    Toast.LENGTH_LONG
+                ).show()
             } else {
                 when(response?.error?.errorCode) {
                     ErrorCodes.NO_NETWORK ->
                         Toast.makeText(
                             this,
                             resources.getString(R.string.login_error_no_internet),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    ErrorCodes.DEVELOPER_ERROR ->
+                        Toast.makeText(
+                            this,
+                            resources.getString(R.string.login_error_developper),
                             Toast.LENGTH_LONG
                         ).show()
                     ErrorCodes.UNKNOWN_ERROR ->
@@ -59,11 +73,11 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun connect(idpConfigBuilder: AuthUI.IdpConfig.Builder) {
+    private fun connect(idpConfig: AuthUI.IdpConfig) {
         startActivityForResult(
             AuthUI.getInstance()
                 .createSignInIntentBuilder()
-                .setAvailableProviders(listOf(idpConfigBuilder.build()))
+                .setAvailableProviders(listOf(idpConfig))
                 .setIsSmartLockEnabled(false)
                 .build(),
             Constants.RC_SIGN_IN
@@ -72,13 +86,13 @@ class LoginActivity : AppCompatActivity() {
 
     private fun configurateButtons() {
         connectEmailButton = login_button_email.apply { setOnClickListener {
-            connect(AuthUI.IdpConfig.EmailBuilder())
+            connect(AuthUI.IdpConfig.EmailBuilder().build())
         }}
         connectFacebookButton = login_button_facebook.apply { setOnClickListener {
-            connect(AuthUI.IdpConfig.FacebookBuilder())
+            connect(AuthUI.IdpConfig.FacebookBuilder().build())
         }}
         connectGoogleButton = login_button_google.apply { setOnClickListener {
-            connect(AuthUI.IdpConfig.GoogleBuilder())
+            connect(AuthUI.IdpConfig.GoogleBuilder().build())
         }}
     }
 
