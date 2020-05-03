@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.core.animation.doOnEnd
-import com.albanfontaine.gentilvoisin.core.MainActivity
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Constants
 import com.firebase.ui.auth.AuthUI
@@ -38,36 +37,40 @@ class LoginActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         val response: IdpResponse? = IdpResponse.fromResultIntent(data)
         if (requestCode == Constants.RC_SIGN_IN) {
-            if (resultCode == Activity.RESULT_OK) {
-                // Go to MainActivity
-                startActivity(Intent(this, MainActivity::class.java))
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(
-                    this,
-                    resources.getString(R.string.login_error_cancel),
-                    Toast.LENGTH_LONG
-                ).show()
-            } else {
-                when(response?.error?.errorCode) {
-                    ErrorCodes.NO_NETWORK ->
-                        Toast.makeText(
-                            this,
-                            resources.getString(R.string.login_error_no_internet),
-                            Toast.LENGTH_LONG
-                        ).show()
-                    ErrorCodes.DEVELOPER_ERROR ->
-                        Toast.makeText(
-                            this,
-                            resources.getString(R.string.login_error_developper),
-                            Toast.LENGTH_LONG
-                        ).show()
-                    ErrorCodes.UNKNOWN_ERROR ->
-                        Toast.makeText(
-                            this,
-                            resources.getString(R.string.login_error_unknown),
-                            Toast.LENGTH_LONG
-                        ).show()
-                    else -> return
+            when (resultCode) {
+                Activity.RESULT_OK -> {
+                    // Go to MainActivity
+                    startActivity(Intent(this, RegisterInfosActivity::class.java))
+                }
+                Activity.RESULT_CANCELED -> {
+                    Toast.makeText(
+                        this,
+                        resources.getString(R.string.login_error_cancel),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                else -> {
+                    when (response?.error?.errorCode) {
+                        ErrorCodes.NO_NETWORK ->
+                            Toast.makeText(
+                                this,
+                                resources.getString(R.string.login_error_no_internet),
+                                Toast.LENGTH_LONG
+                            ).show()
+                        ErrorCodes.DEVELOPER_ERROR ->
+                            Toast.makeText(
+                                this,
+                                resources.getString(R.string.login_error_developper),
+                                Toast.LENGTH_LONG
+                            ).show()
+                        ErrorCodes.UNKNOWN_ERROR ->
+                            Toast.makeText(
+                                this,
+                                resources.getString(R.string.login_error_unknown),
+                                Toast.LENGTH_LONG
+                            ).show()
+                        else -> return
+                    }
                 }
             }
         }

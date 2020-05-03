@@ -30,6 +30,8 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
         findViewById<Toolbar>(R.id.toolbar)
             .setupWithNavController(navController, appBarConfiguration)
+
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -23,4 +23,14 @@
     <string name="menu_profile">Mon profil</string>
     <string name="menu_settings">Paramètres</string>
     <string name="menu_logout">Se déconnecter</string>
+
+    <string name="register_infos_subtitle">Enregistrement</string>
+    <string name="register_infos_name">Nom d\'utilisateur: </string>
+    <string name="register_infos_zipcode">Code postal: </string>
+    <string name="register_infos_city">Choisissez votre ville: </string>
+    <string name="register_infos_button_validate">Valider</string>
+    <string name="register_infos_button_register">S\'enregistrer</string>
+    <string name="register_infos_empty_name">Vous devez saisir un nom.</string>
+    <string name="register_infos_empty_zipcode">Vous devez saisir un code postal valide.</string>
+    <string name="register_infos_no_city_found">Désolé, aucune ville n\'a été trouvée pour ce code postal.</string>
 </resources>
