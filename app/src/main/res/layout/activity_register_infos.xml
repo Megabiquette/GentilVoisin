@@ -88,7 +88,6 @@
         android:id="@+id/register_infos_city_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/padding_horizontal"
         app:layout_constraintEnd_toEndOf="parent"

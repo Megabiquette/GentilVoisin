@@ -6,11 +6,17 @@ import android.os.Bundle
 import android.widget.*
 import androidx.core.widget.addTextChangedListener
 import com.albanfontaine.gentilvoisin.R
+import com.albanfontaine.gentilvoisin.database.UserDbHelper
+import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
+import com.albanfontaine.gentilvoisin.model.User
+import com.firebase.ui.auth.AuthUI
 import com.google.common.collect.ArrayListMultimap
 import com.google.common.collect.Multimap
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_register_infos.*
 import org.json.JSONArray
 import org.json.JSONObject
+import java.util.*
 
 class RegisterInfosActivity : AppCompatActivity() {
     private lateinit var nameEditText: EditText
@@ -27,40 +33,19 @@ class RegisterInfosActivity : AppCompatActivity() {
         createCitiesMultiMap()
     }
 
-    private fun isNameValid(): Boolean {
-        nameEditText.setText(nameEditText.text.toString().trim())
-        if (nameEditText.text.toString().trim().isEmpty()) {
-            Toast.makeText(
-                this,
-                resources.getString(R.string.register_infos_empty_name),
-                Toast.LENGTH_LONG
-            ).show()
-            return false
-        }
-        return true
-    }
+    private fun registerUser() {
+        FirebaseAuth.getInstance().currentUser
+            ?.let {
+                val uid = it.uid
+                val name = nameEditText.text.toString().trim()
+                val zipcode = zipcodeEditText.text.toString().trim().toInt()
+                val city = citySpinner.selectedItem.toString().trim()
+                val registerDate: Date = Calendar.getInstance().time
+                val avatar: String? = if (it.photoUrl != null) it.photoUrl.toString() else null
 
-    private fun isZipcodeValid(): Boolean {
-        if (zipcodeEditText.text.toString().trim().length != 5) {
-            Toast.makeText(
-                this,
-                resources.getString(R.string.register_infos_empty_zipcode),
-                Toast.LENGTH_LONG
-            ).show()
-            return false
-        }
-        return true
-    }
-    private fun isCityValid(): Boolean {
-        if (citySpinner.selectedItem == null) {
-            Toast.makeText(
-                this,
-                resources.getString(R.string.register_infos_no_city_found),
-                Toast.LENGTH_LONG
-            ).show()
-            return false
-        }
-        return true
+                val user = User(uid, name, zipcode, city, registerDate, avatar)
+                UserDbHelper.createUser(user)
+            }
     }
 
     private fun configureViews() {
@@ -79,7 +64,7 @@ class RegisterInfosActivity : AppCompatActivity() {
                     if (possibleCities.isNotEmpty()) {
                         configureSpinner(citySpinner, possibleCities.toList())
                     } else {
-                        Toast.makeText(context, resources.getString(R.string.register_infos_no_city_found), Toast.LENGTH_LONG).show()
+                        context.toast(R.string.register_infos_no_city_found)
                         configureSpinner(citySpinner, listOf())
                     }
                 } else {
@@ -97,11 +82,12 @@ class RegisterInfosActivity : AppCompatActivity() {
                     }
                 } else {
                     if(isZipcodeValid() && isCityValid()) {
-                        Toast.makeText(context, "valide !", Toast.LENGTH_LONG).show()
+                        registerUser()
                     }
                 }
             }
         }
+        // For the animation
         register_infos_zipcode_layout.x = 1000f
         register_infos_city_layout.x = 1000f
     }
@@ -112,6 +98,30 @@ class RegisterInfosActivity : AppCompatActivity() {
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinner.adapter = adapter
             }
+    }
+
+    private fun isNameValid(): Boolean {
+        nameEditText.setText(nameEditText.text.toString().trim())
+        if (nameEditText.text.toString().trim().isEmpty()) {
+            this.toast(R.string.register_infos_empty_name)
+            return false
+        }
+        return true
+    }
+
+    private fun isZipcodeValid(): Boolean {
+        if (zipcodeEditText.text.toString().trim().length != 5) {
+            this.toast(R.string.register_infos_empty_zipcode)
+            return false
+        }
+        return true
+    }
+    private fun isCityValid(): Boolean {
+        if (citySpinner.selectedItem == null) {
+            this.toast(R.string.register_infos_no_city_found)
+            return false
+        }
+        return true
     }
 
     /**
