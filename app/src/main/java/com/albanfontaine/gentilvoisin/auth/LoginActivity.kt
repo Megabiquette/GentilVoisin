@@ -8,11 +8,14 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.core.animation.doOnEnd
 import com.albanfontaine.gentilvoisin.R
+import com.albanfontaine.gentilvoisin.core.MainActivity
+import com.albanfontaine.gentilvoisin.database.UserDbHelper
 import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -39,8 +42,16 @@ class LoginActivity : AppCompatActivity() {
         if (requestCode == Constants.RC_SIGN_IN) {
             when (resultCode) {
                 Activity.RESULT_OK -> {
-                    // Go to MainActivity
-                    startActivity(Intent(this, RegisterInfosActivity::class.java))
+                    FirebaseAuth.getInstance().currentUser?.let {
+                        UserDbHelper.getUser(it.uid).addOnCompleteListener { document ->
+                            if (document.result!!.getString("username") != null) {
+                                startActivity(Intent(this, MainActivity::class.java))
+                            } else {
+                                // New user, go to register screen
+                                startActivity(Intent(this, RegisterInfosActivity::class.java))
+                            }
+                        }
+                    }
                 }
                 Activity.RESULT_CANCELED -> {
                     this.toast(R.string.login_error_cancel)

@@ -3,6 +3,7 @@ package com.albanfontaine.gentilvoisin.database
 import com.albanfontaine.gentilvoisin.model.User
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
@@ -16,8 +17,8 @@ class UserDbHelper {
             getUserCollection().get()
         }
 
-        fun getUser(uid: String) {
-            getUserCollection().document(uid).get()
+        fun getUser(uid: String): Task<DocumentSnapshot> {
+            return getUserCollection().document(uid).get()
         }
 
         fun createUser(user: User) : Task<Void> {

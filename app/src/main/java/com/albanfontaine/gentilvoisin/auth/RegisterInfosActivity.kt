@@ -9,7 +9,6 @@ import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.database.UserDbHelper
 import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.model.User
-import com.firebase.ui.auth.AuthUI
 import com.google.common.collect.ArrayListMultimap
 import com.google.common.collect.Multimap
 import com.google.firebase.auth.FirebaseAuth
