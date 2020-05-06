@@ -2,7 +2,11 @@
 <resources>
     <color name="colorPrimary">#0096F0</color>
     <color name="colorPrimaryDark">#0028B4</color>
-    <color name="colorAccent">#DC780A</color>
+    <color name="colorAccent">#DC960A</color>
+
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="type_offer">#388E3C</color>
+    <color name="type_demand">#D32F2F</color>
 </resources>

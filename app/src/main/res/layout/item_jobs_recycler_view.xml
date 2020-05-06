@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_jobs_recycler_view_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="@dimen/margin_small">
+
+    <ImageView
+        android:id="@+id/item_jobs_avatar"
+        android:layout_width="@dimen/image_avatar_size"
+        android:layout_height="@dimen/image_avatar_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/item_jobs_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:background="@drawable/background_type_offer"
+        android:paddingHorizontal="5dp"
+        android:paddingVertical="2dp"
+        android:textColor="@color/type_offer"
+        app:layout_constraintStart_toEndOf="@id/item_jobs_avatar"
+        app:layout_constraintTop_toTopOf="@id/item_jobs_avatar"
+        tools:text="Offre" />
+
+    <TextView
+        android:id="@+id/item_jobs_category"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:background="@drawable/background_category"
+        android:paddingHorizontal="5dp"
+        android:paddingVertical="2dp"
+        app:layout_constraintStart_toEndOf="@id/item_jobs_type"
+        app:layout_constraintTop_toTopOf="@id/item_jobs_avatar"
+        tools:text="Aide aux devoirs" />
+
+    <TextView
+        android:id="@+id/item_jobs_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_small"
+        android:maxLength="185"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/item_jobs_avatar"
+        app:layout_constraintTop_toBottomOf="@id/item_jobs_type"
+        tools:text="Lorem ipsum dolor sit amet, consecteturea  elit. Donec eget lacus libero. Maecenas ut tellus scelerisque, condimentum odio eget, rhoncus metus. Proin a eros velit. Cras tempor ultrices." />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

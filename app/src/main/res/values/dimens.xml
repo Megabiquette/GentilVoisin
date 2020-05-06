@@ -15,4 +15,8 @@
 
     <!-- Menu drawer -->
     <dimen name="drawer_padding">20dp</dimen>
+
+    <!-- Recycler view job item -->
+    <dimen name="image_avatar_size">100dp</dimen>
+    <dimen name="margin_small">10dp</dimen>
 </resources>
