@@ -14,7 +14,6 @@
     <string name="login_error_developper">Cette adresse mail est déjà associée à un autre mode de connexion</string>
     <string name="login_error_unknown">Une erreur inconnue est survenue</string>
 
-    <string name="fragment_jobslist_label">Annonces</string>
     <string name="menu_last_jobs">Dernières annonces</string>
     <string name="menu_offers">Offres</string>
     <string name="menu_demands">Demandes</string>
@@ -33,4 +32,7 @@
     <string name="register_infos_empty_name">Vous devez saisir un nom.</string>
     <string name="register_infos_empty_zipcode">Vous devez saisir un code postal valide.</string>
     <string name="register_infos_no_city_found">Désolé, aucune ville n\'a été trouvée pour ce code postal.</string>
+
+    <string name="job_type_offer">Offre</string>
+    <string name="job_type_demand">Demande</string>
 </resources>

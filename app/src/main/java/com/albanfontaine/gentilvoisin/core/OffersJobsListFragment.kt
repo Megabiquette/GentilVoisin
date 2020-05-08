@@ -8,8 +8,7 @@ import android.view.ViewGroup
 
 import com.albanfontaine.gentilvoisin.R
 
-class JobsListFragment : Fragment() {
-
+class OffersJobsListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

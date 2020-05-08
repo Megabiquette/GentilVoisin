@@ -3,12 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/jobs_list"
+    app:startDestination="@id/last_jobs_list"
     tools:ignore="UnusedNavigation">
 
     <fragment
-        android:id="@+id/jobs_list"
-        android:name="com.albanfontaine.gentilvoisin.core.JobsListFragment"
-        android:label="@string/fragment_jobslist_label"
+        android:id="@+id/last_jobs_list"
+        android:name="com.albanfontaine.gentilvoisin.core.LastJobsListFragment"
+        android:label="@string/menu_last_jobs"
+        tools:layout="@layout/fragment_jobs_list"/>
+    <fragment
+        android:id="@+id/offers_jobs_list"
+        android:name="com.albanfontaine.gentilvoisin.core.OffersJobsListFragment"
+        android:label="@string/menu_offers"
+        tools:layout="@layout/fragment_jobs_list"/>
+    <fragment
+        android:id="@+id/demands_jobs_list"
+        android:name="com.albanfontaine.gentilvoisin.core.DemandsJobsListFragment"
+        android:label="@string/menu_demands"
         tools:layout="@layout/fragment_jobs_list"/>
 </navigation>
