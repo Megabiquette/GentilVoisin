@@ -38,10 +38,15 @@ class JobViewHolder(view: View): RecyclerView.ViewHolder(view) {
                 }
             }
             category.text = job.category
-            description.text = job.description
+            if (job.description.length > 107) {
+                val descriptionExtract = job.description.substring(0, 104).trim() + "..."
+                description.text = descriptionExtract
+            } else {
+                description.text = job.description
+            }
             UserDbHelper.getUser(job.posterId).addOnCompleteListener {task ->
                 if (task.isSuccessful) {
-                    val user = task.getResult()?.toObject(User::class.java)
+                    val user = task.result?.toObject(User::class.java)
                     Glide.with(context)
                         .load(user?.avatar)
                         .centerCrop()

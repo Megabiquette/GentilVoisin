@@ -35,4 +35,5 @@
 
     <string name="job_type_offer">Offre</string>
     <string name="job_type_demand">Demande</string>
+    <string name="error_no_job">Aucune annonce trouvée</string>
 </resources>
