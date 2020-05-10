@@ -5,7 +5,7 @@ import java.util.*
 data class Job(
     val uid: String = "",
     val posterId: String = "",
-    val zipcode: String = "",
+    val city: String = "",
     val category: String = "",
     val type: String = "",
     val description: String = "",

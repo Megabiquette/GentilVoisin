@@ -24,7 +24,7 @@ class LastJobsListFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var jobListAdapter: JobAdapter
     private lateinit var jobList: MutableList<Job>
-    private lateinit var userZipcode: String
+    private lateinit var userCity: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,7 @@ class LastJobsListFragment : Fragment() {
         UserDbHelper.getUser(FirebaseAuth.getInstance().currentUser!!.uid).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val user = task.result?.toObject(User::class.java)
-                userZipcode = user?.zipCode.toString()
+                userCity = user?.city.toString()
                 getJobs()
 
             }
@@ -48,7 +48,7 @@ class LastJobsListFragment : Fragment() {
 
     private fun getJobs() {
         jobList = ArrayList()
-        JobDbHelper.getLastJobs(userZipcode).addOnCompleteListener { task ->
+        JobDbHelper.getLastJobs(userCity).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 task.result?.forEach {document ->
                     val job = document.toObject(Job::class.java)
@@ -58,11 +58,11 @@ class LastJobsListFragment : Fragment() {
         }
         // TODO delete
         // Test data
-        val job1 = Job("1", "KYV4tvJBIBcuZtc4O3FzaSitNTq1", userZipcode,"Aide aux devoirs",
+        val job1 = Job("1", "KYV4tvJBIBcuZtc4O3FzaSitNTq1", userCity,"Aide aux devoirs",
             "demand", "Sed ut perspiciatis unde omnis iste natus error sit voluptatem ", Date(), false)
-        val job2 = Job("2", "KYV4tvJBIBcuZtc4O3FzaSitNTq1", userZipcode,"Ménage",
+        val job2 = Job("2", "KYV4tvJBIBcuZtc4O3FzaSitNTq1", userCity,"Ménage",
             "offer", "Sed ut perspiciatis unde omnis iste natus error sit voluptatem ", Date(), false)
-        val job3 = Job("3", "KYV4tvJBIBcuZtc4O3FzaSitNTq1", userZipcode,"Ménage",
+        val job3 = Job("3", "KYV4tvJBIBcuZtc4O3FzaSitNTq1", userCity,"Ménage",
             "offer", "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo", Date(), false)
         jobList.apply {
             add(job1)

@@ -22,24 +22,24 @@ object JobDbHelper {
             .set(job)
     }
 
-    fun getLastJobs(zipcode: String) : Task<QuerySnapshot> {
+    fun getLastJobs(city: String) : Task<QuerySnapshot> {
         return getJobCollection()
-            .whereEqualTo("zipcode", zipcode)
+            .whereEqualTo("city", city)
             .orderBy("postedAt")
             .limit(30)
             .get()
     }
 
-    fun getJobsType(zipcode: String, type: String) : Task<QuerySnapshot> {
+    fun getJobsType(city: String, type: String) : Task<QuerySnapshot> {
         return getJobCollection()
-            .whereEqualTo("zipcode", zipcode)
+            .whereEqualTo("city", city)
             .whereEqualTo("type", type)
             .get()
     }
 
-    fun getJobsCategory(zipcode: String, category: String) : Task<QuerySnapshot> {
+    fun getJobsCategory(city: String, category: String) : Task<QuerySnapshot> {
         return getJobCollection()
-            .whereEqualTo("zipcode", zipcode)
+            .whereEqualTo("city", city)
             .whereEqualTo("category", category)
             .get()
     }
