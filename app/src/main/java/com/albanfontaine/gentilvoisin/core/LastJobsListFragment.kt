@@ -1,52 +1,16 @@
 package com.albanfontaine.gentilvoisin.core
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
-import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.database.JobDbHelper
-import com.albanfontaine.gentilvoisin.database.UserDbHelper
 import com.albanfontaine.gentilvoisin.model.Job
-import com.albanfontaine.gentilvoisin.model.User
-import com.albanfontaine.gentilvoisin.view.JobAdapter
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_jobs_list.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class LastJobsListFragment : Fragment() {
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var jobListAdapter: JobAdapter
-    private lateinit var jobList: MutableList<Job>
-    private lateinit var userCity: String
+class LastJobsListFragment : BaseJobsListFragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        UserDbHelper.getUser(FirebaseAuth.getInstance().currentUser!!.uid).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val user = task.result?.toObject(User::class.java)
-                userCity = user?.city.toString()
-                getJobs()
-
-            }
-        }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_jobs_list, container, false)
-    }
-
-    private fun getJobs() {
+    override fun getJobs() {
         jobList = ArrayList()
         JobDbHelper.getLastJobs(userCity).addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -74,14 +38,6 @@ class LastJobsListFragment : Fragment() {
         if (jobList.isEmpty()) {
             recyclerView.isVisible = false
             fragment_jobs_list_no_jobs.isVisible = true
-        }
-    }
-
-    private fun configureRecyclerView() {
-        jobListAdapter = JobAdapter(jobList, requireContext())
-        recyclerView = fragment_jobs_list_recycler_view.apply {
-            adapter = jobListAdapter
-            layoutManager = LinearLayoutManager(activity)
         }
     }
 }

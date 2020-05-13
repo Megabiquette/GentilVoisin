@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.model.Job
 
-class JobAdapter(private val jobList: List<Job>, val context: Context): RecyclerView.Adapter<JobViewHolder>() {
+class JobAdapter(private val jobList: List<Job>, private val context: Context): RecyclerView.Adapter<JobViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
