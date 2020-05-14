@@ -5,9 +5,9 @@
     android:id="@+id/item_jobs_recycler_view_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="1dp"
     android:orientation="horizontal"
     android:padding="@dimen/margin_small"
-    android:layout_margin="1dp"
     tools:background="@drawable/background_type_offer">
 
     <ImageView
@@ -23,14 +23,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_small"
-        android:background="@drawable/background_type_offer"
-        android:paddingHorizontal="8dp"
+        android:paddingHorizontal="7dp"
         android:paddingVertical="2dp"
-        android:textColor="@color/type_offer"
+        android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/item_jobs_avatar"
         app:layout_constraintTop_toTopOf="@id/item_jobs_avatar"
-        tools:text="Offre" />
+        tools:background="@drawable/circle_type_offer"
+        tools:text="O" />
 
     <TextView
         android:id="@+id/item_jobs_category"

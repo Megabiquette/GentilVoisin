@@ -1,10 +1,10 @@
-package com.albanfontaine.gentilvoisin.database
+package com.albanfontaine.gentilvoisin.repository
 
 import com.albanfontaine.gentilvoisin.model.User
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.*
 
-object UserDbHelper {
+object UserRepository {
     private fun getUserCollection() : CollectionReference {
         return FirebaseFirestore.getInstance().collection("users")
     }

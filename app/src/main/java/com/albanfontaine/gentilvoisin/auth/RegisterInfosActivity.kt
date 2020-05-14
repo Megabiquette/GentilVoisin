@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.*
 import androidx.core.widget.addTextChangedListener
 import com.albanfontaine.gentilvoisin.R
-import com.albanfontaine.gentilvoisin.database.UserDbHelper
+import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.model.User
 import com.google.common.collect.ArrayListMultimap
@@ -43,7 +43,7 @@ class RegisterInfosActivity : AppCompatActivity() {
                 val avatar: String? = if (it.photoUrl != null) it.photoUrl.toString() else null
 
                 val user = User(uid, name, zipcode, city, registerDate, avatar)
-                UserDbHelper.createUser(user)
+                UserRepository.createUser(user)
             }
     }
 

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.albanfontaine.gentilvoisin.R
 
-import com.albanfontaine.gentilvoisin.database.UserDbHelper
+import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.view.JobAdapter
@@ -25,7 +25,7 @@ abstract class BaseJobsListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        UserDbHelper.getUser(FirebaseAuth.getInstance().currentUser!!.uid).addOnCompleteListener { task ->
+        UserRepository.getUser(FirebaseAuth.getInstance().currentUser!!.uid).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val user = task.result?.toObject(User::class.java)
                 userCity = user?.city.toString()

@@ -8,7 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.albanfontaine.gentilvoisin.R
-import com.albanfontaine.gentilvoisin.database.UserDbHelper
+import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
 import com.bumptech.glide.Glide
@@ -26,15 +26,13 @@ class JobViewHolder(view: View): RecyclerView.ViewHolder(view) {
             when (job.type) {
                 "offer" -> {
                     rootLayout.background = ContextCompat.getDrawable(context, R.drawable.background_type_offer)
-                    type.background = ContextCompat.getDrawable(context, R.drawable.background_type_offer)
-                    type.setTextColor(ContextCompat.getColor(context, R.color.type_offer))
-                    type.text = context.getString(R.string.job_type_offer)
+                    type.background = ContextCompat.getDrawable(context, R.drawable.circle_type_offer)
+                    type.text = "O"
                 }
                 "demand" -> {
                     rootLayout.background = ContextCompat.getDrawable(context, R.drawable.background_type_demand)
-                    type.background = ContextCompat.getDrawable(context, R.drawable.background_type_demand)
-                    type.setTextColor(ContextCompat.getColor(context, R.color.type_demand))
-                    type.text = context.getString(R.string.job_type_demand)
+                    type.background = ContextCompat.getDrawable(context, R.drawable.circle_type_demand)
+                    type.text = "D"
                 }
             }
             category.text = job.category
@@ -44,7 +42,7 @@ class JobViewHolder(view: View): RecyclerView.ViewHolder(view) {
             } else {
                 description.text = job.description
             }
-            UserDbHelper.getUser(job.posterId).addOnCompleteListener {task ->
+            UserRepository.getUser(job.posterId).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val user = task.result?.toObject(User::class.java)
                     Glide.with(context)

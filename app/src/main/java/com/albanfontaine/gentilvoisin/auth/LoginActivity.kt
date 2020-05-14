@@ -9,7 +9,7 @@ import android.widget.Button
 import androidx.core.animation.doOnEnd
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.core.MainActivity
-import com.albanfontaine.gentilvoisin.database.UserDbHelper
+import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.firebase.ui.auth.AuthUI
@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
             when (resultCode) {
                 Activity.RESULT_OK -> {
                     FirebaseAuth.getInstance().currentUser?.let {
-                        UserDbHelper.getUser(it.uid).addOnCompleteListener { document ->
+                        UserRepository.getUser(it.uid).addOnCompleteListener { document ->
                             if (document.result!!.getString("username") != null) {
                                 startActivity(Intent(this, MainActivity::class.java))
                             } else {

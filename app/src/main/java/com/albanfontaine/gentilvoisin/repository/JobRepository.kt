@@ -1,10 +1,10 @@
-package com.albanfontaine.gentilvoisin.database
+package com.albanfontaine.gentilvoisin.repository
 
 import com.albanfontaine.gentilvoisin.model.Job
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.*
 
-object JobDbHelper {
+object JobRepository {
 
     private fun getJobCollection() : CollectionReference {
         return FirebaseFirestore.getInstance().collection("jobs")
