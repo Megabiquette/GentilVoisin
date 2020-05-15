@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
     compileSdkVersion 29
@@ -41,7 +42,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta6'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
@@ -52,7 +53,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:2.3.0-alpha06"
     implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.0-alpha06"
 
-    implementation 'com.google.firebase:firebase-core:17.4.0'
+    implementation 'com.google.firebase:firebase-core:17.4.1'
     implementation 'com.google.firebase:firebase-auth:19.3.1'
     implementation 'com.firebaseui:firebase-ui-auth:6.2.1'
     implementation 'com.firebaseui:firebase-ui-firestore:6.2.1'

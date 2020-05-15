@@ -7,13 +7,13 @@
         android:id="@+id/menu_group_one"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/menu_last_jobs"
+            android:id="@+id/last_jobs_list"
             android:title="@string/menu_last_jobs"/>
         <item
-            android:id="@+id/menu_offers"
+            android:id="@+id/offers_jobs_list"
             android:title="@string/menu_offers"/>
         <item
-            android:id="@+id/menu_demands"
+            android:id="@+id/demands_jobs_list"
             android:title="@string/menu_demands"/>
     </group>
     <group

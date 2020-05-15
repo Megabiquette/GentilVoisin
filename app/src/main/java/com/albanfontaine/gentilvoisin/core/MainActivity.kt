@@ -27,11 +27,14 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment)
         findViewById<NavigationView>(R.id.nav_view)
             .setupWithNavController(navController)
-        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+        val topDestinations = setOf(
+            R.id.last_jobs_list,
+            R.id.offers_jobs_list,
+            R.id.demands_jobs_list
+        )
+        appBarConfiguration = AppBarConfiguration(topDestinations, drawerLayout)
         findViewById<Toolbar>(R.id.toolbar)
             .setupWithNavController(navController, appBarConfiguration)
-
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
