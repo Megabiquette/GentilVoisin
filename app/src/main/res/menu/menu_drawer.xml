@@ -20,7 +20,7 @@
         android:id="@+id/menu_group_two"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/menu_create_new"
+            android:id="@+id/add_job"
             android:title="@string/menu_create_new"/>
         <item
             android:id="@+id/menu_my_jobs"

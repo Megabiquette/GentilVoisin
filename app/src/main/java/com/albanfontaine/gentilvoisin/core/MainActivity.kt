@@ -30,7 +30,8 @@ class MainActivity : AppCompatActivity() {
         val topDestinations = setOf(
             R.id.last_jobs_list,
             R.id.offers_jobs_list,
-            R.id.demands_jobs_list
+            R.id.demands_jobs_list,
+            R.id.add_job
         )
         appBarConfiguration = AppBarConfiguration(topDestinations, drawerLayout)
         findViewById<Toolbar>(R.id.toolbar)
