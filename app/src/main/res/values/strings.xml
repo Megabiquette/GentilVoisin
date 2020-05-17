@@ -41,4 +41,15 @@
     <string name="add_job_description">Description de l\'annonce:</string>
     <string name="add_job_button">Publier</string>
 
+    <string-array name="job_categories">
+        <item>Ménage</item>
+        <item>Aide aux devoirs</item>
+        <item>Bricolage</item>
+        <item>Courses</item>
+        <item>Jardinage</item>
+        <item>Garde d\'enfants</item>
+        <item>Cours</item>
+        <item>Autre (préciser)</item>
+    </string-array>
+
 </resources>
