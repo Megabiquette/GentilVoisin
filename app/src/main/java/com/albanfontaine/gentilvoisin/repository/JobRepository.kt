@@ -16,17 +16,16 @@ object JobRepository {
             .get()
     }
 
-    fun createJob(job: Job, uid: String) : Task<Void> {
+    fun createJob(job: Job) : Task<DocumentReference> {
         return getJobCollection()
-            .document(uid)
-            .set(job)
+            .add(job)
     }
 
     fun getLastJobs(city: String) : Task<QuerySnapshot> {
         return getJobCollection()
             .whereEqualTo("city", city)
-            .whereEqualTo("isDone", false)
-            .orderBy("postedAt")
+            .whereEqualTo("done", false)
+            .orderBy("postedAt", Query.Direction.DESCENDING)
             .limit(30)
             .get()
     }
@@ -35,7 +34,7 @@ object JobRepository {
         return getJobCollection()
             .whereEqualTo("city", city)
             .whereEqualTo("type", type)
-            .whereEqualTo("isDone", false)
+            .whereEqualTo("done", false)
             .get()
     }
 
@@ -43,7 +42,7 @@ object JobRepository {
         return getJobCollection()
             .whereEqualTo("city", city)
             .whereEqualTo("category", category)
-            .whereEqualTo("isDone", false)
+            .whereEqualTo("done", false)
             .get()
     }
 }

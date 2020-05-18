@@ -42,7 +42,7 @@ class JobViewHolder(view: View): RecyclerView.ViewHolder(view) {
             } else {
                 description.text = job.description
             }
-            UserRepository.getUser(job.posterId).addOnCompleteListener { task ->
+            UserRepository.getUser(job.posterUid).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val user = task.result?.toObject(User::class.java)
                     Glide.with(context)

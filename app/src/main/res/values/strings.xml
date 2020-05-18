@@ -40,7 +40,8 @@
     <string name="add_job_category">Catégorie:</string>
     <string name="add_job_description">Description de l\'annonce:</string>
     <string name="add_job_button">Publier</string>
-
+    <string name="add_job_error_no_description">Merci de renseigner une courte description pour votre annonce</string>
+    <string name="add_job_added">Annonce publiée !</string>
     <string-array name="job_categories">
         <item>Ménage</item>
         <item>Aide aux devoirs</item>
@@ -49,7 +50,7 @@
         <item>Jardinage</item>
         <item>Garde d\'enfants</item>
         <item>Cours</item>
-        <item>Autre (préciser)</item>
+        <item>Autre</item>
     </string-array>
 
 </resources>

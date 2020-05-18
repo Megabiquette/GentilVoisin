@@ -56,9 +56,9 @@
             android:inputType="text"
             android:theme="@style/EditText"
             app:layout_constraintBottom_toBottomOf="@+id/add_job_category"
-            app:layout_constraintTop_toTopOf="@+id/add_job_category"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/add_job_category" />
+            app:layout_constraintStart_toEndOf="@id/add_job_category"
+            app:layout_constraintTop_toTopOf="@+id/add_job_category" />
 
         <TextView
             android:id="@+id/add_job_description"
@@ -89,6 +89,7 @@
                 android:gravity="top|start"
                 android:inputType="textMultiLine|textCapSentences"
                 android:lines="8"
+                android:maxLength="350"
                 android:maxLines="8"
                 android:textColor="@color/white" />
         </LinearLayout>
@@ -96,11 +97,11 @@
         <Button
             android:id="@+id/add_job_button"
             style="@style/Button"
-            android:paddingHorizontal="@dimen/button_horizontal_padding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top"
             android:background="@drawable/btn_shape_round_white"
+            android:paddingHorizontal="@dimen/button_horizontal_padding"
             android:text="@string/add_job_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

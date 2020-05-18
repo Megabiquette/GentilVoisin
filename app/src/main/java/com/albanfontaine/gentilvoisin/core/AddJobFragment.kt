@@ -7,25 +7,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Spinner
 
 import com.albanfontaine.gentilvoisin.R
+import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
+import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
+import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_add_job.*
+import java.util.*
 
 class AddJobFragment : Fragment() {
-    private lateinit var userCity: String
+    private var currentUser: User? = null
     private lateinit var categoriesSpinner: Spinner
+    private lateinit var descriptionEditText: EditText
     private lateinit var submitButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         UserRepository.getUser(FirebaseAuth.getInstance().currentUser!!.uid).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val user = task.result?.toObject(User::class.java)
-                userCity = user?.city.toString()
+                currentUser = task.result?.toObject(User::class.java)
             }
         }
     }
@@ -42,7 +47,31 @@ class AddJobFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    private fun createJob() {
+        val category = categoriesSpinner.selectedItem.toString()
+        var type = "offer"
+        if (add_job_radio_demand.isChecked) {
+            type = "demand"
+        }
+        val description = descriptionEditText.text.toString().trim()
+        val postedAt = Date()
+
+        val job = Job(
+            posterUid = currentUser!!.uid,
+            city = currentUser!!.city,
+            category = category,
+            type = type,
+            description = description,
+            postedAt = postedAt,
+            isDone = false
+        )
+
+        JobRepository.createJob(job)
+        context?.toast(R.string.add_job_added)
+    }
+
     private fun configureViews() {
+        descriptionEditText = add_job_description_edit_text
         categoriesSpinner = add_job_spinner_category
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -56,7 +85,11 @@ class AddJobFragment : Fragment() {
 
         submitButton = add_job_button.apply {
             setOnClickListener {
-
+                if (descriptionEditText.text.toString().trim().length < 15) {
+                    context.toast(R.string.add_job_error_no_description)
+                } else {
+                    createJob()
+                }
             }
         }
     }

@@ -3,8 +3,7 @@ package com.albanfontaine.gentilvoisin.model
 import java.util.*
 
 data class Job(
-    val uid: String = "",
-    val posterId: String = "",
+    val posterUid: String = "",
     val city: String = "",
     val category: String = "",
     val type: String = "",

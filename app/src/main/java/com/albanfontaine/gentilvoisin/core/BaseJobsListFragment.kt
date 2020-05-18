@@ -20,7 +20,7 @@ abstract class BaseJobsListFragment : Fragment() {
     protected lateinit var recyclerView: RecyclerView
     private lateinit var jobListAdapter: JobAdapter
     protected lateinit var jobList: MutableList<Job>
-    protected lateinit var userCity: String
+    protected var userCity: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +39,14 @@ abstract class BaseJobsListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_jobs_list, container, false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (userCity != "") {
+            getJobs()
+            jobListAdapter.notifyDataSetChanged()
+        }
     }
 
     abstract fun getJobs()
