@@ -47,10 +47,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
     </style>
 
-    <style name="NavigationDrawer">
+    <style name="NavigationDrawer" parent="Widget.Design.NavigationView">
         <item name="android:background">@color/colorPrimary</item>
         <item name="itemTextColor">@color/white</item>
-        <item name="menu">@menu/menu_drawer</item>
-        <item name="headerLayout">@layout/nav_menu_header</item>
     </style>
 </resources>
