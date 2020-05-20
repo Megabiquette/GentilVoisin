@@ -25,12 +25,10 @@ class JobViewHolder(view: View): RecyclerView.ViewHolder(view) {
         job?.let {
             when (job.type) {
                 "offer" -> {
-                    rootLayout.background = ContextCompat.getDrawable(context, R.drawable.background_type_offer)
                     type.background = ContextCompat.getDrawable(context, R.drawable.circle_type_offer)
                     type.text = "O"
                 }
                 "demand" -> {
-                    rootLayout.background = ContextCompat.getDrawable(context, R.drawable.background_type_demand)
                     type.background = ContextCompat.getDrawable(context, R.drawable.circle_type_demand)
                     type.text = "D"
                 }
