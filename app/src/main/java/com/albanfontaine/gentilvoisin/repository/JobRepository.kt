@@ -39,4 +39,11 @@ object JobRepository {
             .whereEqualTo("done", false)
             .get()
     }
+
+    fun getJobsByPoster(city: String, posterUid: String) : Task<QuerySnapshot> {
+        return getJobCollection()
+            .whereEqualTo("city", city)
+            .whereEqualTo("posterUid", posterUid)
+            .get()
+    }
 }

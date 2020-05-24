@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import androidx.navigation.fragment.findNavController
 
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
@@ -71,7 +72,7 @@ class AddJobFragment : Fragment() {
 
         jobDocumentReference.set(job)
         context?.toast(R.string.add_job_added)
-        // TODO return to main page
+        findNavController().navigate(R.id.last_jobs_list)
     }
 
     private fun configureViews() {

@@ -25,7 +25,11 @@
         android:id="@+id/add_job"
         android:name="com.albanfontaine.gentilvoisin.core.AddJobFragment"
         android:label="@string/menu_create_new"
-        tools:layout="@layout/fragment_add_job"/>
+        tools:layout="@layout/fragment_add_job">
+        <action
+            android:id="@+id/action_add_job_to_last_jobs_list"
+            app:destination="@id/last_jobs_list" />
+    </fragment>
     <fragment
         android:id="@+id/job_card"
         android:name="com.albanfontaine.gentilvoisin.core.JobCardFragment"
