@@ -1,12 +1,11 @@
 package com.albanfontaine.gentilvoisin.repository
 
-import com.albanfontaine.gentilvoisin.model.Job
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.*
 
 object JobRepository {
 
-    private fun getJobCollection() : CollectionReference {
+    fun getJobCollection() : CollectionReference {
         return FirebaseFirestore.getInstance().collection("jobs")
     }
 
@@ -14,11 +13,6 @@ object JobRepository {
         return getJobCollection()
             .document(uid)
             .get()
-    }
-
-    fun createJob(job: Job) : Task<DocumentReference> {
-        return getJobCollection()
-            .add(job)
     }
 
     fun getLastJobs(city: String) : Task<QuerySnapshot> {

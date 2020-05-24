@@ -48,6 +48,8 @@ class AddJobFragment : Fragment() {
     }
 
     private fun createJob() {
+        val jobDocumentReference = JobRepository.getJobCollection().document()
+        val uid: String = jobDocumentReference.id
         val category = categoriesSpinner.selectedItem.toString()
         var type = "offer"
         if (add_job_radio_demand.isChecked) {
@@ -57,6 +59,7 @@ class AddJobFragment : Fragment() {
         val postedAt = Date()
 
         val job = Job(
+            uid = uid,
             posterUid = currentUser!!.uid,
             city = currentUser!!.city,
             category = category,
@@ -66,8 +69,9 @@ class AddJobFragment : Fragment() {
             isDone = false
         )
 
-        JobRepository.createJob(job)
+        jobDocumentReference.set(job)
         context?.toast(R.string.add_job_added)
+        // TODO return to main page
     }
 
     private fun configureViews() {
