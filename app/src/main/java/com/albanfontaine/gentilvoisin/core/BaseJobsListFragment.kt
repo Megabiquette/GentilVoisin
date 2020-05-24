@@ -1,6 +1,7 @@
 package com.albanfontaine.gentilvoisin.core
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,7 @@ import com.albanfontaine.gentilvoisin.view.JobAdapter
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_jobs_list.*
 
-abstract class BaseJobsListFragment : Fragment() {
+abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener {
     protected lateinit var recyclerView: RecyclerView
     private lateinit var jobListAdapter: JobAdapter
     protected lateinit var jobList: MutableList<Job>
@@ -52,10 +53,15 @@ abstract class BaseJobsListFragment : Fragment() {
     abstract fun getJobs()
 
     protected fun configureRecyclerView() {
-        jobListAdapter = JobAdapter(jobList, requireContext())
+        jobListAdapter = JobAdapter(jobList, requireContext(), this)
         recyclerView = fragment_jobs_list_recycler_view.apply {
             adapter = jobListAdapter
             layoutManager = LinearLayoutManager(activity)
         }
+    }
+
+    override fun onItemClicked(position: Int) {
+        // TODO
+         Log.e("itemClicked", jobList[position].description)
     }
 }

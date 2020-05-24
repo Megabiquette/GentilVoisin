@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.model.Job
 
-class JobAdapter(private val jobList: List<Job>, private val context: Context): RecyclerView.Adapter<JobViewHolder>() {
+class JobAdapter(private val jobList: List<Job>, private val context: Context, private val onItemListener: OnItemListener): RecyclerView.Adapter<JobViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
         val view: View = inflater.inflate(R.layout.item_jobs_recycler_view, parent, false)
-        return JobViewHolder(view)
+        return JobViewHolder(view, onItemListener)
     }
 
     override fun getItemCount(): Int {
@@ -22,5 +22,9 @@ class JobAdapter(private val jobList: List<Job>, private val context: Context): 
 
     override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
         holder.updateWithJob(jobList[position], context)
+    }
+
+    interface OnItemListener {
+        fun onItemClicked(position: Int)
     }
 }

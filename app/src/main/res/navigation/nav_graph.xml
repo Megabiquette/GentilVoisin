@@ -26,4 +26,9 @@
         android:name="com.albanfontaine.gentilvoisin.core.AddJobFragment"
         android:label="@string/menu_create_new"
         tools:layout="@layout/fragment_add_job"/>
+    <fragment
+        android:id="@+id/job_card"
+        android:name="com.albanfontaine.gentilvoisin.core.JobCardFragment"
+        android:label="@string/job_card_title"
+        tools:layout="@layout/fragment_job_card"/>
 </navigation>

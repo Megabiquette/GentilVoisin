@@ -14,12 +14,19 @@ import com.albanfontaine.gentilvoisin.model.User
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_jobs_recycler_view.view.*
 
-class JobViewHolder(view: View): RecyclerView.ViewHolder(view) {
-    private val rootLayout: ConstraintLayout = view.item_jobs_recycler_view_root
+class JobViewHolder(view: View, private val onItemListener: JobAdapter.OnItemListener): RecyclerView.ViewHolder(view), View.OnClickListener {
     private val avatarView: ImageView = view.item_jobs_avatar
     private val type: TextView = view.item_jobs_type
     private val category: TextView = view.item_jobs_category
     private val description: TextView = view.item_jobs_description
+
+    init {
+        view.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        onItemListener.onItemClicked(adapterPosition)
+    }
 
     fun updateWithJob(job: Job?, context: Context) {
         job?.let {

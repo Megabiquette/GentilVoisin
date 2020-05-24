@@ -1,5 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools"
-    tools:locale="fr">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fr">
     <string name="app_name">"Gentil Voisin"</string>
     <string name="facebook_application_id" translatable="false">265526807801547</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb265526807801547</string>
@@ -19,7 +18,7 @@
     <string name="menu_offers">Offres</string>
     <string name="menu_demands">Demandes</string>
     <string name="menu_create_new">Créer une annonce</string>
-    <string name="menu_my_jobs">Mes annonces</string>
+    <string name="menu_my_messages">Mes messages</string>
     <string name="menu_profile">Mon profil</string>
     <string name="menu_settings">Paramètres</string>
     <string name="menu_logout">Se déconnecter</string>
@@ -54,4 +53,5 @@
         <item>Autre</item>
     </string-array>
 
+    <string name="job_card_title">Voir annonce</string>
 </resources>
