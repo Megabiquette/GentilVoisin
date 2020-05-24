@@ -1,9 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:padding="@dimen/margin_top"
     tools:context=".core.JobCardFragment">
+
+    <TextView
+        android:id="@+id/job_card_category"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_category"
+        android:paddingHorizontal="5dp"
+        android:paddingVertical="2dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Aide aux devoirs" />
+
+    <TextView
+        android:id="@+id/job_card_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="3dp"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/job_card_star5"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@drawable/circle_type_offer"
+        tools:text="O" />
+
+    <ImageView
+        android:id="@+id/job_card_avatar"
+        android:layout_width="@dimen/image_avatar_size_big"
+        android:layout_height="@dimen/image_avatar_size_big"
+        android:layout_marginTop="@dimen/margin_top"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/job_card_category"
+        tools:background="@color/white"
+        tools:src="@drawable/ic_person" />
+
+    <TextView
+        android:id="@+id/job_card_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:theme="@style/Text"
+        app:layout_constraintStart_toEndOf="@id/job_card_avatar"
+        app:layout_constraintTop_toTopOf="@+id/job_card_avatar"
+        tools:text="JohnDoe" />
+
+    <ImageView
+        android:id="@+id/job_card_star1"
+        android:layout_width="@dimen/rating_star_size"
+        android:layout_height="@dimen/rating_star_size"
+        android:src="@drawable/ic_star"
+        app:layout_constraintStart_toStartOf="@id/job_card_name"
+        app:layout_constraintTop_toBottomOf="@id/job_card_name" />
+
+    <ImageView
+        android:id="@+id/job_card_star2"
+        android:layout_width="@dimen/rating_star_size"
+        android:layout_height="@dimen/rating_star_size"
+        android:src="@drawable/ic_star"
+        app:layout_constraintStart_toEndOf="@id/job_card_star1"
+        app:layout_constraintTop_toBottomOf="@id/job_card_name" />
+
+    <ImageView
+        android:id="@+id/job_card_star3"
+        android:layout_width="@dimen/rating_star_size"
+        android:layout_height="@dimen/rating_star_size"
+        android:src="@drawable/ic_star"
+        app:layout_constraintStart_toEndOf="@id/job_card_star2"
+        app:layout_constraintTop_toBottomOf="@id/job_card_name" />
+
+    <ImageView
+        android:id="@+id/job_card_star4"
+        android:layout_width="@dimen/rating_star_size"
+        android:layout_height="@dimen/rating_star_size"
+        android:src="@drawable/ic_star"
+        app:layout_constraintStart_toEndOf="@id/job_card_star3"
+        app:layout_constraintTop_toBottomOf="@id/job_card_name" />
+
+    <ImageView
+        android:id="@+id/job_card_star5"
+        android:layout_width="@dimen/rating_star_size"
+        android:layout_height="@dimen/rating_star_size"
+        android:src="@drawable/ic_star_border"
+        app:layout_constraintStart_toEndOf="@id/job_card_star4"
+        app:layout_constraintTop_toBottomOf="@id/job_card_name" />
+
+    <Button
+        android:id="@+id/job_card_see_ratings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_shape_round_white"
+        android:paddingHorizontal="20dp"
+        android:textAllCaps="false"
+        android:theme="@style/Button"
+        app:layout_constraintBottom_toBottomOf="@+id/job_card_avatar"
+        app:layout_constraintStart_toStartOf="@+id/job_card_name"
+        tools:text="Les avis sur JohnDoe" />
+
+    <TextView
+        android:id="@+id/job_card_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:theme="@style/Text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/job_card_avatar"
+        tools:text="Publiée le 12/12/12" />
+
+    <TextView
+        android:id="@+id/job_card_description_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top"
+        android:text="@string/job_card_description"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:theme="@style/Text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/job_card_date" />
+
+    <TextView
+        android:id="@+id/job_card_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:theme="@style/Text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/job_card_description_title"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim." />
+
+    <Button
+        android:id="@+id/job_card_contact_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top"
+        android:background="@drawable/btn_shape_round_white"
+        android:paddingHorizontal="20dp"
+        android:theme="@style/Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/job_card_description"
+        tools:text="@string/job_card_contact_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
