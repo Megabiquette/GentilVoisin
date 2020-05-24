@@ -49,9 +49,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.android.support:multidex:1.0.3'
 
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.0-alpha06"
-    implementation "androidx.navigation:navigation-ui-ktx:2.3.0-alpha06"
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.0-alpha06"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.0-beta01"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.0-beta01"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.0-beta01"
 
     implementation 'com.google.firebase:firebase-core:17.4.1'
     implementation 'com.google.firebase:firebase-auth:19.3.1'

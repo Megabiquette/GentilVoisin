@@ -1,14 +1,15 @@
 package com.albanfontaine.gentilvoisin.core
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.albanfontaine.gentilvoisin.R
+import com.albanfontaine.gentilvoisin.helper.Constants
 
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.model.Job
@@ -61,7 +62,10 @@ abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener {
     }
 
     override fun onItemClicked(position: Int) {
-        // TODO
-         Log.e("itemClicked", jobList[position].description)
+        val jobUid = jobList[position].uid
+        val args = Bundle().apply {
+            putString(Constants.JOB_UID, jobUid)
+        }
+        findNavController().navigate(R.id.job_card, args)
     }
 }
