@@ -148,10 +148,11 @@
         android:layout_marginTop="@dimen/margin_top"
         android:background="@drawable/btn_shape_round_white"
         android:paddingHorizontal="20dp"
+        android:textAllCaps="false"
         android:theme="@style/Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/job_card_description"
-        tools:text="@string/job_card_contact_button" />
+        tools:text="Contacter JohnDoe" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
