@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.albanfontaine.gentilvoisin.R
@@ -36,11 +35,11 @@ class JobViewHolder(view: View, private val onItemListener: JobAdapter.OnItemLis
             // Type
             when (job.type) {
                 "offer" -> {
-                    type.background = ContextCompat.getDrawable(context, R.drawable.circle_type_offer)
+                    type.background = ContextCompat.getDrawable(context, R.drawable.type_offer_circle)
                     type.text = "O"
                 }
                 "demand" -> {
-                    type.background = ContextCompat.getDrawable(context, R.drawable.circle_type_demand)
+                    type.background = ContextCompat.getDrawable(context, R.drawable.type_demand_circle)
                     type.text = "D"
                 }
             }

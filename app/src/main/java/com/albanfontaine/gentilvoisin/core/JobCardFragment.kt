@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
 
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Constants
@@ -32,6 +33,7 @@ class JobCardFragment : Fragment() {
     private lateinit var type: TextView
     private lateinit var avatar: ImageView
     private lateinit var name: TextView
+    private lateinit var notEnoughRatingsTextView: TextView
     private lateinit var star1: ImageView
     private lateinit var star2: ImageView
     private lateinit var star3: ImageView
@@ -63,7 +65,7 @@ class JobCardFragment : Fragment() {
         JobRepository.getJob(jobUid).addOnCompleteListener  {task ->
             if (task.isSuccessful) {
                 job = task.result?.toObject(Job::class.java)!!
-                getPoster(job!!.posterUid)
+                getPoster(job.posterUid)
             }
         }
     }
@@ -82,6 +84,7 @@ class JobCardFragment : Fragment() {
         type = job_card_type
         avatar = job_card_avatar
         name = job_card_name
+        notEnoughRatingsTextView = job_card_not_enough_ratings
         star1 = job_card_star1
         star2 = job_card_star2
         star3 = job_card_star3
@@ -95,9 +98,18 @@ class JobCardFragment : Fragment() {
 
     private fun configureViews() {
         category.text = job.category
-        type.text = job.type
         name.text = jobPoster.username
         description.text = job.description
+        when (job.type) {
+            "offer" -> {
+                type.text = requireContext().getString(R.string.job_type_offer)
+                type.background = ContextCompat.getDrawable(requireContext(), R.drawable.type_offer_rectangle)
+            }
+            "demand" -> {
+                type.text = requireContext().getString(R.string.job_type_demand)
+                type.background = ContextCompat.getDrawable(requireContext(), R.drawable.type_demand_rectangle)
+            }
+        }
         Glide.with(requireContext())
             .load(jobPoster.avatar)
             .centerCrop()
@@ -105,7 +117,6 @@ class JobCardFragment : Fragment() {
             .placeholder(ContextCompat.getDrawable(requireContext(), R.drawable.ic_person))
             .into(avatar)
         displayRatingStars(requireContext(), jobPoster.rating)
-        seeRatingsButton.text = requireContext().getString(R.string.job_card_see_ratings, jobPoster.username)
         seeRatingsButton.setOnClickListener {
             Log.e("ratings", "ratings")
         }
@@ -122,6 +133,10 @@ class JobCardFragment : Fragment() {
             star3.isGone = true
             star4.isGone = true
             star5.isGone = true
+            notEnoughRatingsTextView.isVisible = true
+            notEnoughRatingsTextView.text =
+                requireContext().getString(R.string.job_card_not_enough_ratings, jobPoster.username)
+            seeRatingsButton.isGone = true
         } else {
             if(rating > 4.5) {
                 star5.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))

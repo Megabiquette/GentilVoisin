@@ -29,7 +29,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/item_jobs_avatar"
         app:layout_constraintTop_toTopOf="@id/item_jobs_avatar"
-        tools:background="@drawable/circle_type_offer"
+        tools:background="@drawable/type_offer_circle"
         tools:text="O" />
 
     <TextView

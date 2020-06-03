@@ -54,7 +54,8 @@
     </string-array>
 
     <string name="job_card_title">Voir annonce</string>
-    <string name="job_card_see_ratings">Les avis sur %1$s</string>
+    <string name="job_card_not_enough_ratings">Pas assez d\'avis sur %1$s</string>
+    <string name="job_card_see_ratings">Lire les avis</string>
     <string name="job_card_contact_button">Contacter %1$s</string>
     <string name="job_card_description">Description de l\'annonce:</string>
 </resources>
