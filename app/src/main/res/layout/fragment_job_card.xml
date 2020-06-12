@@ -115,6 +115,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/btn_shape_round_white"
         android:paddingHorizontal="20dp"
+        android:minHeight="40dp"
         android:textAllCaps="false"
         android:theme="@style/Button"
         android:text="@string/job_card_see_ratings"
