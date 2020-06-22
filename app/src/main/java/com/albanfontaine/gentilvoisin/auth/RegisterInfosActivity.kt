@@ -1,11 +1,18 @@
 package com.albanfontaine.gentilvoisin.auth
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.*
 import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
 import com.albanfontaine.gentilvoisin.R
+import com.albanfontaine.gentilvoisin.auth.presenters.RegisterInfosPresenter
+import com.albanfontaine.gentilvoisin.auth.views.IRegisterInfosView
+import com.albanfontaine.gentilvoisin.core.MainActivity
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.model.User
@@ -17,34 +24,31 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 
-class RegisterInfosActivity : AppCompatActivity() {
+class RegisterInfosActivity : AppCompatActivity(), IRegisterInfosView {
     private lateinit var nameEditText: EditText
     private lateinit var zipcodeEditText: EditText
     private lateinit var citySpinner: Spinner
     private lateinit var registerButton: Button
-    private lateinit var citiesMultiMap: Multimap<String, String>
     private var nameHasBeenChosen = false
+
+    private lateinit var presenter : RegisterInfosPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_infos)
         configureViews()
-        createCitiesMultiMap()
+
+        presenter = RegisterInfosPresenter(this, this)
     }
 
-    private fun registerUser() {
-        FirebaseAuth.getInstance().currentUser
-            ?.let {
-                val uid = it.uid
-                val name = nameEditText.text.toString().trim()
-                val zipcode = zipcodeEditText.text.toString().trim().toInt()
-                val city = citySpinner.selectedItem.toString().trim()
-                val registerDate: Date = Calendar.getInstance().time
-                val avatar: String? = if (it.photoUrl != null) it.photoUrl.toString() else null
+    override fun goToMainScreen() {
+        toast(R.string.register_infos_success)
+        startActivity(Intent(this, MainActivity::class.java))
+    }
 
-                val user = User(uid, name, zipcode, city, registerDate, avatar)
-                UserRepository.createUser(user)
-            }
+    override fun displayError() {
+        toast(R.string.register_infos_error)
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 
     private fun configureViews() {
@@ -53,49 +57,51 @@ class RegisterInfosActivity : AppCompatActivity() {
         zipcodeEditText = register_infos_zipcode.apply {
             addTextChangedListener {
                 if (it.toString().length == 5) {
-                    var possibleCities: MutableCollection<String> = arrayListOf()
-                    val userZipCode = zipcodeEditText.text.toString()
-                    for (zip in citiesMultiMap.keySet()) {
-                        if (zip == userZipCode) { // User entered a valid zipcode
-                            possibleCities = citiesMultiMap.get(zip)
-                        }
-                    }
-                    if (possibleCities.isNotEmpty()) {
-                        configureSpinner(citySpinner, possibleCities.toList())
-                    } else {
-                        context.toast(R.string.register_infos_no_city_found)
-                        configureSpinner(citySpinner, listOf())
-                    }
+                    presenter.loadPossibleCities(zipcodeEditText.text.toString())
                 } else {
-                    configureSpinner(citySpinner, listOf())
+                    configureSpinner(listOf())
                 }
             }
         }
+
         registerButton = register_infos_button.apply {
             setOnClickListener {
                 if (nameHasBeenChosen.not()) {
+                    // First part of the registration
                     if (isNameValid()) {
                         animateViews()
                         registerButton.text = resources.getString(R.string.register_infos_button_register)
                         nameHasBeenChosen = true
                     }
                 } else {
+                    // Second part of the registration
                     if(isZipcodeValid() && isCityValid()) {
-                        registerUser()
+                        FirebaseAuth.getInstance().currentUser
+                            ?.let {
+                                val user = User(
+                                    uid = it.uid,
+                                    username = nameEditText.text.toString().trim(),
+                                    zipCode = zipcodeEditText.text.toString().trim().toInt(),
+                                    city = citySpinner.selectedItem.toString().trim(),
+                                    registerDate = Calendar.getInstance().time,
+                                    avatar = if (it.photoUrl != null) it.photoUrl.toString() else null
+                                )
+                                presenter.registerUser(user)
+                            }
                     }
                 }
             }
         }
-        // For the animation
+        // Moving the views offscreen for the animation
         register_infos_zipcode_layout.x = 1000f
         register_infos_city_layout.x = 1000f
     }
 
-    private fun configureSpinner(spinner: Spinner, cities: List<String>) {
-        ArrayAdapter(this, R.layout.item_spinner_custom, cities)
+    override fun configureSpinner(possibleCities: List<String>) {
+        ArrayAdapter(this, R.layout.item_spinner_custom, possibleCities)
             .also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinner.adapter = adapter
+                citySpinner.adapter = adapter
             }
     }
 
@@ -121,19 +127,6 @@ class RegisterInfosActivity : AppCompatActivity() {
             return false
         }
         return true
-    }
-
-    /**
-     * Maps a zipcode to its city from a json file
-     */
-    private fun createCitiesMultiMap() {
-        val jsonArray = JSONArray(resources.openRawResource(R.raw.zipcode_to_city).bufferedReader().use { it.readText() })
-        var jsonObject: JSONObject
-        citiesMultiMap = ArrayListMultimap.create()
-        for(i in 0 until jsonArray.length()) {
-            jsonObject = jsonArray.getJSONObject(i)
-            citiesMultiMap.put(jsonObject.getString("zipcode"), jsonObject.getString("city"))
-        }
     }
 
     private fun animateViews() {
