@@ -4,24 +4,16 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.widget.*
 import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doAfterTextChanged
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.auth.presenters.RegisterInfosPresenter
 import com.albanfontaine.gentilvoisin.auth.views.IRegisterInfosView
 import com.albanfontaine.gentilvoisin.core.MainActivity
-import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.model.User
-import com.google.common.collect.ArrayListMultimap
-import com.google.common.collect.Multimap
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_register_infos.*
-import org.json.JSONArray
-import org.json.JSONObject
 import java.util.*
 
 class RegisterInfosActivity : AppCompatActivity(), IRegisterInfosView {
@@ -41,7 +33,7 @@ class RegisterInfosActivity : AppCompatActivity(), IRegisterInfosView {
         presenter = RegisterInfosPresenter(this, this)
     }
 
-    override fun goToMainScreen() {
+    override fun goToMainActivity() {
         toast(R.string.register_infos_success)
         startActivity(Intent(this, MainActivity::class.java))
     }
@@ -108,7 +100,7 @@ class RegisterInfosActivity : AppCompatActivity(), IRegisterInfosView {
     private fun isNameValid(): Boolean {
         nameEditText.setText(nameEditText.text.toString().trim())
         if (nameEditText.text.toString().trim().isEmpty()) {
-            this.toast(R.string.register_infos_empty_name)
+            toast(R.string.register_infos_empty_name)
             return false
         }
         return true
@@ -116,14 +108,14 @@ class RegisterInfosActivity : AppCompatActivity(), IRegisterInfosView {
 
     private fun isZipcodeValid(): Boolean {
         if (zipcodeEditText.text.toString().trim().length != 5) {
-            this.toast(R.string.register_infos_empty_zipcode)
+            toast(R.string.register_infos_empty_zipcode)
             return false
         }
         return true
     }
     private fun isCityValid(): Boolean {
         if (citySpinner.selectedItem == null) {
-            this.toast(R.string.register_infos_no_city_found)
+            toast(R.string.register_infos_no_city_found)
             return false
         }
         return true

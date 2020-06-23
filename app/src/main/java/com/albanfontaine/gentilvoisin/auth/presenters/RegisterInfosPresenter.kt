@@ -21,10 +21,15 @@ class RegisterInfosPresenter(
         createCitiesMultiMap()
     }
 
+    /**
+     * Register a user in Firestore
+     *
+     * @param user the user to register
+     */
     fun registerUser(user: User) {
         UserRepository.createUser(user)
             .addOnCompleteListener {
-                view.goToMainScreen()
+                view.goToMainActivity()
             }
             .addOnFailureListener {
                 it.printStackTrace()
@@ -32,6 +37,12 @@ class RegisterInfosPresenter(
             }
     }
 
+    /**
+     * Looks for cities matching the zipcode entered by the user and makes them selectable
+     * in the spinner in the view
+     *
+     * @param userZipCode zipcode entered by the user
+     */
     fun loadPossibleCities(userZipCode: String) {
         var possibleCities: MutableCollection<String> = arrayListOf()
         for (zipCode in citiesMultiMap.keySet()) {
