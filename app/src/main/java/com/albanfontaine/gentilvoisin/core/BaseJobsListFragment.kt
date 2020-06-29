@@ -17,6 +17,7 @@ import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
+import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.view.JobAdapter
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_jobs_list.*
@@ -33,13 +34,13 @@ abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener, IJo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        presenter = JobsListPresenter(this)
+        presenter = JobsListPresenter(this, JobRepository)
 
         UserRepository.getUser(FirebaseAuth.getInstance().currentUser!!.uid).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val user = task.result?.toObject(User::class.java)
                 userCity = user?.city.toString()
-                getJobs(userCity)
+                presenter.getJobs(userCity, queryRequest)
             }
         }
     }
@@ -54,13 +55,9 @@ abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener, IJo
     override fun onResume() {
         super.onResume()
         if (userCity != "") {
-            getJobs(userCity)
+            presenter.getJobs(userCity, queryRequest)
             jobListAdapter.notifyDataSetChanged()
         }
-    }
-
-    private fun getJobs(userCity: String) {
-        presenter.getJobs(userCity, queryRequest)
     }
 
     override fun displayJobs(jobs: List<Job>) {

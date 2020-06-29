@@ -13,6 +13,7 @@ import org.json.JSONObject
 
 class RegisterInfosPresenter(
     val view: IRegisterInfosView,
+    private val userRepository: UserRepository,
     val context: Context
 ) {
     private lateinit var citiesMultiMap: Multimap<String, String>
@@ -27,7 +28,7 @@ class RegisterInfosPresenter(
      * @param user the user to register
      */
     fun registerUser(user: User) {
-        UserRepository.createUser(user)
+        userRepository.createUser(user)
             .addOnCompleteListener {
                 view.goToMainActivity()
             }

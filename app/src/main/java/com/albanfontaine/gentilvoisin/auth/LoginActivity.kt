@@ -1,7 +1,6 @@
 package com.albanfontaine.gentilvoisin.auth
 
 import android.animation.ObjectAnimator
-import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,10 +11,9 @@ import com.albanfontaine.gentilvoisin.auth.presenters.LoginPresenter
 import com.albanfontaine.gentilvoisin.auth.views.ILoginView
 import com.albanfontaine.gentilvoisin.core.MainActivity
 import com.albanfontaine.gentilvoisin.helper.Constants
-import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
+import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.ErrorCodes
-import com.firebase.ui.auth.IdpResponse
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), ILoginView {
@@ -30,7 +28,7 @@ class LoginActivity : AppCompatActivity(), ILoginView {
         setContentView(R.layout.activity_login)
         configurateButtons()
 
-        presenter = LoginPresenter(this)
+        presenter = LoginPresenter(this, UserRepository, FirebaseAuth.getInstance())
 
         // TODO if user is already logged in, go to main
     }
@@ -42,25 +40,7 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        val response: IdpResponse? = IdpResponse.fromResultIntent(data)
-        if (requestCode == Constants.RC_SIGN_IN) {
-            when (resultCode) {
-                Activity.RESULT_OK -> {
-                    presenter.onConnectionSuccess()
-                }
-                Activity.RESULT_CANCELED -> {
-                    toast(R.string.login_error_cancel)
-                }
-                else -> {
-                    when (response?.error?.errorCode) {
-                        ErrorCodes.NO_NETWORK -> toast(R.string.login_error_no_internet)
-                        ErrorCodes.DEVELOPER_ERROR -> toast(R.string.login_error_developper)
-                        ErrorCodes.UNKNOWN_ERROR -> toast(R.string.login_error_unknown)
-                        else -> toast(R.string.login_error_unknown)
-                    }
-                }
-            }
-        }
+        presenter.handleConnectionResult(requestCode, resultCode, data, this)
     }
 
     override fun goToMainActivity() {
@@ -73,14 +53,25 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 
     private fun configurateButtons() {
         connectEmailButton = login_button_email.apply { setOnClickListener {
-            presenter.connect(AuthUI.IdpConfig.EmailBuilder().build())
+            connect(AuthUI.IdpConfig.EmailBuilder().build())
         }}
         connectFacebookButton = login_button_facebook.apply { setOnClickListener {
-            presenter.connect(AuthUI.IdpConfig.FacebookBuilder().build())
+            connect(AuthUI.IdpConfig.FacebookBuilder().build())
         }}
         connectGoogleButton = login_button_google.apply { setOnClickListener {
-            presenter.connect(AuthUI.IdpConfig.GoogleBuilder().build())
+            connect(AuthUI.IdpConfig.GoogleBuilder().build())
         }}
+    }
+
+    fun connect(idpConfig: AuthUI.IdpConfig) {
+        startActivityForResult(
+            AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setAvailableProviders(listOf(idpConfig))
+                .setIsSmartLockEnabled(false)
+                .build(),
+            Constants.RC_SIGN_IN
+        )
     }
 
     private fun animateViews() {

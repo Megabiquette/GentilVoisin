@@ -12,6 +12,7 @@ import com.albanfontaine.gentilvoisin.auth.views.IRegisterInfosView
 import com.albanfontaine.gentilvoisin.core.MainActivity
 import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.model.User
+import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_register_infos.*
 import java.util.*
@@ -30,7 +31,7 @@ class RegisterInfosActivity : AppCompatActivity(), IRegisterInfosView {
         setContentView(R.layout.activity_register_infos)
         configureViews()
 
-        presenter = RegisterInfosPresenter(this, this)
+        presenter = RegisterInfosPresenter(this, UserRepository,this)
     }
 
     override fun goToMainActivity() {

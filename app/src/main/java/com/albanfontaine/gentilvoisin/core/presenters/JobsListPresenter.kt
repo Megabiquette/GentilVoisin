@@ -4,7 +4,7 @@ import com.albanfontaine.gentilvoisin.core.views.IJobsListView
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 
-class JobsListPresenter(val view: IJobsListView) {
+class JobsListPresenter(val view: IJobsListView, private val jobRepository: JobRepository) {
 
     fun getJobs(userCity: String, queryRequest: String) {
         when (queryRequest) {
@@ -16,7 +16,7 @@ class JobsListPresenter(val view: IJobsListView) {
 
     private fun getLastJobs(userCity: String) {
         val jobList = ArrayList<Job>()
-        JobRepository.getLastJobs(userCity).addOnSuccessListener { documents ->
+        jobRepository.getLastJobs(userCity).addOnSuccessListener { documents ->
             for (document in documents) {
                 val job = document.toObject(Job::class.java)
                 jobList.add(job)
@@ -31,7 +31,7 @@ class JobsListPresenter(val view: IJobsListView) {
 
     private fun getJobsByType(userCity: String, type: String) {
         val jobList = ArrayList<Job>()
-        JobRepository.getJobsByType(userCity, type).addOnSuccessListener { documents ->
+        jobRepository.getJobsByType(userCity, type).addOnSuccessListener { documents ->
             for (document in documents) {
                 val job = document.toObject(Job::class.java)
                 jobList.add(job)
