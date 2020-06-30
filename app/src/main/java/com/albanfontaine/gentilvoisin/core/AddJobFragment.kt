@@ -12,28 +12,24 @@ import android.widget.Spinner
 import androidx.navigation.fragment.findNavController
 
 import com.albanfontaine.gentilvoisin.R
+import com.albanfontaine.gentilvoisin.core.presenters.AddJobPresenter
+import com.albanfontaine.gentilvoisin.core.views.IAddJobView
 import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
-import com.albanfontaine.gentilvoisin.model.Job
-import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.repository.UserRepository
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_add_job.*
-import java.util.*
 
-class AddJobFragment : Fragment() {
-    private var currentUser: User? = null
+class AddJobFragment : Fragment(), IAddJobView {
     private lateinit var categoriesSpinner: Spinner
     private lateinit var descriptionEditText: EditText
     private lateinit var submitButton: Button
+    private lateinit var presenter: AddJobPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        UserRepository.getUser(FirebaseAuth.getInstance().currentUser!!.uid).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                currentUser = task.result?.toObject(User::class.java)
-            }
-        }
+
+        presenter = AddJobPresenter(this, UserRepository, JobRepository)
+        presenter.getUser()
     }
 
     override fun onCreateView(
@@ -48,29 +44,7 @@ class AddJobFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun createJob() {
-        val jobDocumentReference = JobRepository.getJobCollection().document()
-        val uid: String = jobDocumentReference.id
-        val category = categoriesSpinner.selectedItem.toString()
-        var type = "offer"
-        if (add_job_radio_demand.isChecked) {
-            type = "demand"
-        }
-        val description = descriptionEditText.text.toString().trim()
-        val postedAt = Date()
-
-        val job = Job(
-            uid = uid,
-            posterUid = currentUser!!.uid,
-            city = currentUser!!.city,
-            category = category,
-            type = type,
-            description = description,
-            postedAt = postedAt,
-            isDone = false
-        )
-
-        jobDocumentReference.set(job)
+    override fun onJobAdded() {
         context?.toast(R.string.add_job_added)
         findNavController().navigate(R.id.last_jobs_list)
     }
@@ -93,7 +67,10 @@ class AddJobFragment : Fragment() {
                 if (descriptionEditText.text.toString().trim().length < 15) {
                     context.toast(R.string.add_job_error_no_description)
                 } else {
-                    createJob()
+                    val category = categoriesSpinner.selectedItem.toString()
+                    val type = if (add_job_radio_demand.isChecked) "demand" else "offer"
+                    val description = descriptionEditText.text.toString().trim()
+                    presenter.createJob(category, type, description)
                 }
             }
         }
