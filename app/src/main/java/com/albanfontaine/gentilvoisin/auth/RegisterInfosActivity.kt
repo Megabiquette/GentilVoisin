@@ -9,7 +9,7 @@ import androidx.core.widget.addTextChangedListener
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.auth.presenters.RegisterInfosPresenter
 import com.albanfontaine.gentilvoisin.auth.views.IRegisterInfosView
-import com.albanfontaine.gentilvoisin.core.MainActivity
+import com.albanfontaine.gentilvoisin.jobs.MainActivity
 import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.UserRepository

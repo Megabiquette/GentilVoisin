@@ -7,7 +7,7 @@
     android:background="@color/colorPrimary"
     android:paddingHorizontal="@dimen/padding_horizontal"
     android:paddingVertical="@dimen/margin_top"
-    tools:context=".core.AddJobFragment">
+    tools:context=".jobs.AddJobFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

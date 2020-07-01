@@ -1,4 +1,4 @@
-package com.albanfontaine.gentilvoisin.core.views
+package com.albanfontaine.gentilvoisin.jobs.views
 
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User

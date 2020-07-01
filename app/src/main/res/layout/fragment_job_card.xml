@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:padding="@dimen/margin_top"
-    tools:context=".core.JobCardFragment">
+    tools:context=".jobs.JobCardFragment">
 
     <TextView
         android:id="@+id/job_card_category"

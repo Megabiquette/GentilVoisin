@@ -1,6 +1,6 @@
-package com.albanfontaine.gentilvoisin.core.presenters
+package com.albanfontaine.gentilvoisin.jobs.presenters
 
-import com.albanfontaine.gentilvoisin.core.views.IJobsListView
+import com.albanfontaine.gentilvoisin.jobs.views.IJobsListView
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 

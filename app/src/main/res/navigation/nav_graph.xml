@@ -8,22 +8,22 @@
 
     <fragment
         android:id="@+id/last_jobs_list"
-        android:name="com.albanfontaine.gentilvoisin.core.LastJobsListFragment"
+        android:name="com.albanfontaine.gentilvoisin.jobs.LastJobsListFragment"
         android:label="@string/menu_last_jobs"
         tools:layout="@layout/fragment_jobs_list"/>
     <fragment
         android:id="@+id/offers_jobs_list"
-        android:name="com.albanfontaine.gentilvoisin.core.OffersJobsListFragment"
+        android:name="com.albanfontaine.gentilvoisin.jobs.OffersJobsListFragment"
         android:label="@string/menu_offers"
         tools:layout="@layout/fragment_jobs_list"/>
     <fragment
         android:id="@+id/demands_jobs_list"
-        android:name="com.albanfontaine.gentilvoisin.core.DemandsJobsListFragment"
+        android:name="com.albanfontaine.gentilvoisin.jobs.DemandsJobsListFragment"
         android:label="@string/menu_demands"
         tools:layout="@layout/fragment_jobs_list"/>
     <fragment
         android:id="@+id/add_job"
-        android:name="com.albanfontaine.gentilvoisin.core.AddJobFragment"
+        android:name="com.albanfontaine.gentilvoisin.jobs.AddJobFragment"
         android:label="@string/menu_create_new"
         tools:layout="@layout/fragment_add_job">
         <action
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/job_card"
-        android:name="com.albanfontaine.gentilvoisin.core.JobCardFragment"
+        android:name="com.albanfontaine.gentilvoisin.jobs.JobCardFragment"
         android:label="@string/job_card_title"
         tools:layout="@layout/fragment_job_card"/>
 </navigation>

@@ -9,7 +9,7 @@ import androidx.core.animation.doOnEnd
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.auth.presenters.LoginPresenter
 import com.albanfontaine.gentilvoisin.auth.views.ILoginView
-import com.albanfontaine.gentilvoisin.core.MainActivity
+import com.albanfontaine.gentilvoisin.jobs.MainActivity
 import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.firebase.ui.auth.AuthUI

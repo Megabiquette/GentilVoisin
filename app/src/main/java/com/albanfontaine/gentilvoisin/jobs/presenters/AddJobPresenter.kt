@@ -1,6 +1,6 @@
-package com.albanfontaine.gentilvoisin.core.presenters
+package com.albanfontaine.gentilvoisin.jobs.presenters
 
-import com.albanfontaine.gentilvoisin.core.views.IAddJobView
+import com.albanfontaine.gentilvoisin.jobs.views.IAddJobView
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.JobRepository
@@ -11,12 +11,13 @@ import java.util.*
 class AddJobPresenter(
     val view: IAddJobView,
     private val userRepository: UserRepository,
-    private val jobRepository: JobRepository
+    private val jobRepository: JobRepository,
+    private val firebaseAuth: FirebaseAuth
 ) {
     private var user: User? = null
 
     fun getUser() {
-        userRepository.getUser(FirebaseAuth.getInstance().currentUser!!.uid)
+        userRepository.getUser(firebaseAuth.currentUser!!.uid)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     user = task.result?.toObject(User::class.java)

@@ -1,4 +1,4 @@
-package com.albanfontaine.gentilvoisin.core
+package com.albanfontaine.gentilvoisin.jobs
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,8 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.albanfontaine.gentilvoisin.R
-import com.albanfontaine.gentilvoisin.core.presenters.JobsListPresenter
-import com.albanfontaine.gentilvoisin.core.views.IJobsListView
+import com.albanfontaine.gentilvoisin.jobs.presenters.JobsListPresenter
+import com.albanfontaine.gentilvoisin.jobs.views.IJobsListView
 import com.albanfontaine.gentilvoisin.helper.Constants
 
 import com.albanfontaine.gentilvoisin.repository.UserRepository

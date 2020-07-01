@@ -1,4 +1,4 @@
-package com.albanfontaine.gentilvoisin.core
+package com.albanfontaine.gentilvoisin.jobs
 
 class OffersJobsListFragment : BaseJobsListFragment() {
 

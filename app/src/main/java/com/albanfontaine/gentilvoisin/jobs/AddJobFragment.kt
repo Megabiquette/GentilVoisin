@@ -1,4 +1,4 @@
-package com.albanfontaine.gentilvoisin.core
+package com.albanfontaine.gentilvoisin.jobs
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,11 +12,12 @@ import android.widget.Spinner
 import androidx.navigation.fragment.findNavController
 
 import com.albanfontaine.gentilvoisin.R
-import com.albanfontaine.gentilvoisin.core.presenters.AddJobPresenter
-import com.albanfontaine.gentilvoisin.core.views.IAddJobView
+import com.albanfontaine.gentilvoisin.jobs.presenters.AddJobPresenter
+import com.albanfontaine.gentilvoisin.jobs.views.IAddJobView
 import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.repository.UserRepository
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_add_job.*
 
 class AddJobFragment : Fragment(), IAddJobView {
@@ -28,7 +29,11 @@ class AddJobFragment : Fragment(), IAddJobView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        presenter = AddJobPresenter(this, UserRepository, JobRepository)
+        presenter = AddJobPresenter(
+            this,
+            UserRepository,
+            JobRepository,
+            FirebaseAuth.getInstance())
         presenter.getUser()
     }
 

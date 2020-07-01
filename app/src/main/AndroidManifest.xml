@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".auth.RegisterInfosActivity"></activity>
         <activity
-            android:name=".core.MainActivity"
+            android:name=".jobs.MainActivity"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".auth.LoginActivity"

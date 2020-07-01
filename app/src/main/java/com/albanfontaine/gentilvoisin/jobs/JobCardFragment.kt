@@ -1,4 +1,4 @@
-package com.albanfontaine.gentilvoisin.core
+package com.albanfontaine.gentilvoisin.jobs
 
 import android.content.Context
 import android.os.Bundle
@@ -15,8 +15,8 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 
 import com.albanfontaine.gentilvoisin.R
-import com.albanfontaine.gentilvoisin.core.presenters.JobCardPresenter
-import com.albanfontaine.gentilvoisin.core.views.IJobCardView
+import com.albanfontaine.gentilvoisin.jobs.presenters.JobCardPresenter
+import com.albanfontaine.gentilvoisin.jobs.views.IJobCardView
 import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
