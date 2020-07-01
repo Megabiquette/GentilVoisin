@@ -15,6 +15,8 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 
 import com.albanfontaine.gentilvoisin.R
+import com.albanfontaine.gentilvoisin.core.presenters.JobCardPresenter
+import com.albanfontaine.gentilvoisin.core.views.IJobCardView
 import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
@@ -23,10 +25,8 @@ import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_job_card.*
 
-class JobCardFragment : Fragment() {
+class JobCardFragment : Fragment(), IJobCardView {
     private var jobUid: String? = null
-    private lateinit var job: Job
-    private lateinit var jobPoster: User
 
     // Views
     private lateinit var category: TextView
@@ -43,13 +43,17 @@ class JobCardFragment : Fragment() {
     private lateinit var seeRatingsButton: Button
     private lateinit var contactButton: Button
 
+    private lateinit var presenter: JobCardPresenter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        presenter = JobCardPresenter(this, UserRepository, JobRepository)
+
         arguments?.let {
             jobUid = it.getString(Constants.JOB_UID)
             jobUid?.let { jobUid ->
-                getJob(jobUid)
+                presenter.getJob(jobUid)
             }
         }
     }
@@ -61,25 +65,9 @@ class JobCardFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_job_card, container, false)
     }
 
-    private fun getJob(jobUid: String) {
-        JobRepository.getJob(jobUid).addOnCompleteListener  {task ->
-            if (task.isSuccessful) {
-                job = task.result?.toObject(Job::class.java)!!
-                getPoster(job.posterUid)
-            }
-        }
-    }
 
-    private fun getPoster(posterUid: String) {
-        UserRepository.getUser(posterUid).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                jobPoster = task.result?.toObject(User::class.java)!!
-                bindViews()
-            }
-        }
-    }
 
-    private fun bindViews() {
+    override fun bindViews() {
         category = job_card_category
         type = job_card_type
         avatar = job_card_avatar
@@ -93,10 +81,9 @@ class JobCardFragment : Fragment() {
         description = job_card_description
         seeRatingsButton = job_card_see_ratings
         contactButton = job_card_contact_button
-        configureViews()
     }
 
-    private fun configureViews() {
+    override fun configureViews(job: Job, jobPoster: User) {
         category.text = job.category
         name.text = jobPoster.username
         description.text = job.description
@@ -116,7 +103,7 @@ class JobCardFragment : Fragment() {
             .circleCrop()
             .placeholder(ContextCompat.getDrawable(requireContext(), R.drawable.ic_person))
             .into(avatar)
-        displayRatingStars(requireContext(), jobPoster.rating)
+        displayRatingStars(requireContext(), jobPoster)
         seeRatingsButton.setOnClickListener {
             Log.e("ratings", "ratings")
         }
@@ -126,7 +113,8 @@ class JobCardFragment : Fragment() {
         }
     }
 
-    private fun displayRatingStars(context: Context, rating: Double?) {
+    private fun displayRatingStars(context: Context, jobPoster: User) {
+        val rating = jobPoster.rating
         if (rating == null || rating == 0.0) {
             star1.isGone = true
             star2.isGone = true
