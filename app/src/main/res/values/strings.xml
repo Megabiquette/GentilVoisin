@@ -60,4 +60,6 @@
     <string name="job_card_see_ratings">Lire les avis</string>
     <string name="job_card_contact_button">Contacter %1$s</string>
     <string name="job_card_description">Description de l\'annonce:</string>
+
+    <string name="ratings_number">%1$d avis ont étés laissés sur %2$s</string>
 </resources>

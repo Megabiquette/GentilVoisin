@@ -12,13 +12,13 @@
         <item name="android:textSize">@dimen/normal_text_size</item>
     </style>
 
-    <style name="Text.Title" parent="Text">
+    <style name="Text.Title">
         <item name="android:textSize">@dimen/app_name_size</item>
         <item name="fontFamily">@font/sweet_purple</item>
         <item name="android:textAlignment">center</item>
     </style>
 
-    <style name="Text.SubTitle" parent="Text.Title">
+    <style name="Text.SubTitle">
         <item name="android:textSize">@dimen/subtitle_text_size</item>
     </style>
 
