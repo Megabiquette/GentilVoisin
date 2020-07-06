@@ -63,7 +63,7 @@ class LoginActivity : AppCompatActivity(), ILoginView {
         }}
     }
 
-    fun connect(idpConfig: AuthUI.IdpConfig) {
+    private fun connect(idpConfig: AuthUI.IdpConfig) {
         startActivityForResult(
             AuthUI.getInstance()
                 .createSignInIntentBuilder()

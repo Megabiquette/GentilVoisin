@@ -24,10 +24,15 @@ object JobRepository {
             .get()
     }
 
-    fun getJobsByType(city: String, type: String) : Task<QuerySnapshot> {
+    fun getJobsByType(city: String, type: QueryRequest) : Task<QuerySnapshot> {
+        val requestType = when (type) {
+            QueryRequest.OFFER -> "offer"
+            QueryRequest.DEMAND -> "demand"
+            else -> null
+        }
         return getJobCollection()
             .whereEqualTo("city", city)
-            .whereEqualTo("type", type)
+            .whereEqualTo("type", requestType)
             .whereEqualTo("done", false)
             .get()
     }
@@ -45,5 +50,11 @@ object JobRepository {
             .whereEqualTo("city", city)
             .whereEqualTo("posterUid", posterUid)
             .get()
+    }
+
+    enum class QueryRequest {
+        LAST_JOBS,
+        OFFER,
+        DEMAND
     }
 }

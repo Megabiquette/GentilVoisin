@@ -29,7 +29,7 @@ abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener, IJo
     private var userCity: String = ""
     private lateinit var presenter: JobsListPresenter
 
-    abstract val queryRequest: String
+    abstract val queryRequest: JobRepository.QueryRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

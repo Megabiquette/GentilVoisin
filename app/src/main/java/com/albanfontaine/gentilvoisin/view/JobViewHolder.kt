@@ -15,7 +15,11 @@ import kotlinx.android.synthetic.main.item_jobs_recycler_view.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class JobViewHolder(view: View, private val onItemListener: JobAdapter.OnItemListener): RecyclerView.ViewHolder(view), View.OnClickListener {
+class JobViewHolder(
+    view: View,
+    private val onItemListener: JobAdapter.OnItemListener
+) : RecyclerView.ViewHolder(view), View.OnClickListener {
+
     private val avatarView: ImageView = view.item_jobs_avatar
     private val type: TextView = view.item_jobs_type
     private val category: TextView = view.item_jobs_category
@@ -53,7 +57,7 @@ class JobViewHolder(view: View, private val onItemListener: JobAdapter.OnItemLis
                 description.text = job.description
             }
             // Date
-            val dateFormat: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
             val dateString = dateFormat.format(job.postedAt)
             date.text = dateString
             // Avatar

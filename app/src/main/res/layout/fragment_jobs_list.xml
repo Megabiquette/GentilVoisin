@@ -9,17 +9,18 @@
         android:id="@+id/fragment_jobs_list_no_jobs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_top"
         android:text="@string/error_no_job"
         android:theme="@style/Text.SubTitle"
         android:textColor="@color/colorPrimary"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_jobs_list_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_jobs_recycler_view"/>
+        tools:listitem="@layout/item_jobs_recycler_view" />
 
 </FrameLayout>

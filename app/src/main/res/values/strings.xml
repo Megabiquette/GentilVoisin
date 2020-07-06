@@ -62,7 +62,7 @@
     <string name="job_card_description">Description de l\'annonce:</string>
 
     <plurals name="ratings_number" tools:ignore="UnusedQuantity">
-        <item quantity="zero">Aucun avis n'a encore été laissé sur %2$s</item>
+        <item quantity="zero">Aucun avis n\'a encore été laissé sur %2$s</item>
         <item quantity="one">%1$d avis a été laissé sur %2$s</item>
         <item quantity="other">%1$d avis ont étés laissés sur %2$s</item>
     </plurals>

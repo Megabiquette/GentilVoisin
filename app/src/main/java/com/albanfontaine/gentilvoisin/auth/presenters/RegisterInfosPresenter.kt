@@ -3,7 +3,6 @@ package com.albanfontaine.gentilvoisin.auth.presenters
 import android.content.Context
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.auth.views.IRegisterInfosView
-import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.google.common.collect.ArrayListMultimap
@@ -52,12 +51,7 @@ class RegisterInfosPresenter(
                 possibleCities = citiesMultiMap.get(zipCode)
             }
         }
-        if (possibleCities.isNotEmpty()) {
-            view.configureSpinner(possibleCities.toList())
-        } else {
-            context.toast(R.string.register_infos_no_city_found)
-            view.configureSpinner(listOf())
-        }
+        view.onPossibleCitiesLoaded(possibleCities.toList())
     }
 
     /**

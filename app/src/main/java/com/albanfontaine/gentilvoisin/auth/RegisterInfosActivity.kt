@@ -44,6 +44,15 @@ class RegisterInfosActivity : AppCompatActivity(), IRegisterInfosView {
         startActivity(Intent(this, LoginActivity::class.java))
     }
 
+    override fun onPossibleCitiesLoaded(possibleCities: List<String>) {
+        if (possibleCities.isNotEmpty()) {
+            configureSpinner(possibleCities.toList())
+        } else {
+            toast(R.string.register_infos_no_city_found)
+            configureSpinner(listOf())
+        }
+    }
+
     private fun configureViews() {
         nameEditText = register_infos_name
         citySpinner = register_infos_city
