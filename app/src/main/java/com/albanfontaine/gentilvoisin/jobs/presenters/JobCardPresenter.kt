@@ -27,7 +27,6 @@ class JobCardPresenter(
         userRepository.getUser(posterUid).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 jobPoster = task.result?.toObject(User::class.java)!!
-                view.bindViews()
                 view.configureViews(job, jobPoster)
             }
         }

@@ -14,8 +14,7 @@
         android:text="@string/error_no_job"
         android:theme="@style/Text.SubTitle"
         android:textColor="@color/colorPrimary"
-        android:visibility="gone"
-        tools:visibility="visible"/>
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_jobs_list_recycler_view"

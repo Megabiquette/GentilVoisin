@@ -11,4 +11,4 @@ data class User(
     val avatar: String? = null,
     val rating: Double? = 0.0,
     val nbJobsDone: Int? = 0
-) { }
+)

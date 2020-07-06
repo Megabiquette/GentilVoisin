@@ -65,9 +65,12 @@ class JobCardFragment : Fragment(), IJobCardView {
         return inflater.inflate(R.layout.fragment_job_card, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        bindViews()
+    }
 
-
-    override fun bindViews() {
+    private fun bindViews() {
         category = job_card_category
         type = job_card_type
         avatar = job_card_avatar
