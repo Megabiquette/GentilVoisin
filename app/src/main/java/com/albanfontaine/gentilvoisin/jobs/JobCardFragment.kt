@@ -70,7 +70,7 @@ class JobCardFragment : Fragment(), IJobCardView {
         bindViews()
     }
 
-    private     fun bindViews() {
+    private fun bindViews() {
         category = job_card_category
         type = job_card_type
         avatar = job_card_avatar
