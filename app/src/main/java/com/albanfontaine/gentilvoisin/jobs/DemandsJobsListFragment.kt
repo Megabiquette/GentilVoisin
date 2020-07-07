@@ -4,5 +4,5 @@ import com.albanfontaine.gentilvoisin.repository.JobRepository
 
 class DemandsJobsListFragment : BaseJobsListFragment() {
 
-    override val queryRequest = JobRepository.QueryRequest.DEMAND
+    override val jobTypeQuery = JobRepository.JobTypeQuery.DEMAND
 }

@@ -29,7 +29,7 @@ abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener, IJo
     private var userCity: String = ""
     private lateinit var presenter: JobsListPresenter
 
-    abstract val queryRequest: JobRepository.QueryRequest
+    abstract val jobTypeQuery: JobRepository.JobTypeQuery
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +40,7 @@ abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener, IJo
             if (task.isSuccessful) {
                 val user = task.result?.toObject(User::class.java)
                 userCity = user?.city.toString()
-                presenter.getJobs(userCity, queryRequest)
+                presenter.getJobs(userCity, jobTypeQuery)
             }
         }
     }
@@ -55,14 +55,14 @@ abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener, IJo
     override fun onResume() {
         super.onResume()
         if (userCity != "") {
-            presenter.getJobs(userCity, queryRequest)
+            presenter.getJobs(userCity, jobTypeQuery)
             jobListAdapter.notifyDataSetChanged()
         }
     }
 
     override fun displayJobs(jobs: List<Job>) {
         jobList = jobs
-        jobListAdapter = JobAdapter(jobList, requireContext(), this)
+        jobListAdapter = JobAdapter(requireContext(), jobList, this)
         recyclerView = fragment_jobs_list_recycler_view.apply {
             adapter = jobListAdapter
             layoutManager = LinearLayoutManager(activity)

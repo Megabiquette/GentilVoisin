@@ -6,11 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.model.Job
+import com.albanfontaine.gentilvoisin.repository.UserRepository
 
 class JobAdapter(
-    private val jobList: List<Job>,
     private val context: Context,
-    private val onItemListener: OnItemListener
+    private val jobList: List<Job>,
+    private val onItemListener: OnItemListener,
+    private val userRepository: UserRepository = UserRepository
 ) : RecyclerView.Adapter<JobViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobViewHolder {
@@ -22,7 +24,7 @@ class JobAdapter(
     override fun getItemCount(): Int = jobList.size
 
     override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
-        holder.updateWithJob(jobList[position], context)
+        holder.updateWithJob(context, jobList[position], userRepository)
     }
 
     interface OnItemListener {

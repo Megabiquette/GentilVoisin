@@ -10,6 +10,7 @@ import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
+import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_jobs_recycler_view.view.*
 import java.text.SimpleDateFormat
@@ -34,43 +35,41 @@ class JobViewHolder(
         onItemListener.onItemClicked(adapterPosition)
     }
 
-    fun updateWithJob(job: Job?, context: Context) {
-        job?.let {
-            // Type
-            when (job.type) {
-                "offer" -> {
-                    type.background = ContextCompat.getDrawable(context, R.drawable.type_offer_circle)
-                    type.text = "O"
-                }
-                "demand" -> {
-                    type.background = ContextCompat.getDrawable(context, R.drawable.type_demand_circle)
-                    type.text = "D"
-                }
+    fun updateWithJob(context: Context, job: Job, userRepository: UserRepository) {
+        // Type
+        when (job.type) {
+            JobRepository.JobTypeQuery.OFFER.value -> {
+                type.background = ContextCompat.getDrawable(context, R.drawable.type_offer_circle)
+                type.text = "O"
             }
-            // Category
-            category.text = job.category
-            // Description
-            if (job.description.length > 107) {
-                val descriptionExtract = job.description.substring(0, 104).trim() + "..."
-                description.text = descriptionExtract
-            } else {
-                description.text = job.description
+            JobRepository.JobTypeQuery.DEMAND.value -> {
+                type.background = ContextCompat.getDrawable(context, R.drawable.type_demand_circle)
+                type.text = "D"
             }
-            // Date
-            val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-            val dateString = dateFormat.format(job.postedAt)
-            date.text = dateString
-            // Avatar
-            UserRepository.getUser(job.posterUid).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val user = task.result?.toObject(User::class.java)
-                    Glide.with(context)
-                        .load(user?.avatar)
-                        .centerCrop()
-                        .circleCrop()
-                        .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_person))
-                        .into(avatarView)
-                }
+        }
+        // Category
+        category.text = job.category
+        // Description
+        if (job.description.length > 107) {
+            val descriptionExtract = job.description.substring(0, 104).trim() + "..."
+            description.text = descriptionExtract
+        } else {
+            description.text = job.description
+        }
+        // Date
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val dateString = dateFormat.format(job.postedAt)
+        date.text = dateString
+        // Avatar
+        userRepository.getUser(job.posterUid).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val user = task.result?.toObject(User::class.java)
+                Glide.with(context)
+                    .load(user?.avatar)
+                    .centerCrop()
+                    .circleCrop()
+                    .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_person))
+                    .into(avatarView)
             }
         }
     }

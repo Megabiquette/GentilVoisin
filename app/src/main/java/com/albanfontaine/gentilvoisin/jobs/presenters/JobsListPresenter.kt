@@ -6,10 +6,10 @@ import com.albanfontaine.gentilvoisin.repository.JobRepository
 
 class JobsListPresenter(val view: IJobsListView, private val jobRepository: JobRepository) {
 
-    fun getJobs(userCity: String, queryRequest: JobRepository.QueryRequest) {
-        when (queryRequest) {
-            JobRepository.QueryRequest.LAST_JOBS -> getLastJobs(userCity)
-            else -> getJobsByType(userCity, queryRequest)
+    fun getJobs(userCity: String, jobTypeQuery: JobRepository.JobTypeQuery) {
+        when (jobTypeQuery) {
+            JobRepository.JobTypeQuery.LAST_JOBS -> getLastJobs(userCity)
+            else -> getJobsByType(userCity, jobTypeQuery)
 
         }
     }
@@ -29,7 +29,7 @@ class JobsListPresenter(val view: IJobsListView, private val jobRepository: JobR
         }
     }
 
-    private fun getJobsByType(userCity: String, type: JobRepository.QueryRequest) {
+    private fun getJobsByType(userCity: String, type: JobRepository.JobTypeQuery) {
         val jobList = ArrayList<Job>()
         jobRepository.getJobsByType(userCity, type).addOnSuccessListener { documents ->
             for (document in documents) {
