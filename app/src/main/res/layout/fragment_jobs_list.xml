@@ -6,7 +6,7 @@
     tools:context=".jobs.LastJobsListFragment">
 
     <TextView
-        android:id="@+id/fragment_jobs_list_no_jobs"
+        android:id="@+id/fragmentJobsListNoJob"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -17,7 +17,7 @@
         android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_jobs_list_recycler_view"
+        android:id="@+id/fragmentJobsListRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_jobs_recycler_view" />

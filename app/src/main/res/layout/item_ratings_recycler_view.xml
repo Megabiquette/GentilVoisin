@@ -8,7 +8,7 @@
     android:padding="@dimen/margin_small">
 
     <ImageView
-        android:id="@+id/item_ratings_avatar"
+        android:id="@+id/itemRatingsAvatar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,68 +17,68 @@
         tools:src="@drawable/ic_person" />
 
     <TextView
-        android:id="@+id/item_ratings_name"
+        android:id="@+id/itemRatingsName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/item_ratings_avatar"
-        app:layout_constraintStart_toEndOf="@id/item_ratings_avatar"
-        app:layout_constraintTop_toTopOf="@id/item_ratings_avatar"
+        app:layout_constraintBottom_toBottomOf="@id/itemRatingsAvatar"
+        app:layout_constraintStart_toEndOf="@id/itemRatingsAvatar"
+        app:layout_constraintTop_toTopOf="@id/itemRatingsAvatar"
         tools:text="John" />
 
     <ImageView
-        android:id="@+id/item_ratings_star1"
+        android:id="@+id/itemRatingsStar1"
         android:layout_width="@dimen/rating_star_size"
         android:layout_height="@dimen/rating_star_size"
         android:layout_marginStart="@dimen/margin_large"
         android:src="@drawable/ic_star"
-        app:layout_constraintBottom_toBottomOf="@id/item_ratings_name"
-        app:layout_constraintStart_toEndOf="@id/item_ratings_name"
+        app:layout_constraintBottom_toBottomOf="@id/itemRatingsName"
+        app:layout_constraintStart_toEndOf="@id/itemRatingsName"
         tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/item_ratings_star2"
+        android:id="@+id/itemRatingsStar2"
         android:layout_width="@dimen/rating_star_size"
         android:layout_height="@dimen/rating_star_size"
         android:src="@drawable/ic_star"
-        app:layout_constraintBottom_toBottomOf="@id/item_ratings_star1"
-        app:layout_constraintStart_toEndOf="@id/item_ratings_star1"
+        app:layout_constraintBottom_toBottomOf="@id/itemRatingsStar1"
+        app:layout_constraintStart_toEndOf="@id/itemRatingsStar1"
         tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/item_ratings_star3"
+        android:id="@+id/itemRatingsStar3"
         android:layout_width="@dimen/rating_star_size"
         android:layout_height="@dimen/rating_star_size"
         android:src="@drawable/ic_star"
-        app:layout_constraintBottom_toBottomOf="@id/item_ratings_star1"
-        app:layout_constraintStart_toEndOf="@id/item_ratings_star2"
+        app:layout_constraintBottom_toBottomOf="@id/itemRatingsStar1"
+        app:layout_constraintStart_toEndOf="@id/itemRatingsStar2"
         tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/item_ratings_star4"
+        android:id="@+id/itemRatingsStar4"
         android:layout_width="@dimen/rating_star_size"
         android:layout_height="@dimen/rating_star_size"
         android:src="@drawable/ic_star"
-        app:layout_constraintBottom_toBottomOf="@id/item_ratings_star1"
-        app:layout_constraintStart_toEndOf="@id/item_ratings_star3"
+        app:layout_constraintBottom_toBottomOf="@id/itemRatingsStar1"
+        app:layout_constraintStart_toEndOf="@id/itemRatingsStar3"
         tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/item_ratings_star5"
+        android:id="@+id/itemRatingsStar5"
         android:layout_width="@dimen/rating_star_size"
         android:layout_height="@dimen/rating_star_size"
         android:src="@drawable/ic_star_border"
-        app:layout_constraintBottom_toBottomOf="@id/item_ratings_star1"
-        app:layout_constraintStart_toEndOf="@id/item_ratings_star4"
+        app:layout_constraintBottom_toBottomOf="@id/itemRatingsStar1"
+        app:layout_constraintStart_toEndOf="@id/itemRatingsStar4"
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/item_ratings_comment"
+        android:id="@+id/itemRatingsComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/item_ratings_avatar"
+        app:layout_constraintTop_toBottomOf="@id/itemRatingsAvatar"
         tools:text="Blabla machin" />
 
     <View
@@ -88,6 +88,6 @@
         android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/item_ratings_comment" />
+        app:layout_constraintTop_toBottomOf="@id/itemRatingsComment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

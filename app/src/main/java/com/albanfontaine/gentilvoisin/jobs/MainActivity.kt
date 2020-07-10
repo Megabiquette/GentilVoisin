@@ -24,14 +24,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         drawerLayout = drawer_layout
-        navController = findNavController(R.id.nav_host_fragment)
-        findViewById<NavigationView>(R.id.nav_view)
+        navController = findNavController(R.id.navHostFragment)
+        findViewById<NavigationView>(R.id.navView)
             .setupWithNavController(navController)
         val topDestinations = setOf(
-            R.id.last_jobs_list,
-            R.id.offers_jobs_list,
-            R.id.demands_jobs_list,
-            R.id.add_job
+            R.id.menuLastJobsList,
+            R.id.menuOffersJobsList,
+            R.id.menuDemandsJobsList,
+            R.id.menuAddJob
         )
         appBarConfiguration = AppBarConfiguration(topDestinations, drawerLayout)
         findViewById<Toolbar>(R.id.toolbar)

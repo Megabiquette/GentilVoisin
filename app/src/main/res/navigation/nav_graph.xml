@@ -3,32 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/last_jobs_list"
+    app:startDestination="@id/menuLastJobsList"
     tools:ignore="UnusedNavigation">
 
     <fragment
-        android:id="@+id/last_jobs_list"
+        android:id="@+id/menuLastJobsList"
         android:name="com.albanfontaine.gentilvoisin.jobs.LastJobsListFragment"
         android:label="@string/menu_last_jobs"
         tools:layout="@layout/fragment_jobs_list"/>
     <fragment
-        android:id="@+id/offers_jobs_list"
+        android:id="@+id/menuOffersJobsList"
         android:name="com.albanfontaine.gentilvoisin.jobs.OffersJobsListFragment"
         android:label="@string/menu_offers"
         tools:layout="@layout/fragment_jobs_list"/>
     <fragment
-        android:id="@+id/demands_jobs_list"
+        android:id="@+id/menuDemandsJobsList"
         android:name="com.albanfontaine.gentilvoisin.jobs.DemandsJobsListFragment"
         android:label="@string/menu_demands"
         tools:layout="@layout/fragment_jobs_list"/>
     <fragment
-        android:id="@+id/add_job"
+        android:id="@+id/menuAddJob"
         android:name="com.albanfontaine.gentilvoisin.jobs.AddJobFragment"
         android:label="@string/menu_create_new"
         tools:layout="@layout/fragment_add_job">
         <action
             android:id="@+id/action_add_job_to_last_jobs_list"
-            app:destination="@id/last_jobs_list" />
+            app:destination="@id/menuLastJobsList" />
     </fragment>
     <fragment
         android:id="@+id/job_card"

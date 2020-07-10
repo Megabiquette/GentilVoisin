@@ -7,7 +7,7 @@
     tools:context=".user.RatingsActivity">
 
     <TextView
-        android:id="@+id/activity_ratings_number_textview"
+        android:id="@+id/activityRatingsNumberTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -17,7 +17,7 @@
         tools:text="4 avis ont étés laissés sur Alice" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/activity_ratings_recycler_view"
+        android:id="@+id/activityRatingsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_ratings_recycler_view"/>

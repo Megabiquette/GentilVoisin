@@ -8,7 +8,7 @@
     android:padding="@dimen/drawer_padding">
 
     <ImageView
-        android:id="@+id/drawer_image"
+        android:id="@+id/drawerImage"
         android:layout_width="80dp"
         android:layout_height="80dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,27 +18,27 @@
         tools:src="@color/colorPrimaryDark" />
 
     <TextView
-        android:id="@+id/drawer_username"
+        android:id="@+id/drawerUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="JohnDoe"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/drawer_image"
-        app:layout_constraintTop_toTopOf="@id/drawer_image"
+        app:layout_constraintStart_toEndOf="@id/drawerImage"
+        app:layout_constraintTop_toTopOf="@id/drawerImage"
         android:theme="@style/Text"
         tools:text="JohnDoe" />
 
     <TextView
-        android:id="@+id/drawer_mail"
+        android:id="@+id/drawerMail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top"
         android:text="johndoe@gmail.com"
         android:theme="@style/Text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/drawer_image"
-        app:layout_constraintTop_toBottomOf="@id/drawer_username"
+        app:layout_constraintStart_toEndOf="@id/drawerImage"
+        app:layout_constraintTop_toBottomOf="@id/drawerUsername"
         tools:text="johndoe@gmail.com" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

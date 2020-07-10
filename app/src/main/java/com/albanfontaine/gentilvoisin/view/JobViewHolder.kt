@@ -21,11 +21,11 @@ class JobViewHolder(
     private val onItemListener: JobAdapter.OnItemListener
 ) : RecyclerView.ViewHolder(view), View.OnClickListener {
 
-    private val avatarView: ImageView = view.item_jobs_avatar
-    private val type: TextView = view.item_jobs_type
-    private val category: TextView = view.item_jobs_category
-    private val description: TextView = view.item_jobs_description
-    private val date: TextView = view.item_jobs_date
+    private val avatarView: ImageView = view.itemJobsAvatar
+    private val type: TextView = view.itemJobsType
+    private val category: TextView = view.itemJobsCategory
+    private val description: TextView = view.itemJobsDescription
+    private val date: TextView = view.itemJobsDate
 
     init {
         view.setOnClickListener(this)
@@ -39,12 +39,16 @@ class JobViewHolder(
         // Type
         when (job.type) {
             JobRepository.JobTypeQuery.OFFER.value -> {
-                type.background = ContextCompat.getDrawable(context, R.drawable.type_offer_circle)
-                type.text = "O"
+                type.apply {
+                    background = ContextCompat.getDrawable(context, R.drawable.type_offer_circle)
+                    text = "O"
+                }
             }
             JobRepository.JobTypeQuery.DEMAND.value -> {
-                type.background = ContextCompat.getDrawable(context, R.drawable.type_demand_circle)
-                type.text = "D"
+                type.apply {
+                    background = ContextCompat.getDrawable(context, R.drawable.type_demand_circle)
+                    text = "D"
+                }
             }
         }
         // Category

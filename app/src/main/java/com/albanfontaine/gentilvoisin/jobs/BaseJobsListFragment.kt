@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.jobs.presenters.JobsListPresenter
 import com.albanfontaine.gentilvoisin.jobs.views.IJobsListView
@@ -23,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_jobs_list.*
 
 abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener, IJobsListView {
-    private lateinit var recyclerView: RecyclerView
     private lateinit var jobListAdapter: JobAdapter
     private lateinit var jobList: List<Job>
     private var userCity: String = ""
@@ -63,15 +61,15 @@ abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener, IJo
     override fun displayJobs(jobs: List<Job>) {
         jobList = jobs
         jobListAdapter = JobAdapter(requireContext(), jobList, this)
-        recyclerView = fragment_jobs_list_recycler_view.apply {
+        fragmentJobsListRecyclerView.apply {
             adapter = jobListAdapter
             layoutManager = LinearLayoutManager(activity)
         }
     }
 
     override fun onEmptyJobList() {
-        recyclerView.isVisible = false
-        fragment_jobs_list_no_jobs.isVisible = true
+        fragmentJobsListRecyclerView.isVisible = false
+        fragmentJobsListNoJob.isVisible = true
     }
 
     override fun onItemClicked(position: Int) {

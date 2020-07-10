@@ -15,14 +15,14 @@ import kotlinx.android.synthetic.main.item_ratings_recycler_view.view.*
 
 class RatingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    private val avatarView: ImageView = view.item_ratings_avatar
-    private val name: TextView = view.item_ratings_name
-    private val comment: TextView = view.item_ratings_comment
-    private var star1: ImageView = view.item_ratings_star1
-    private var star2: ImageView = view.item_ratings_star2
-    private var star3: ImageView = view.item_ratings_star3
-    private var star4: ImageView = view.item_ratings_star4
-    private var star5: ImageView=  view.item_ratings_star5
+    private val avatarView: ImageView = view.itemRatingsAvatar
+    private val name: TextView = view.itemRatingsName
+    private val comment: TextView = view.itemRatingsComment
+    private val star1: ImageView = view.itemRatingsStar1
+    private val star2: ImageView = view.itemRatingsStar2
+    private val star3: ImageView = view.itemRatingsStar3
+    private val star4: ImageView = view.itemRatingsStar4
+    private val star5: ImageView=  view.itemRatingsStar5
 
     fun updateWithRating(context: Context, rating: Rating, userRepository: UserRepository) {
         userRepository.getUser(rating.posterUid).addOnCompleteListener { task ->

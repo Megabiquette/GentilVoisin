@@ -9,7 +9,7 @@
     tools:context=".jobs.JobCardFragment">
 
     <TextView
-        android:id="@+id/job_card_category"
+        android:id="@+id/jobCardCategory"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_small"
@@ -22,7 +22,7 @@
         tools:text="Aide aux devoirs" />
 
     <TextView
-        android:id="@+id/job_card_type"
+        android:id="@+id/jobCardType"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingHorizontal="12dp"
@@ -30,87 +30,87 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/job_card_category"
+        app:layout_constraintBottom_toBottomOf="@+id/jobCardCategory"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/job_card_category"
+        app:layout_constraintTop_toTopOf="@id/jobCardCategory"
         app:layout_constraintVertical_bias="0.0"
         tools:background="@drawable/type_offer_rectangle"
         tools:text="Offre" />
 
     <ImageView
-        android:id="@+id/job_card_avatar"
+        android:id="@+id/jobCardAvatar"
         android:layout_width="@dimen/image_avatar_size_big"
         android:layout_height="@dimen/image_avatar_size_big"
         android:layout_marginTop="@dimen/margin_top"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/job_card_category"
+        app:layout_constraintTop_toBottomOf="@id/jobCardCategory"
         tools:background="@color/white"
         tools:src="@drawable/ic_person" />
 
     <TextView
-        android:id="@+id/job_card_name"
+        android:id="@+id/jobCardName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_medium"
         android:textSize="24sp"
         android:textStyle="bold"
         android:theme="@style/Text"
-        app:layout_constraintStart_toEndOf="@id/job_card_avatar"
-        app:layout_constraintTop_toTopOf="@+id/job_card_avatar"
+        app:layout_constraintStart_toEndOf="@id/jobCardAvatar"
+        app:layout_constraintTop_toTopOf="@+id/jobCardAvatar"
         tools:text="JohnDoe" />
 
     <TextView
-        android:id="@+id/job_card_not_enough_ratings"
+        android:id="@+id/jobCardNotEnoughRating"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:theme="@style/Text"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@id/job_card_name"
-        app:layout_constraintTop_toBottomOf="@id/job_card_name"
+        app:layout_constraintStart_toStartOf="@id/jobCardName"
+        app:layout_constraintTop_toBottomOf="@id/jobCardName"
         tools:text="Pas assez d'avis sur JohnDoe" />
 
     <ImageView
-        android:id="@+id/job_card_star1"
+        android:id="@+id/jobCardStar1"
         android:layout_width="@dimen/rating_star_size"
         android:layout_height="@dimen/rating_star_size"
         android:src="@drawable/ic_star"
-        app:layout_constraintStart_toStartOf="@id/job_card_name"
-        app:layout_constraintTop_toBottomOf="@id/job_card_name" />
+        app:layout_constraintStart_toStartOf="@id/jobCardName"
+        app:layout_constraintTop_toBottomOf="@id/jobCardName" />
 
     <ImageView
-        android:id="@+id/job_card_star2"
+        android:id="@+id/jobCardStar2"
         android:layout_width="@dimen/rating_star_size"
         android:layout_height="@dimen/rating_star_size"
         android:src="@drawable/ic_star"
-        app:layout_constraintStart_toEndOf="@id/job_card_star1"
-        app:layout_constraintTop_toBottomOf="@id/job_card_name" />
+        app:layout_constraintStart_toEndOf="@id/jobCardStar1"
+        app:layout_constraintTop_toBottomOf="@id/jobCardName" />
 
     <ImageView
-        android:id="@+id/job_card_star3"
+        android:id="@+id/jobCardStar3"
         android:layout_width="@dimen/rating_star_size"
         android:layout_height="@dimen/rating_star_size"
         android:src="@drawable/ic_star"
-        app:layout_constraintStart_toEndOf="@id/job_card_star2"
-        app:layout_constraintTop_toBottomOf="@id/job_card_name" />
+        app:layout_constraintStart_toEndOf="@id/jobCardStar2"
+        app:layout_constraintTop_toBottomOf="@id/jobCardName" />
 
     <ImageView
-        android:id="@+id/job_card_star4"
+        android:id="@+id/jobCardStar4"
         android:layout_width="@dimen/rating_star_size"
         android:layout_height="@dimen/rating_star_size"
         android:src="@drawable/ic_star"
-        app:layout_constraintStart_toEndOf="@id/job_card_star3"
-        app:layout_constraintTop_toBottomOf="@id/job_card_name" />
+        app:layout_constraintStart_toEndOf="@id/jobCardStar3"
+        app:layout_constraintTop_toBottomOf="@id/jobCardName" />
 
     <ImageView
-        android:id="@+id/job_card_star5"
+        android:id="@+id/jobCardStar5"
         android:layout_width="@dimen/rating_star_size"
         android:layout_height="@dimen/rating_star_size"
         android:src="@drawable/ic_star_border"
-        app:layout_constraintStart_toEndOf="@id/job_card_star4"
-        app:layout_constraintTop_toBottomOf="@id/job_card_name" />
+        app:layout_constraintStart_toEndOf="@id/jobCardStar4"
+        app:layout_constraintTop_toBottomOf="@id/jobCardName" />
 
     <Button
-        android:id="@+id/job_card_see_ratings"
+        android:id="@+id/jobCardSeeRatingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_shape_round_white"
@@ -119,21 +119,21 @@
         android:textAllCaps="false"
         android:theme="@style/Button"
         android:text="@string/job_card_see_ratings"
-        app:layout_constraintBottom_toBottomOf="@+id/job_card_avatar"
-        app:layout_constraintStart_toStartOf="@+id/job_card_name" />
+        app:layout_constraintBottom_toBottomOf="@+id/jobCardAvatar"
+        app:layout_constraintStart_toStartOf="@+id/jobCardName" />
 
     <TextView
-        android:id="@+id/job_card_date"
+        android:id="@+id/jobCardDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:theme="@style/Text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/job_card_avatar"
+        app:layout_constraintTop_toBottomOf="@id/jobCardAvatar"
         tools:text="Publiée le 12/12/12" />
 
     <TextView
-        android:id="@+id/job_card_description_title"
+        android:id="@+id/jobCardDescriptionTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top"
@@ -142,20 +142,20 @@
         android:textStyle="bold"
         android:theme="@style/Text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/job_card_date" />
+        app:layout_constraintTop_toBottomOf="@id/jobCardDate" />
 
     <TextView
-        android:id="@+id/job_card_description"
+        android:id="@+id/jobCardDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:theme="@style/Text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/job_card_description_title"
+        app:layout_constraintTop_toBottomOf="@id/jobCardDescriptionTitle"
         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim." />
 
     <Button
-        android:id="@+id/job_card_contact_button"
+        android:id="@+id/jobCardContactButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top"
@@ -165,7 +165,7 @@
         android:theme="@style/Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/job_card_description"
+        app:layout_constraintTop_toBottomOf="@id/jobCardDescription"
         tools:text="Contacter JohnDoe" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

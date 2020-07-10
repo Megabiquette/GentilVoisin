@@ -6,9 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
 import androidx.navigation.fragment.findNavController
 
 import com.albanfontaine.gentilvoisin.R
@@ -21,9 +18,6 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_add_job.*
 
 class AddJobFragment : Fragment(), IAddJobView {
-    private lateinit var categoriesSpinner: Spinner
-    private lateinit var descriptionEditText: EditText
-    private lateinit var submitButton: Button
     private lateinit var presenter: AddJobPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,12 +45,10 @@ class AddJobFragment : Fragment(), IAddJobView {
 
     override fun onJobAdded() {
         context?.toast(R.string.add_job_added)
-        findNavController().navigate(R.id.last_jobs_list)
+        findNavController().navigate(R.id.menuLastJobsList)
     }
 
     private fun configureViews() {
-        descriptionEditText = add_job_description_edit_text
-        categoriesSpinner = add_job_spinner_category
         ArrayAdapter.createFromResource(
             requireContext(),
             R.array.job_categories,
@@ -64,17 +56,17 @@ class AddJobFragment : Fragment(), IAddJobView {
         )
         .also { adapter ->
             adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
-            categoriesSpinner.adapter = adapter
+            addJobSpinnerCategory.adapter = adapter
         }
 
-        submitButton = add_job_button.apply {
+        addJobButton.apply {
             setOnClickListener {
-                if (descriptionEditText.text.toString().trim().length < 15) {
+                if (addJobDescriptionEditText.text.toString().trim().length < 15) {
                     context.toast(R.string.add_job_error_no_description)
                 } else {
-                    val category = categoriesSpinner.selectedItem.toString()
-                    val type = if (add_job_radio_demand.isChecked) "demand" else "offer"
-                    val description = descriptionEditText.text.toString().trim()
+                    val category = addJobSpinnerCategory.selectedItem.toString()
+                    val type = if (addJobRadioDemand.isChecked) "demand" else "offer"
+                    val description = addJobDescriptionEditText.text.toString().trim()
                     presenter.createJob(category, type, description)
                 }
             }

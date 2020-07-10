@@ -4,38 +4,38 @@
     tools:showIn="navigation_view">
 
     <group
-        android:id="@+id/menu_group_one"
+        android:id="@+id/menuGroup1"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/last_jobs_list"
+            android:id="@+id/menuLastJobsList"
             android:title="@string/menu_last_jobs"/>
         <item
-            android:id="@+id/offers_jobs_list"
+            android:id="@+id/menuOffersJobsList"
             android:title="@string/menu_offers"/>
         <item
-            android:id="@+id/demands_jobs_list"
+            android:id="@+id/menuDemandsJobsList"
             android:title="@string/menu_demands"/>
     </group>
     <group
-        android:id="@+id/menu_group_two"
+        android:id="@+id/menuGroup2"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/add_job"
+            android:id="@+id/menuAddJob"
             android:title="@string/menu_create_new"/>
         <item
-            android:id="@+id/my_jobs"
+            android:id="@+id/menuMyJobs"
             android:title="@string/menu_my_jobs"/>
         <item
-            android:id="@+id/my_messages"
+            android:id="@+id/menuMyMessages"
             android:title="@string/menu_my_messages"/>
     </group>
-    <group android:id="@+id/menu_group_three"
+    <group android:id="@+id/menuGroup3"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/profile"
+            android:id="@+id/menuProfile"
             android:title="@string/menu_profile"/>
         <item
-            android:id="@+id/logout"
+            android:id="@+id/menuLogout"
             android:title="@string/menu_logout"/>
     </group>
 

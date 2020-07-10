@@ -8,7 +8,7 @@
     tools:context=".auth.RegisterInfosActivity">
 
     <TextView
-        android:id="@+id/register_infos_app_title"
+        android:id="@+id/registerInfosAppTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -19,17 +19,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/register_infos_subtitle"
+        android:id="@+id/registerInfosSubtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/register_infos_subtitle"
         android:theme="@style/Text.SubTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_infos_app_title" />
+        app:layout_constraintTop_toBottomOf="@id/registerInfosAppTitle" />
 
     <LinearLayout
-        android:id="@+id/register_infos_name_layout"
+        android:id="@+id/registerInfosNameLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top"
@@ -37,7 +37,7 @@
         android:paddingHorizontal="@dimen/padding_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_infos_subtitle"
+        app:layout_constraintTop_toBottomOf="@id/registerInfosSubtitle"
         tools:visibility="gone">
 
         <TextView
@@ -48,7 +48,7 @@
             android:theme="@style/Text" />
 
         <EditText
-            android:id="@+id/register_infos_name"
+            android:id="@+id/registerInfosName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -56,7 +56,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/register_infos_zipcode_layout"
+        android:id="@+id/registerInfosZipcodeLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top"
@@ -64,7 +64,7 @@
         android:paddingHorizontal="@dimen/padding_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_infos_subtitle">
+        app:layout_constraintTop_toBottomOf="@id/registerInfosSubtitle">
 
         <TextView
             android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
             android:theme="@style/Text" />
 
         <EditText
-            android:id="@+id/register_infos_zipcode"
+            android:id="@+id/registerInfosZipcode"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:inputType="number"
@@ -85,14 +85,14 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/register_infos_city_layout"
+        android:id="@+id/registerInfosCityLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/padding_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_infos_zipcode_layout">
+        app:layout_constraintTop_toBottomOf="@id/registerInfosZipcodeLayout">
 
         <TextView
             android:layout_width="wrap_content"
@@ -103,7 +103,7 @@
             android:theme="@style/Text" />
 
         <Spinner
-            android:id="@+id/register_infos_city"
+            android:id="@+id/registerInfosCity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -112,7 +112,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/register_infos_button"
+        android:id="@+id/registerInfosButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="100dp"
@@ -122,5 +122,5 @@
         android:theme="@style/Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_infos_city_layout" />
+        app:layout_constraintTop_toBottomOf="@id/registerInfosCityLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

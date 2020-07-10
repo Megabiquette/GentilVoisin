@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <RadioGroup
-            android:id="@+id/add_job_radio_group"
+            android:id="@+id/addJobRadioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <RadioButton
-                android:id="@+id/add_job_radio_offer"
+                android:id="@+id/addJobRadioOffer"
                 style="@style/AddJobForm"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
                 android:text="@string/job_type_offer" />
 
             <RadioButton
-                android:id="@+id/add_job_radio_demand"
+                android:id="@+id/addJobRadioDemand"
                 style="@style/AddJobForm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,49 +39,49 @@
         </RadioGroup>
 
         <TextView
-            android:id="@+id/add_job_category"
+            android:id="@+id/addJobCategory"
             style="@style/AddJobForm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:text="@string/add_job_category"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_job_radio_group" />
+            app:layout_constraintTop_toBottomOf="@id/addJobRadioGroup" />
 
         <Spinner
-            android:id="@+id/add_job_spinner_category"
+            android:id="@+id/addJobSpinnerCategory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:inputType="text"
             android:theme="@style/EditText"
-            app:layout_constraintBottom_toBottomOf="@+id/add_job_category"
+            app:layout_constraintBottom_toBottomOf="@+id/addJobCategory"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/add_job_category"
-            app:layout_constraintTop_toTopOf="@+id/add_job_category" />
+            app:layout_constraintStart_toEndOf="@id/addJobCategory"
+            app:layout_constraintTop_toTopOf="@+id/addJobCategory" />
 
         <TextView
-            android:id="@+id/add_job_description"
+            android:id="@+id/addJobDescription"
             style="@style/AddJobForm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:text="@string/add_job_description"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_job_category" />
+            app:layout_constraintTop_toBottomOf="@id/addJobCategory" />
 
         <LinearLayout
-            android:id="@+id/add_job_description_layout"
+            android:id="@+id/addJobDescriptionLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/background_white_borders"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_job_description">
+            app:layout_constraintTop_toBottomOf="@id/addJobDescription">
 
             <EditText
-                android:id="@+id/add_job_description_edit_text"
+                android:id="@+id/addJobDescriptionEditText"
                 style="@style/EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,11 +91,12 @@
                 android:lines="8"
                 android:maxLength="350"
                 android:maxLines="8"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                tools:ignore="Autofill,LabelFor,UnusedAttribute" />
         </LinearLayout>
 
         <Button
-            android:id="@+id/add_job_button"
+            android:id="@+id/addJobButton"
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -105,8 +106,6 @@
             android:text="@string/add_job_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_job_description_layout" />
-
-
+            app:layout_constraintTop_toBottomOf="@id/addJobDescriptionLayout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

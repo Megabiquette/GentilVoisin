@@ -17,9 +17,6 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), ILoginView {
-    private lateinit var connectEmailButton: Button
-    private lateinit var connectFacebookButton: Button
-    private lateinit var connectGoogleButton: Button
 
     private lateinit var presenter: LoginPresenter
 
@@ -52,15 +49,15 @@ class LoginActivity : AppCompatActivity(), ILoginView {
     }
 
     private fun configurateButtons() {
-        connectEmailButton = login_button_email.apply { setOnClickListener {
+        loginButtonEmail.setOnClickListener {
             connect(AuthUI.IdpConfig.EmailBuilder().build())
-        }}
-        connectFacebookButton = login_button_facebook.apply { setOnClickListener {
+        }
+        loginButtonFacebook. setOnClickListener {
             connect(AuthUI.IdpConfig.FacebookBuilder().build())
-        }}
-        connectGoogleButton = login_button_google.apply { setOnClickListener {
+        }
+        loginButtonGoogle.setOnClickListener {
             connect(AuthUI.IdpConfig.GoogleBuilder().build())
-        }}
+        }
     }
 
     private fun connect(idpConfig: AuthUI.IdpConfig) {
@@ -76,12 +73,12 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 
     private fun animateViews() {
         // Moving the views offscreen for the animation
-        connectEmailButton.translationX = -1000f
-        connectFacebookButton.translationX = -1000f
-        connectGoogleButton.translationX = -1000f
+        loginButtonEmail.translationX = -1000f
+        loginButtonFacebook.translationX = -1000f
+        loginButtonGoogle.translationX = -1000f
 
-        val image = login_image
-        val appTitle = login_app_title
+        val image = loginImage
+        val appTitle = loginAppTitle
         ObjectAnimator.ofFloat(image, "translationY", 1000f, 0f).apply {
             duration = 1000
             start()
@@ -90,15 +87,15 @@ class LoginActivity : AppCompatActivity(), ILoginView {
             duration = 1000
             start()
         }
-        ObjectAnimator.ofFloat(connectEmailButton, "translationX",  0f).apply {
+        ObjectAnimator.ofFloat(loginButtonEmail, "translationX",  0f).apply {
             duration = 500
             start()
             doOnEnd {
-                ObjectAnimator.ofFloat(connectFacebookButton, "translationX",  0f).apply {
+                ObjectAnimator.ofFloat(loginButtonFacebook, "translationX",  0f).apply {
                     duration = 300
                     start()
                     doOnEnd {
-                        ObjectAnimator.ofFloat(connectGoogleButton, "translationX",  0f).apply {
+                        ObjectAnimator.ofFloat(loginButtonGoogle, "translationX",  0f).apply {
                             duration = 200
                             start()
                         }
