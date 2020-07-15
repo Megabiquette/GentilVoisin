@@ -7,9 +7,7 @@ import android.os.Bundle
 import android.widget.*
 import androidx.core.widget.addTextChangedListener
 import com.albanfontaine.gentilvoisin.R
-import com.albanfontaine.gentilvoisin.auth.presenters.RegisterInfosPresenter
-import com.albanfontaine.gentilvoisin.auth.views.IRegisterInfosView
-import com.albanfontaine.gentilvoisin.jobs.MainActivity
+import com.albanfontaine.gentilvoisin.MainActivity
 import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.UserRepository
@@ -17,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_register_infos.*
 import java.util.*
 
-class RegisterInfosActivity : AppCompatActivity(), IRegisterInfosView {
+class RegisterInfosActivity : AppCompatActivity(), RegisterInfosContract.View {
     private var nameHasBeenChosen = false
 
     private lateinit var presenter : RegisterInfosPresenter
@@ -27,7 +25,11 @@ class RegisterInfosActivity : AppCompatActivity(), IRegisterInfosView {
         setContentView(R.layout.activity_register_infos)
         configureViews()
 
-        presenter = RegisterInfosPresenter(this, UserRepository,this)
+        presenter = RegisterInfosPresenter(
+            this,
+            UserRepository,
+            this
+        )
     }
 
     override fun goToMainActivity() {

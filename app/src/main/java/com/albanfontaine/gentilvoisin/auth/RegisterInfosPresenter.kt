@@ -1,8 +1,7 @@
-package com.albanfontaine.gentilvoisin.auth.presenters
+package com.albanfontaine.gentilvoisin.auth
 
 import android.content.Context
 import com.albanfontaine.gentilvoisin.R
-import com.albanfontaine.gentilvoisin.auth.views.IRegisterInfosView
 import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.google.common.collect.ArrayListMultimap
@@ -11,10 +10,10 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 class RegisterInfosPresenter(
-    val view: IRegisterInfosView,
+    val view: RegisterInfosContract.View,
     private val userRepository: UserRepository,
     val context: Context
-) {
+) : RegisterInfosContract.Presenter{
     private lateinit var citiesMultiMap: Multimap<String, String>
 
     init {
@@ -26,7 +25,7 @@ class RegisterInfosPresenter(
      *
      * @param user the user to register
      */
-    fun registerUser(user: User) {
+    override fun registerUser(user: User) {
         userRepository.createUser(user)
             .addOnCompleteListener {
                 view.goToMainActivity()
@@ -43,7 +42,7 @@ class RegisterInfosPresenter(
      *
      * @param userZipCode zipcode entered by the user
      */
-    fun loadPossibleCities(userZipCode: String) {
+    override fun loadPossibleCities(userZipCode: String) {
         var possibleCities: MutableCollection<String> = arrayListOf()
         for (zipCode in citiesMultiMap.keySet()) {
             if (zipCode == userZipCode) {

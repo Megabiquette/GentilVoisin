@@ -1,12 +1,14 @@
-package com.albanfontaine.gentilvoisin.jobs.presenters
+package com.albanfontaine.gentilvoisin.jobs
 
-import com.albanfontaine.gentilvoisin.jobs.views.IJobsListView
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 
-class JobsListPresenter(val view: IJobsListView, private val jobRepository: JobRepository) {
+class JobsListPresenter(
+    val view: JobsListContract.View,
+    private val jobRepository: JobRepository
+) : JobsListContract.Presenter {
 
-    fun getJobs(userCity: String, jobTypeQuery: JobRepository.JobTypeQuery) {
+    override fun getJobs(userCity: String, jobTypeQuery: JobRepository.JobTypeQuery) {
         when (jobTypeQuery) {
             JobRepository.JobTypeQuery.LAST_JOBS -> getLastJobs(userCity)
             else -> getJobsByType(userCity, jobTypeQuery)

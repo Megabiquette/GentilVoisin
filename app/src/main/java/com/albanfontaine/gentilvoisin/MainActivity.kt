@@ -1,4 +1,4 @@
-package com.albanfontaine.gentilvoisin.jobs
+package com.albanfontaine.gentilvoisin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

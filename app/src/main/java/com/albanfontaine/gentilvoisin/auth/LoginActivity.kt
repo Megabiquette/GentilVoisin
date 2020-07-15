@@ -4,19 +4,17 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import androidx.core.animation.doOnEnd
 import com.albanfontaine.gentilvoisin.R
-import com.albanfontaine.gentilvoisin.auth.presenters.LoginPresenter
-import com.albanfontaine.gentilvoisin.auth.views.ILoginView
-import com.albanfontaine.gentilvoisin.jobs.MainActivity
+import com.albanfontaine.gentilvoisin.MainActivity
 import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : AppCompatActivity(), ILoginView {
+class LoginActivity : AppCompatActivity(),
+    LoginContract.View {
 
     private lateinit var presenter: LoginPresenter
 
@@ -25,7 +23,11 @@ class LoginActivity : AppCompatActivity(), ILoginView {
         setContentView(R.layout.activity_login)
         configurateButtons()
 
-        presenter = LoginPresenter(this, UserRepository, FirebaseAuth.getInstance())
+        presenter = LoginPresenter(
+            this,
+            UserRepository,
+            FirebaseAuth.getInstance()
+        )
 
         // TODO if user is already logged in, go to main
     }

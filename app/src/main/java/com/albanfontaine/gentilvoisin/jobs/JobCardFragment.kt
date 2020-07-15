@@ -12,8 +12,6 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 
 import com.albanfontaine.gentilvoisin.R
-import com.albanfontaine.gentilvoisin.jobs.presenters.JobCardPresenter
-import com.albanfontaine.gentilvoisin.jobs.views.IJobCardView
 import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
@@ -22,7 +20,7 @@ import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_job_card.*
 
-class JobCardFragment : Fragment(), IJobCardView {
+class JobCardFragment : Fragment(), JobCardContract.View {
     private var jobUid: String? = null
 
     private lateinit var presenter: JobCardPresenter
@@ -30,7 +28,11 @@ class JobCardFragment : Fragment(), IJobCardView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter = JobCardPresenter(this, UserRepository, JobRepository)
+        presenter = JobCardPresenter(
+            this,
+            UserRepository,
+            JobRepository
+        )
 
         arguments?.let {
             jobUid = it.getString(Constants.JOB_UID)

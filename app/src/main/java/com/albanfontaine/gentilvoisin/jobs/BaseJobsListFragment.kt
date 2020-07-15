@@ -9,8 +9,6 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.albanfontaine.gentilvoisin.R
-import com.albanfontaine.gentilvoisin.jobs.presenters.JobsListPresenter
-import com.albanfontaine.gentilvoisin.jobs.views.IJobsListView
 import com.albanfontaine.gentilvoisin.helper.Constants
 
 import com.albanfontaine.gentilvoisin.repository.UserRepository
@@ -21,7 +19,7 @@ import com.albanfontaine.gentilvoisin.view.JobAdapter
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_jobs_list.*
 
-abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener, IJobsListView {
+abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsListContract.View {
     private lateinit var jobListAdapter: JobAdapter
     private lateinit var jobList: List<Job>
     private var userCity: String = ""
@@ -32,7 +30,10 @@ abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener, IJo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        presenter = JobsListPresenter(this, JobRepository)
+        presenter = JobsListPresenter(
+            this,
+            JobRepository
+        )
 
         UserRepository.getUser(FirebaseAuth.getInstance().currentUser!!.uid).addOnCompleteListener { task ->
             if (task.isSuccessful) {
