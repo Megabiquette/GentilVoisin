@@ -1,4 +1,4 @@
-package com.albanfontaine.gentilvoisin.jobs
+package com.albanfontaine.gentilvoisin.jobs.addjob
 
 interface AddJobContract {
     interface View {

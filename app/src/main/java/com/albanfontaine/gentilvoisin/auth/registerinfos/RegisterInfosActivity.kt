@@ -1,4 +1,4 @@
-package com.albanfontaine.gentilvoisin.auth
+package com.albanfontaine.gentilvoisin.auth.registerinfos
 
 import android.animation.ObjectAnimator
 import android.content.Intent
@@ -8,6 +8,7 @@ import android.widget.*
 import androidx.core.widget.addTextChangedListener
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.MainActivity
+import com.albanfontaine.gentilvoisin.auth.login.LoginActivity
 import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.UserRepository
@@ -15,7 +16,8 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_register_infos.*
 import java.util.*
 
-class RegisterInfosActivity : AppCompatActivity(), RegisterInfosContract.View {
+class RegisterInfosActivity : AppCompatActivity(),
+    RegisterInfosContract.View {
     private var nameHasBeenChosen = false
 
     private lateinit var presenter : RegisterInfosPresenter
@@ -25,11 +27,12 @@ class RegisterInfosActivity : AppCompatActivity(), RegisterInfosContract.View {
         setContentView(R.layout.activity_register_infos)
         configureViews()
 
-        presenter = RegisterInfosPresenter(
-            this,
-            UserRepository,
-            this
-        )
+        presenter =
+            RegisterInfosPresenter(
+                this,
+                UserRepository,
+                this
+            )
     }
 
     override fun goToMainActivity() {
@@ -127,15 +130,18 @@ class RegisterInfosActivity : AppCompatActivity(), RegisterInfosContract.View {
 
     private fun animateViews() {
         ObjectAnimator.ofFloat(registerInfosNameLayout, "translationX", -1000f).apply {
-            duration = ANIMATION_DURATION
+            duration =
+                ANIMATION_DURATION
             start()
         }
         ObjectAnimator.ofFloat(registerInfosZipcodeLayout, "translationX",  0f).apply {
-            duration = ANIMATION_DURATION
+            duration =
+                ANIMATION_DURATION
             start()
         }
         ObjectAnimator.ofFloat(registerInfosCityLayout, "translationX",  0f).apply {
-            duration = ANIMATION_DURATION
+            duration =
+                ANIMATION_DURATION
             start()
         }
     }

@@ -1,4 +1,4 @@
-package com.albanfontaine.gentilvoisin.jobs
+package com.albanfontaine.gentilvoisin.jobs.joblist
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -19,7 +19,8 @@ import com.albanfontaine.gentilvoisin.view.JobAdapter
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_jobs_list.*
 
-abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsListContract.View {
+abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener,
+    JobsListContract.View {
     private lateinit var jobListAdapter: JobAdapter
     private lateinit var jobList: List<Job>
     private var userCity: String = ""
@@ -30,10 +31,11 @@ abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener, Job
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        presenter = JobsListPresenter(
-            this,
-            JobRepository
-        )
+        presenter =
+            JobsListPresenter(
+                this,
+                JobRepository
+            )
 
         UserRepository.getUser(FirebaseAuth.getInstance().currentUser!!.uid).addOnCompleteListener { task ->
             if (task.isSuccessful) {

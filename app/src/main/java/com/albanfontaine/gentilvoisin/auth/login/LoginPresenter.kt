@@ -1,4 +1,4 @@
-package com.albanfontaine.gentilvoisin.auth
+package com.albanfontaine.gentilvoisin.auth.login
 
 import android.app.Activity
 import android.content.Context

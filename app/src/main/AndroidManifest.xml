@@ -12,16 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".user.RatingsActivity"
+            android:name=".user.ratings.RatingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".auth.RegisterInfosActivity"
+            android:name=".auth.registerinfos.RegisterInfosActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".auth.LoginActivity"
+            android:name=".auth.login.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

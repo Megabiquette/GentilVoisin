@@ -1,4 +1,4 @@
-package com.albanfontaine.gentilvoisin.jobs
+package com.albanfontaine.gentilvoisin.jobs.jobcard
 
 import android.content.Context
 import android.os.Bundle

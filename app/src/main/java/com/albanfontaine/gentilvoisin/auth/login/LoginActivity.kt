@@ -1,4 +1,4 @@
-package com.albanfontaine.gentilvoisin.auth
+package com.albanfontaine.gentilvoisin.auth.login
 
 import android.animation.ObjectAnimator
 import android.content.Intent
@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.core.animation.doOnEnd
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.MainActivity
+import com.albanfontaine.gentilvoisin.auth.registerinfos.RegisterInfosActivity
 import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.firebase.ui.auth.AuthUI

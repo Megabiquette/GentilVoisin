@@ -1,4 +1,4 @@
-package com.albanfontaine.gentilvoisin.auth
+package com.albanfontaine.gentilvoisin.auth.registerinfos
 
 import com.albanfontaine.gentilvoisin.model.User
 

@@ -1,4 +1,4 @@
-package com.albanfontaine.gentilvoisin.jobs
+package com.albanfontaine.gentilvoisin.jobs.addjob
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
