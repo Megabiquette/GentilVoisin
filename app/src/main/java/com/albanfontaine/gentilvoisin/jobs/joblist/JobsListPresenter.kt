@@ -12,7 +12,6 @@ class JobsListPresenter(
         when (jobTypeQuery) {
             JobRepository.JobTypeQuery.LAST_JOBS -> getLastJobs(userCity)
             else -> getJobsByType(userCity, jobTypeQuery)
-
         }
     }
 

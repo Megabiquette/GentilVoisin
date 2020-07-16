@@ -4,12 +4,11 @@ object Constants {
     // Identifier for Sign in activity
     const val RC_SIGN_IN = 100
 
-    // Firestore
-    //// Collections
+    // Firestore Collections
     const val COLLECTION_USERS = "users"
     const val COLLECTION_JOBS = "jobs"
     const val COLLECTION_RATINGS = "ratings"
-    //// Fields
+    // Firestore Fields
     const val DB_FIELD_POSTER_UID = "posterUid"
     const val DB_FIELD_CITY = "city"
     const val DB_FIELD_CATEGORY = "category"
@@ -20,4 +19,5 @@ object Constants {
 
     // Bundle
     const val JOB_UID = "JOB_UID"
+    const val USER_UID = "USER_UID"
 }

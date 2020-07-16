@@ -1,6 +1,7 @@
 package com.albanfontaine.gentilvoisin.jobs.jobcard
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,6 +18,7 @@ import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.repository.UserRepository
+import com.albanfontaine.gentilvoisin.user.ratings.RatingsActivity
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_job_card.*
 
@@ -67,6 +69,7 @@ class JobCardFragment : Fragment(), JobCardContract.View {
                 }
             }
         }
+
         Glide.with(requireContext())
             .load(jobPoster.avatar)
             .centerCrop()
@@ -74,12 +77,19 @@ class JobCardFragment : Fragment(), JobCardContract.View {
             .placeholder(ContextCompat.getDrawable(requireContext(), R.drawable.ic_person))
             .into(jobCardAvatar)
         displayRatingStars(requireContext(), jobPoster)
+
         jobCardSeeRatingsButton.setOnClickListener {
-            Log.e("ratings", "ratings")
+            val intent = Intent(activity, RatingsActivity::class.java)
+            intent.putExtra(Constants.USER_UID, jobPoster.uid)
+            startActivity(intent)
         }
+
         jobCardContactButton.apply {
             text = requireContext().getString(R.string.job_card_contact_button, jobPoster.username)
-            setOnClickListener { Log.e("contact", "contact") }
+            setOnClickListener {
+                // TODO
+
+            }
         }
     }
 

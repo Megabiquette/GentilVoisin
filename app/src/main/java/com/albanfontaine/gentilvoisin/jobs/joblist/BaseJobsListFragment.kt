@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_jobs_list.*
 
 abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener,
     JobsListContract.View {
-    private lateinit var jobListAdapter: JobAdapter
+    private lateinit var jobAdapter: JobAdapter
     private lateinit var jobList: List<Job>
     private var userCity: String = ""
     private lateinit var presenter: JobsListPresenter
@@ -57,21 +58,21 @@ abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener,
         super.onResume()
         if (userCity != "") {
             presenter.getJobs(userCity, jobTypeQuery)
-            jobListAdapter.notifyDataSetChanged()
+            jobAdapter.notifyDataSetChanged()
         }
     }
 
     override fun displayJobs(jobs: List<Job>) {
         jobList = jobs
-        jobListAdapter = JobAdapter(requireContext(), jobList, this)
+        jobAdapter = JobAdapter(requireContext(), jobList, this)
         fragmentJobsListRecyclerView.apply {
-            adapter = jobListAdapter
+            adapter = jobAdapter
             layoutManager = LinearLayoutManager(activity)
         }
     }
 
     override fun onEmptyJobList() {
-        fragmentJobsListRecyclerView.isVisible = false
+        fragmentJobsListRecyclerView.isGone = true
         fragmentJobsListNoJob.isVisible = true
     }
 
