@@ -3,7 +3,6 @@ package com.albanfontaine.gentilvoisin.jobs.jobcard
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -104,7 +103,6 @@ class JobCardFragment : Fragment(), JobCardContract.View {
             jobCardNotEnoughRating.isVisible = true
             jobCardNotEnoughRating.text =
                 requireContext().getString(R.string.job_card_not_enough_ratings, jobPoster.username)
-            jobCardSeeRatingsButton.isGone = true
         } else {
             if(rating > 4.5) {
                 jobCardStar5.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))

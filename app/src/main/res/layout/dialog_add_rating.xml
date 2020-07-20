@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <EditText
+        android:id="@+id/dialogAddRatingCommentInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/fui_transparent"
+        android:gravity="top|start"
+        android:hint="@string/ratings_add_rating_dialog_comment_hint"
+        android:inputType="textMultiLine|textCapSentences"
+        android:lines="4"
+        android:maxLength="170"
+        android:maxLines="4"
+        tools:ignore="Autofill,LabelFor,UnusedAttribute" />
+
+</LinearLayout>

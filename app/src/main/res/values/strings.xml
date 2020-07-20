@@ -66,4 +66,8 @@
         <item quantity="one">%1$d avis a été laissé sur %2$s</item>
         <item quantity="other">%1$d avis ont étés laissés sur %2$s</item>
     </plurals>
+    <string name="ratings_add_rating_button">Laissez votre avis sur %1$s</string>
+    <string name="ratings_add_ratings_dialog_positive_button">Ajouter votre avis</string>
+    <string name="ratings_add_ratings_dialog_negative_button">Annuler</string>
+    <string name="ratings_add_rating_dialog_comment_hint">Ajoutez un commentaire à votre avis</string>
 </resources>

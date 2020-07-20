@@ -13,10 +13,6 @@ object UserRepository {
         return FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS)
     }
 
-    fun getUsers() : Task<QuerySnapshot> {
-        return getUserCollection().get()
-    }
-
     fun getUser(uid: String) : Task<DocumentSnapshot> {
         return getUserCollection()
             .document(uid)
