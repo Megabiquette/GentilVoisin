@@ -66,7 +66,7 @@ class AddJobFragment : Fragment(), AddJobContract.View {
                     val category = addJobSpinnerCategory.selectedItem.toString()
                     val type = if (addJobRadioDemand.isChecked) "demand" else "offer"
                     val description = addJobDescriptionEditText.text.toString().trim()
-                    presenter.createJob(category, type, description)
+                    presenter.addJob(category, type, description)
                 }
             }
         }

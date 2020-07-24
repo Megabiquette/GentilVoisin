@@ -72,7 +72,7 @@ class JobViewHolder(
                     .load(user?.avatar)
                     .centerCrop()
                     .circleCrop()
-                    .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_person))
+                    .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_person_primary))
                     .into(avatarView)
             }
         }

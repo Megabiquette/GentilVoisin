@@ -20,4 +20,5 @@ object Constants {
     // Bundle
     const val JOB_UID = "JOB_UID"
     const val USER_UID = "USER_UID"
+    const val RATED_USER_UID = "RATED_USER_UID"
 }

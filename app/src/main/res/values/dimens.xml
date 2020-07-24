@@ -18,6 +18,7 @@
 
     <!-- Recycler view job item -->
     <dimen name="image_avatar_size">80dp</dimen>
+    <dimen name="image_avatar_size_small">40dp</dimen>
     <dimen name="margin_small">10dp</dimen>
     <dimen name="margin_medium">20dp</dimen>
     <dimen name="margin_large">30dp</dimen>
@@ -25,4 +26,7 @@
     <!-- Job Card -->
     <dimen name="image_avatar_size_big">100dp</dimen>
     <dimen name="rating_star_size">20dp</dimen>
+
+    <!--  -->
+    <dimen name="rating_star_size_big">40dp</dimen>
 </resources>

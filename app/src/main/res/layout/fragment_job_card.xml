@@ -45,7 +45,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/jobCardCategory"
         tools:background="@color/white"
-        tools:src="@drawable/ic_person" />
+        tools:src="@drawable/ic_person_primary" />
 
     <TextView
         android:id="@+id/jobCardName"

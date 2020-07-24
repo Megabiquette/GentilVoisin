@@ -10,13 +10,12 @@
 
     <ImageView
         android:id="@+id/itemRatingsAvatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:layout_width="@dimen/image_avatar_size_small"
+        android:layout_height="@dimen/image_avatar_size_small"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription"
-        tools:src="@drawable/ic_person" />
+        tools:src="@drawable/ic_person_white" />
 
     <TextView
         android:id="@+id/itemRatingsName"
@@ -79,7 +78,6 @@
         android:id="@+id/itemRatingsComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
         android:layout_marginTop="8dp"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +87,7 @@
     <View
         android:layout_width="150dp"
         android:layout_height="1dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/margin_top"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

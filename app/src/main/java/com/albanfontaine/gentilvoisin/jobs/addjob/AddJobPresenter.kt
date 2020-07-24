@@ -24,7 +24,7 @@ class AddJobPresenter(
             }
     }
 
-    override fun createJob(category: String, type: String, description: String) {
+    override fun addJob(category: String, type: String, description: String) {
         val jobDocumentReference = jobRepository.getJobCollection().document()
         val job = Job(
             uid = jobDocumentReference.id,

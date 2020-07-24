@@ -67,7 +67,10 @@
         <item quantity="other">%1$d avis ont étés laissés sur %2$s</item>
     </plurals>
     <string name="ratings_add_rating_button">Laissez votre avis sur %1$s</string>
+    <string name="ratings_add_same_user">Vous ne pouvez pas noter vous-même</string>
     <string name="ratings_add_ratings_dialog_positive_button">Ajouter votre avis</string>
     <string name="ratings_add_ratings_dialog_negative_button">Annuler</string>
-    <string name="ratings_add_rating_dialog_comment_hint">Ajoutez un commentaire à votre avis</string>
+    <string name="ratings_add_rating_dialog_title">Laissez votre avis</string>
+    <string name="ratings_add_rating_dialog_comment_hint">Ajoutez un commentaire</string>
+    <string name="ratings_add_rating_dialog_no_star_clicked">Veuillez cliquer sur une étoile pour noter cet utilisateur</string>
 </resources>

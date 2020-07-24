@@ -73,7 +73,7 @@ class JobCardFragment : Fragment(), JobCardContract.View {
             .load(jobPoster.avatar)
             .centerCrop()
             .circleCrop()
-            .placeholder(ContextCompat.getDrawable(requireContext(), R.drawable.ic_person))
+            .placeholder(ContextCompat.getDrawable(requireContext(), R.drawable.ic_person_white))
             .into(jobCardAvatar)
         displayRatingStars(requireContext(), jobPoster)
 

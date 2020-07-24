@@ -33,33 +33,33 @@ class RatingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                     .load(user?.avatar)
                     .centerCrop()
                     .circleCrop()
-                    .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_person))
+                    .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_person_white))
                     .into(avatarView)
             }
         }
         comment.text = rating.comment
         // TODO refactor with the other one in JobCardFragment
-        if(rating.rating > 4.5) {
+        if(rating.score > 4.5) {
             star5.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))
         } else {
             star5.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_border))
         }
-        if(rating.rating > 3.5) {
+        if(rating.score > 3.5) {
             star4.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))
         } else {
             star4.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_border))
         }
-        if(rating.rating > 2.5) {
+        if(rating.score > 2.5) {
             star3.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))
         } else {
             star3.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_border))
         }
-        if(rating.rating > 1.5) {
+        if(rating.score > 1.5) {
             star2.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))
         } else {
             star2.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_border))
         }
-        if(rating.rating > 0.5) {
+        if(rating.score > 0.5) {
             star1.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))
         } else {
             star1.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_border))

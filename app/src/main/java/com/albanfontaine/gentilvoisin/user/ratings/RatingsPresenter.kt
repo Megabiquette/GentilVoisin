@@ -1,6 +1,5 @@
 package com.albanfontaine.gentilvoisin.user.ratings
 
-import android.util.Log
 import com.albanfontaine.gentilvoisin.model.Rating
 import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.RatingRepository
@@ -23,19 +22,14 @@ class RatingsPresenter(
     }
 
     override fun getRatings(userUid: String) {
-        Log.e("presenterRatings", "getRating")
-
         val ratingList = ArrayList<Rating>()
         ratingRepository.getRatingsForUser(userUid).addOnSuccessListener { documents ->
-            Log.e("onSuccess", "ping")
 
             for (document in documents) {
                 val rating = document.toObject(Rating::class.java)
                 ratingList.add(rating)
             }
-            Log.e("presenterGetRatings", "avant display")
             view.displayRatings(ratingList)
-            Log.e("presenterGetRatings", "apres display")
 
             if(ratingList.isEmpty()) {
                 view.onEmptyRatingList()
