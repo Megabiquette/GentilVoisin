@@ -9,7 +9,7 @@
     android:padding="@dimen/margin_small">
 
     <ImageView
-        android:id="@+id/itemJobsAvatar"
+        android:id="@+id/itemUserMessagedAvatar"
         android:layout_width="@dimen/image_avatar_size"
         android:layout_height="@dimen/image_avatar_size"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,43 +17,29 @@
         tools:background="@color/colorPrimaryDark" />
 
     <TextView
-        android:id="@+id/itemJobsType"
+        android:id="@+id/itemUserMessagedUsername"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_small"
-        android:paddingHorizontal="7dp"
-        android:paddingVertical="2dp"
-        android:textColor="@color/white"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/itemJobsAvatar"
-        app:layout_constraintTop_toTopOf="@id/itemJobsAvatar"
-        tools:background="@drawable/type_offer_circle"
-        tools:text="O" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/itemUserMessagedAvatar"
+        app:layout_constraintTop_toTopOf="@id/itemUserMessagedAvatar"
+        tools:text="JohnDoe" />
 
     <TextView
-        android:id="@+id/itemJobsCategory"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_small"
-        android:background="@drawable/background_category"
-        android:paddingHorizontal="5dp"
-        android:paddingVertical="2dp"
-        app:layout_constraintStart_toEndOf="@id/itemJobsType"
-        app:layout_constraintTop_toTopOf="@id/itemJobsAvatar"
-        tools:text="Aide aux devoirs" />
-
-    <TextView
-        android:id="@+id/itemJobsDate"
+        android:id="@+id/itemUserMessagedDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/itemJobsCategory"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/itemJobsCategory"
-        tools:text="le 26/04/2019" />
+        app:layout_constraintTop_toTopOf="@id/itemUserMessagedUsername"
+        app:layout_constraintBottom_toBottomOf="@id/itemUserMessagedUsername"
+        tools:text="26/04/2019" />
 
     <TextView
-        android:id="@+id/itemJobsDescription"
+        android:id="@+id/itemUserMessagedContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_small"
@@ -62,8 +48,8 @@
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toEndOf="@id/itemJobsAvatar"
-        app:layout_constraintTop_toBottomOf="@id/itemJobsType"
+        app:layout_constraintStart_toEndOf="@id/itemUserMessagedAvatar"
+        app:layout_constraintTop_toBottomOf="@id/itemUserMessagedDate"
         tools:text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo." />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -57,6 +57,7 @@ object JobRepository {
     enum class JobTypeQuery(val value: String) {
         LAST_JOBS("last_jobs"),
         OFFER("offer"),
-        DEMAND("demand")
+        DEMAND("demand"),
+        MY_JOBS("my_jobs")
     }
 }

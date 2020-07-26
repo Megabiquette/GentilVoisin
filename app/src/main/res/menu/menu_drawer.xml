@@ -23,7 +23,7 @@
             android:id="@+id/menuAddJob"
             android:title="@string/menu_create_new"/>
         <item
-            android:id="@+id/menuMyJobs"
+            android:id="@+id/menuMyJobsList"
             android:title="@string/menu_my_jobs"/>
         <item
             android:id="@+id/menuMyMessages"

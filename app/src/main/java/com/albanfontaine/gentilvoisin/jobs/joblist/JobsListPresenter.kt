@@ -1,5 +1,6 @@
 package com.albanfontaine.gentilvoisin.jobs.joblist
 
+import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 
@@ -11,6 +12,7 @@ class JobsListPresenter(
     override fun getJobs(userCity: String, jobTypeQuery: JobRepository.JobTypeQuery) {
         when (jobTypeQuery) {
             JobRepository.JobTypeQuery.LAST_JOBS -> getLastJobs(userCity)
+            JobRepository.JobTypeQuery.MY_JOBS -> getMyJobs(userCity, Helper.currentUserUid())
             else -> getJobsByType(userCity, jobTypeQuery)
         }
     }
@@ -33,6 +35,21 @@ class JobsListPresenter(
     private fun getJobsByType(userCity: String, type: JobRepository.JobTypeQuery) {
         val jobList = ArrayList<Job>()
         jobRepository.getJobsByType(userCity, type).addOnSuccessListener { documents ->
+            for (document in documents) {
+                val job = document.toObject(Job::class.java)
+                jobList.add(job)
+            }
+            view.displayJobs(jobList)
+
+            if (jobList.isEmpty()) {
+                view.onEmptyJobList()
+            }
+        }
+    }
+
+    private fun getMyJobs(userCity: String, userUid: String) {
+        val jobList = ArrayList<Job>()
+        jobRepository.getJobsByPoster(userCity, userUid).addOnSuccessListener { documents ->
             for (document in documents) {
                 val job = document.toObject(Job::class.java)
                 jobList.add(job)

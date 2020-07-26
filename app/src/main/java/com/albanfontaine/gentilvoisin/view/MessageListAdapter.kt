@@ -14,7 +14,7 @@ class MessageListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageListViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.item_user_message_recycler_view, parent, false)
+        val view = inflater.inflate(R.layout.item_user_messaged_recycler_view, parent, false)
         return MessageListViewHolder(view)
     }
 

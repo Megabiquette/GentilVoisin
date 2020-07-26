@@ -1,6 +1,5 @@
 package com.albanfontaine.gentilvoisin.jobs.joblist
 
-import com.albanfontaine.gentilvoisin.jobs.joblist.BaseJobsListFragment
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 
 class LastJobsListFragment : BaseJobsListFragment() {

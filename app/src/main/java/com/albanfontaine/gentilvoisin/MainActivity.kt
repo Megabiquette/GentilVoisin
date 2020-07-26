@@ -31,7 +31,9 @@ class MainActivity : AppCompatActivity() {
             R.id.menuLastJobsList,
             R.id.menuOffersJobsList,
             R.id.menuDemandsJobsList,
-            R.id.menuAddJob
+            R.id.menuAddJob,
+            R.id.menuMyJobsList,
+            R.id.menuMyMessages
         )
         appBarConfiguration = AppBarConfiguration(topDestinations, drawerLayout)
         findViewById<Toolbar>(R.id.toolbar)
