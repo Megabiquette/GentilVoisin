@@ -3,16 +3,17 @@ package com.albanfontaine.gentilvoisin.user.ratings
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
+import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.Rating
 import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.RatingRepository
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.view.RatingAdapter
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_ratings.*
 
 class RatingsActivity : AppCompatActivity(), RatingsContract.View {
@@ -58,12 +59,9 @@ class RatingsActivity : AppCompatActivity(), RatingsContract.View {
             resources.getQuantityString(R.plurals.ratings_number, ratingList.size, ratingList.size, ratedUser.username)
         activityRatingsAddRating.apply {
             text = resources.getString(R.string.ratings_add_rating_button, ratedUser.username)
+            isVisible = ratedUserUid != Helper.currentUserUid()
             setOnClickListener {
-                if (ratedUserUid == FirebaseAuth.getInstance().currentUser?.uid) {
-                    this@RatingsActivity.toast(R.string.ratings_add_same_user)
-                } else {
-                    showAddRatingDialog()
-                }
+                showAddRatingDialog()
             }
         }
     }
@@ -71,7 +69,7 @@ class RatingsActivity : AppCompatActivity(), RatingsContract.View {
     private fun showAddRatingDialog() {
         val dialogFragment = AddRatingDialogFragment()
         val bundle = Bundle().apply {
-            putString(Constants.USER_UID, FirebaseAuth.getInstance().currentUser?.uid)
+            putString(Constants.USER_UID, Helper.currentUserUid())
             putString(Constants.RATED_USER_UID, ratedUserUid)
         }
         dialogFragment.arguments = bundle

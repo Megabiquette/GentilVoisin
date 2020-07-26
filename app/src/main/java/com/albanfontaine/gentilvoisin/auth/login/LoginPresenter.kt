@@ -9,12 +9,11 @@ import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
-import com.google.firebase.auth.FirebaseAuth
 
 class LoginPresenter(
     val view: LoginContract.View,
-    private val userRepository: UserRepository,
-    private val firebaseAuth: FirebaseAuth
+    private val userUid: String,
+    private val userRepository: UserRepository
 ) : LoginContract.Presenter {
     override fun handleConnectionResult(requestCode: Int, resultCode: Int, data: Intent?, context: Context) {
         val response: IdpResponse? = IdpResponse.fromResultIntent(data)
@@ -39,14 +38,12 @@ class LoginPresenter(
     }
 
     private fun onConnectionSuccess() {
-        firebaseAuth.currentUser?.let {
-            userRepository.getUser(it.uid).addOnCompleteListener { document ->
-                if (document.result!!.getString("username") != null) {
-                    view.goToMainActivity()
-                } else {
-                    // New user, go to register screen
-                    view.goToRegisterActivity()
-                }
+        userRepository.getUser(userUid).addOnCompleteListener { document ->
+            if (document.result!!.getString("username") != null) {
+                view.goToMainActivity()
+            } else {
+                // New user, go to register screen
+                view.goToRegisterActivity()
             }
         }
     }

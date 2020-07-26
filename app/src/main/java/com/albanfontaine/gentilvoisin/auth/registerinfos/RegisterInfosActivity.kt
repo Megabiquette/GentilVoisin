@@ -76,14 +76,14 @@ class RegisterInfosActivity : AppCompatActivity(),
                 // Second part of the registration
                 if(isZipcodeValid() && isCityValid()) {
                     FirebaseAuth.getInstance().currentUser
-                        ?.let {
+                        ?.let { currentUser ->
                             val user = User(
-                                uid = it.uid,
+                                uid = currentUser.uid,
                                 username = registerInfosName.text.toString().trim(),
                                 zipCode = registerInfosZipcode.text.toString().trim().toInt(),
                                 city = registerInfosCity.selectedItem.toString().trim(),
                                 registerDate = Calendar.getInstance().time,
-                                avatar = if (it.photoUrl != null) it.photoUrl.toString() else null
+                                avatar = if (currentUser.photoUrl != null) currentUser.photoUrl.toString() else null
                             )
                             presenter.registerUser(user)
                         }

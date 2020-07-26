@@ -11,13 +11,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Constants
+import com.albanfontaine.gentilvoisin.helper.Helper
 
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.view.JobAdapter
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_jobs_list.*
 
 abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener,
@@ -38,7 +38,7 @@ abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener,
                 JobRepository
             )
 
-        UserRepository.getUser(FirebaseAuth.getInstance().currentUser!!.uid).addOnCompleteListener { task ->
+        UserRepository.getUser(Helper.currentUserUid()).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val user = task.result?.toObject(User::class.java)
                 userCity = user?.city.toString()
@@ -48,7 +48,8 @@ abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener,
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_jobs_list, container, false)

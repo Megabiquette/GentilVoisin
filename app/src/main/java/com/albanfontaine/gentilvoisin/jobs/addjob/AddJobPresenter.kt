@@ -4,19 +4,18 @@ import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.repository.UserRepository
-import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
 class AddJobPresenter(
     val view: AddJobContract.View,
+    private val userUid: String,
     private val userRepository: UserRepository,
-    private val jobRepository: JobRepository,
-    private val firebaseAuth: FirebaseAuth
+    private val jobRepository: JobRepository
 ) : AddJobContract.Presenter {
     private var user: User? = null
 
     override fun getUser() {
-        userRepository.getUser(firebaseAuth.currentUser!!.uid)
+        userRepository.getUser(userUid)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     user = task.result?.toObject(User::class.java)
