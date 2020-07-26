@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".user.message.MessagesListFragment">
+
+    <TextView
+        android:id="@+id/fragmentMessagesListNoMessages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_top"
+        android:text="@string/error_no_messages_yet"
+        android:theme="@style/Text.SubTitle"
+        android:textColor="@color/colorPrimary"
+        android:visibility="gone"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragmentMessagesListRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_user_message_recycler_view" />
+
+</FrameLayout>
