@@ -9,6 +9,7 @@ object Constants {
     const val COLLECTION_JOBS = "jobs"
     const val COLLECTION_RATINGS = "ratings"
     const val COLLECTION_MESSAGES = "messages"
+    const val COLLECTION_DISCUSSION = "discussion"
 
     // Firestore Fields
     const val DB_FIELD_POSTER_UID = "posterUid"
@@ -20,6 +21,9 @@ object Constants {
     const val DB_FIELD_USER_RATED_UID = "userRatedUid"
     const val DB_FIELD_SENDER_UID = "senderUid"
     const val DB_FIELD_RECIPIENT_UID_UID = "recipientUid"
+    const val DB_FIELD_JOB_UID = "jobUid"
+    const val DB_FIELD_JOB_OWNER_UID = "jobOwnerUid"
+    const val DB_FIELD_INTERLOCUTOR_UID = "interlocutorUid"
 
     // Bundle
     const val JOB_UID = "JOB_UID"

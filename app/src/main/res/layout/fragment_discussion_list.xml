@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".user.message.MessagesListFragment">
+    tools:context=".user.message.DiscussionListFragment">
 
     <TextView
-        android:id="@+id/fragmentMessagesListNoMessages"
+        android:id="@+id/fragmentDiscussionListNoMessages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -17,9 +17,9 @@
         android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragmentMessagesListRecyclerView"
+        android:id="@+id/fragmentDiscussionListRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_user_messaged_recycler_view" />
+        tools:listitem="@layout/item_discussion_recycler_view" />
 
 </FrameLayout>

@@ -9,7 +9,7 @@
     android:padding="@dimen/margin_small">
 
     <ImageView
-        android:id="@+id/itemUserMessagedAvatar"
+        android:id="@+id/itemDiscussionAvatar"
         android:layout_width="@dimen/image_avatar_size"
         android:layout_height="@dimen/image_avatar_size"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,29 +17,29 @@
         tools:background="@color/colorPrimaryDark" />
 
     <TextView
-        android:id="@+id/itemUserMessagedUsername"
+        android:id="@+id/itemDiscussionUsername"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_small"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/itemUserMessagedAvatar"
-        app:layout_constraintTop_toTopOf="@id/itemUserMessagedAvatar"
+        app:layout_constraintStart_toEndOf="@id/itemDiscussionAvatar"
+        app:layout_constraintTop_toTopOf="@id/itemDiscussionAvatar"
         tools:text="JohnDoe" />
 
     <TextView
-        android:id="@+id/itemUserMessagedDate"
+        android:id="@+id/itemDiscussionDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/itemUserMessagedUsername"
-        app:layout_constraintBottom_toBottomOf="@id/itemUserMessagedUsername"
+        app:layout_constraintTop_toTopOf="@id/itemDiscussionUsername"
+        app:layout_constraintBottom_toBottomOf="@id/itemDiscussionUsername"
         tools:text="26/04/2019" />
 
     <TextView
-        android:id="@+id/itemUserMessagedContent"
+        android:id="@+id/itemDiscussionContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_small"
@@ -48,8 +48,8 @@
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toEndOf="@id/itemUserMessagedAvatar"
-        app:layout_constraintTop_toBottomOf="@id/itemUserMessagedDate"
+        app:layout_constraintStart_toEndOf="@id/itemDiscussionAvatar"
+        app:layout_constraintTop_toBottomOf="@id/itemDiscussionDate"
         tools:text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo." />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

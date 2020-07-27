@@ -1,11 +1,11 @@
 package com.albanfontaine.gentilvoisin.user.message
 
-interface MessagesListContract {
+interface DiscussionListContract {
     interface View {
 
     }
 
     interface Presenter {
-        fun getUserMessagedList(userUid: String)
+        fun getDiscussionList(userUid: String)
     }
 }

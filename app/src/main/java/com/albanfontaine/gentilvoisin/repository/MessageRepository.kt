@@ -1,6 +1,6 @@
 package com.albanfontaine.gentilvoisin.repository
 
-import com.albanfontaine.gentilvoisin.helper.Constants
+import com.albanfontaine.gentilvoisin.helper.Constants.COLLECTION_MESSAGES
 import com.google.android.gms.tasks.Task
 import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_SENDER_UID
 import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_RECIPIENT_UID_UID
@@ -11,7 +11,7 @@ import com.google.firebase.firestore.QuerySnapshot
 object MessageRepository {
 
     private fun getMessageCollection(): CollectionReference {
-        return FirebaseFirestore.getInstance().collection(Constants.COLLECTION_MESSAGES)
+        return FirebaseFirestore.getInstance().collection(COLLECTION_MESSAGES)
     }
 
     fun getMessagesBySender(userId: String): Task<QuerySnapshot> {

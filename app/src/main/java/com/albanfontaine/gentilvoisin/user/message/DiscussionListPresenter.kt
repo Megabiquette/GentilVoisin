@@ -3,23 +3,23 @@ package com.albanfontaine.gentilvoisin.user.message
 import com.albanfontaine.gentilvoisin.model.Message
 import com.albanfontaine.gentilvoisin.repository.MessageRepository
 
-class MessagesListPresenter(
-    val view: MessagesListContract.View,
-     private val messageRepository: MessageRepository
-) : MessagesListContract.Presenter {
+class DiscussionListPresenter(
+    val view: DiscussionListContract.View,
+    private val messageRepository: MessageRepository
+) : DiscussionListContract.Presenter {
 
-    override fun getUserMessagedList(userUid: String) {
-        val userMessagedSet = mutableSetOf<String>()
+    override fun getDiscussionList(userUid: String) {
+        val discussionSet = mutableSetOf<String>()
         messageRepository.getMessagesBySender(userUid).addOnSuccessListener { documents ->
             for (document in documents) {
                 val message = document.toObject(Message::class.java)
-                userMessagedSet.add(message.recipientUid)
+                discussionSet.add(message.recipientUid)
             }
         }
         messageRepository.getMessagesByRecipient(userUid).addOnSuccessListener { documents ->
             for (document in documents) {
                 val message = document.toObject(Message::class.java)
-                userMessagedSet.add(message.senderUid)
+                discussionSet.add(message.senderUid)
             }
         }
 
