@@ -20,7 +20,7 @@ import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.view.JobAdapter
 import kotlinx.android.synthetic.main.fragment_jobs_list.*
 
-abstract class BaseJobsListFragment : Fragment(), JobAdapter.OnItemListener,
+abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener,
     JobsListContract.View {
     private lateinit var jobAdapter: JobAdapter
     private lateinit var jobList: List<Job>

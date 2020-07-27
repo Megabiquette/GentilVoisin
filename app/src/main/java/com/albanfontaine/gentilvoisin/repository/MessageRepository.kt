@@ -10,7 +10,7 @@ import com.google.firebase.firestore.QuerySnapshot
 
 object MessageRepository {
 
-    fun getMessageCollection() : CollectionReference {
+    private fun getMessageCollection(): CollectionReference {
         return FirebaseFirestore.getInstance().collection(Constants.COLLECTION_MESSAGES)
     }
 

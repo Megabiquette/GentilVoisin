@@ -12,17 +12,17 @@ import com.google.firebase.firestore.*
 
 object JobRepository {
 
-    fun getJobCollection() : CollectionReference {
+    fun getJobCollection(): CollectionReference {
         return FirebaseFirestore.getInstance().collection(COLLECTION_JOBS)
     }
 
-    fun getJob(uid: String) : Task<DocumentSnapshot> {
+    fun getJob(uid: String): Task<DocumentSnapshot> {
         return getJobCollection()
             .document(uid)
             .get()
     }
 
-    fun getLastJobs(city: String) : Task<QuerySnapshot> {
+    fun getLastJobs(city: String): Task<QuerySnapshot> {
         return getJobCollection()
             .whereEqualTo(DB_FIELD_CITY, city)
             .whereEqualTo(DB_FIELD_DONE, false)
@@ -31,7 +31,7 @@ object JobRepository {
             .get()
     }
 
-    fun getJobsByType(city: String, type: JobTypeQuery) : Task<QuerySnapshot> {
+    fun getJobsByType(city: String, type: JobTypeQuery): Task<QuerySnapshot> {
         return getJobCollection()
             .whereEqualTo(DB_FIELD_CITY, city)
             .whereEqualTo(DB_FIELD_TYPE, type.value)
@@ -39,7 +39,7 @@ object JobRepository {
             .get()
     }
 
-    fun getJobsByCategory(city: String, category: String) : Task<QuerySnapshot> {
+    fun getJobsByCategory(city: String, category: String): Task<QuerySnapshot> {
         return getJobCollection()
             .whereEqualTo(DB_FIELD_CITY, city)
             .whereEqualTo(DB_FIELD_CATEGORY, category)
@@ -47,7 +47,7 @@ object JobRepository {
             .get()
     }
 
-    fun getJobsByPoster(city: String, posterUid: String) : Task<QuerySnapshot> {
+    fun getJobsByPoster(city: String, posterUid: String): Task<QuerySnapshot> {
         return getJobCollection()
             .whereEqualTo(DB_FIELD_CITY, city)
             .whereEqualTo(DB_FIELD_POSTER_UID, posterUid)

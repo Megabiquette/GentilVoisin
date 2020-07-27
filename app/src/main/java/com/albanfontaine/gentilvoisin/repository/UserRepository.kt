@@ -9,17 +9,17 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 
 object UserRepository {
-    private fun getUserCollection() : CollectionReference {
+    private fun getUserCollection(): CollectionReference {
         return FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS)
     }
 
-    fun getUser(uid: String) : Task<DocumentSnapshot> {
+    fun getUser(uid: String): Task<DocumentSnapshot> {
         return getUserCollection()
             .document(uid)
             .get()
     }
 
-    fun createUser(user: User) : Task<Void> {
+    fun createUser(user: User): Task<Void> {
         return getUserCollection()
             .document(user.uid)
             .set(user)

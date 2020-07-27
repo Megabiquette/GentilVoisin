@@ -26,7 +26,6 @@ class JobCardFragment : Fragment(), JobCardContract.View {
 
     private lateinit var presenter: JobCardPresenter
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter = JobCardPresenter(

@@ -79,15 +79,14 @@ class AddRatingDialogFragment : DialogFragment() {
         if (ratingScore == 0) {
             requireContext().toast(R.string.ratings_add_rating_dialog_no_star_clicked)
         } else {
-            val ratingDocumentReference = RatingRepository.getRatingCollection().document()
             val rating = Rating(
-                uid = ratingDocumentReference.id,
                 posterUid = userUid,
                 userRatedUid = ratedUserUid,
                 score = ratingScore,
                 comment = comment
             )
-            ratingDocumentReference.set(rating)
+            RatingRepository.createRating(rating)
+            requireActivity().finish()
         }
     }
 }

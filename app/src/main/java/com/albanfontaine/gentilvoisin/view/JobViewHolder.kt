@@ -65,16 +65,14 @@ class JobViewHolder(
         val dateString = dateFormat.format(job.postedAt)
         date.text = dateString
         // Avatar
-        userRepository.getUser(job.posterUid).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val user = task.result?.toObject(User::class.java)
-                Glide.with(context)
-                    .load(user?.avatar)
-                    .centerCrop()
-                    .circleCrop()
-                    .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_person_primary))
-                    .into(avatarView)
-            }
+        userRepository.getUser(job.posterUid).addOnSuccessListener { document ->
+            val user = document.toObject(User::class.java)
+            Glide.with(context)
+                .load(user?.avatar)
+                .centerCrop()
+                .circleCrop()
+                .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_person_primary))
+                .into(avatarView)
         }
     }
 }
