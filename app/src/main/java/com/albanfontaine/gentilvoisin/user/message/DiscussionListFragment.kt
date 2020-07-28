@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.albanfontaine.gentilvoisin.R
+import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.Discussion
+import com.albanfontaine.gentilvoisin.repository.DiscussionRepository
 import com.albanfontaine.gentilvoisin.repository.MessageRepository
 
 class DiscussionListFragment : Fragment(), DiscussionListContract.View {
@@ -16,7 +18,8 @@ class DiscussionListFragment : Fragment(), DiscussionListContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        presenter = DiscussionListPresenter(this, MessageRepository)
+        presenter = DiscussionListPresenter(this, DiscussionRepository)
+        presenter.getDiscussionList(Helper.currentUserUid())
     }
 
     override fun onCreateView(

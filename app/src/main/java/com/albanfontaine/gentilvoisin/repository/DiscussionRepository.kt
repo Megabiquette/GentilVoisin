@@ -2,7 +2,7 @@ package com.albanfontaine.gentilvoisin.repository
 
 import com.albanfontaine.gentilvoisin.helper.Constants.COLLECTION_DISCUSSION
 import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_INTERLOCUTOR_UID
-import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_JOB_OWNER_UID
+import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_JOB_POSTER_UID
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -14,9 +14,9 @@ object DiscussionRepository {
         return FirebaseFirestore.getInstance().collection(COLLECTION_DISCUSSION)
     }
 
-    fun getDiscussionByJobOwner(jobOwnerUid: String): Task<QuerySnapshot> {
+    fun getDiscussionByJobPoster(jobPosterUid: String): Task<QuerySnapshot> {
         return getDiscussionCollection()
-            .whereEqualTo(DB_FIELD_JOB_OWNER_UID, jobOwnerUid)
+            .whereEqualTo(DB_FIELD_JOB_POSTER_UID, jobPosterUid)
             .get()
     }
 
