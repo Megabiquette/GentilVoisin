@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".user.message.DiscussionListFragment">
+    tools:context=".user.discussion.DiscussionListFragment">
 
     <TextView
         android:id="@+id/fragmentDiscussionListNoMessages"

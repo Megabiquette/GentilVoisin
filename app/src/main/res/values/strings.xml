@@ -35,6 +35,11 @@
     <string name="menu_profile">Mon profil</string>
     <string name="menu_logout">Se déconnecter</string>
 
+    <string name="menu_logout_question">Souhaitez vous vous déconnecter ?</string>
+    <string name="menu_logout_yes">Se déconnecter</string>
+    <string name="menu_logout_no">Annuler</string>
+
+
     <string name="job_type_offer">Offre</string>
     <string name="job_type_demand">Demande</string>
     <string name="error_no_job">Aucune annonce trouvée</string>

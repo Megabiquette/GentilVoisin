@@ -9,7 +9,6 @@ import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.MainActivity
 import com.albanfontaine.gentilvoisin.auth.registerinfos.RegisterInfosActivity
 import com.albanfontaine.gentilvoisin.helper.Constants
-import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.activity_login.*
@@ -26,7 +25,6 @@ class LoginActivity : AppCompatActivity(),
 
         presenter = LoginPresenter(
             this,
-            Helper.currentUserUid(),
             UserRepository
         )
 
