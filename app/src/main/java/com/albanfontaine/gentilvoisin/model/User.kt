@@ -9,6 +9,6 @@ data class User(
     val city: String = "",
     val registerDate: Date = Date(),
     val avatar: String? = null,
-    val rating: Double? = 0.0,
-    val nbJobsDone: Int? = 0
+    val rating: Double = 0.0,
+    val nbJobsDone: Int = 0
 )

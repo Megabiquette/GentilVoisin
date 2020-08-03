@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.albanfontaine.gentilvoisin.R
+import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.Rating
 import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.UserRepository
@@ -38,31 +39,14 @@ class RatingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             }
         }
         comment.text = rating.comment
-        // TODO refactor with the other one in JobCardFragment
-        if(rating.score > 4.5) {
-            star5.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))
-        } else {
-            star5.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_border))
-        }
-        if(rating.score > 3.5) {
-            star4.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))
-        } else {
-            star4.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_border))
-        }
-        if(rating.score > 2.5) {
-            star3.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))
-        } else {
-            star3.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_border))
-        }
-        if(rating.score > 1.5) {
-            star2.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))
-        } else {
-            star2.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_border))
-        }
-        if(rating.score > 0.5) {
-            star1.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))
-        } else {
-            star1.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_border))
-        }
+        Helper.displayRatingStars(
+            context,
+            rating.score.toDouble(),
+            star1,
+            star2,
+            star3,
+            star4,
+            star5
+        )
     }
 }

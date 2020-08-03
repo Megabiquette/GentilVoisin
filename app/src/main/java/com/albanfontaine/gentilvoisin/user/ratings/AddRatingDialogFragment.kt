@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Constants
@@ -68,9 +69,9 @@ class AddRatingDialogFragment : DialogFragment() {
 
         for (i in 0 until starList.size) {
             if ( i <= starPosition) {
-                starList[i].setImageDrawable(resources.getDrawable(R.drawable.ic_star))
+                starList[i].setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_star))
             } else {
-                starList[i].setImageDrawable(resources.getDrawable(R.drawable.ic_star_border))
+                starList[i].setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_star_border))
             }
         }
     }

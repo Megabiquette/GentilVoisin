@@ -24,7 +24,7 @@
 
     <style name="Button">
         <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="background">@color/white</item>
+        <item name="background">@drawable/btn_shape_round_white</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/button_text_size</item>
     </style>

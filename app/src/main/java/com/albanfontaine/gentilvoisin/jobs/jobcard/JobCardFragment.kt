@@ -13,6 +13,7 @@ import androidx.core.view.isVisible
 
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Constants
+import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.JobRepository
@@ -22,9 +23,10 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_job_card.*
 
 class JobCardFragment : Fragment(), JobCardContract.View {
-    private var jobUid: String? = null
 
     private lateinit var presenter: JobCardPresenter
+
+    private var jobUid: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,7 +77,8 @@ class JobCardFragment : Fragment(), JobCardContract.View {
             .circleCrop()
             .placeholder(ContextCompat.getDrawable(requireContext(), R.drawable.ic_person_white))
             .into(jobCardAvatar)
-        displayRatingStars(requireContext(), jobPoster)
+
+        configureRatingStars(requireContext(), jobPoster)
 
         jobCardSeeRatingsButton.setOnClickListener {
             val intent = Intent(activity, RatingsActivity::class.java)
@@ -92,9 +95,9 @@ class JobCardFragment : Fragment(), JobCardContract.View {
         }
     }
 
-    private fun displayRatingStars(context: Context, jobPoster: User) {
+    private fun configureRatingStars(context: Context, jobPoster: User) {
         val rating = jobPoster.rating
-        if (rating == null || rating == 0.0) {
+        if (rating == 0.0) {
             jobCardStar1.isGone = true
             jobCardStar2.isGone = true
             jobCardStar3.isGone = true
@@ -104,31 +107,7 @@ class JobCardFragment : Fragment(), JobCardContract.View {
             jobCardNotEnoughRating.text =
                 requireContext().getString(R.string.job_card_not_enough_ratings, jobPoster.username)
         } else {
-            if(rating > 4.5) {
-                jobCardStar5.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))
-            } else {
-                jobCardStar5.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_border))
-            }
-            if(rating > 3.5) {
-                jobCardStar4.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))
-            } else {
-                jobCardStar4.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_border))
-            }
-            if(rating > 2.5) {
-                jobCardStar3.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))
-            } else {
-                jobCardStar3.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_border))
-            }
-            if(rating > 1.5) {
-                jobCardStar2.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))
-            } else {
-                jobCardStar2.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_border))
-            }
-            if(rating > 0.5) {
-                jobCardStar1.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))
-            } else {
-                jobCardStar1.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_border))
-            }
+            Helper.displayRatingStars(context, rating, jobCardStar1, jobCardStar2, jobCardStar3, jobCardStar4, jobCardStar5)
         }
     }
 }

@@ -5,16 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:background="@color/colorPrimary"
-    android:padding="@dimen/drawer_padding">
+    android:paddingHorizontal="15dp"
+    android:paddingTop="20dp">
 
     <ImageView
         android:id="@+id/drawerImage"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginTop="@dimen/margin_top"
+        android:src="@color/colorPrimaryDark"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@color/colorPrimaryDark"
-        android:layout_marginTop="@dimen/margin_top"
+        tools:ignore="ContentDescription"
         tools:src="@color/colorPrimaryDark" />
 
     <TextView
@@ -22,19 +24,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="JohnDoe"
+        android:theme="@style/Text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/drawerImage"
         app:layout_constraintTop_toTopOf="@id/drawerImage"
-        android:theme="@style/Text"
         tools:text="JohnDoe" />
 
     <TextView
-        android:id="@+id/drawerMail"
+        android:id="@+id/drawerEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top"
-        android:text="johndoe@gmail.com"
         android:theme="@style/Text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/drawerImage"

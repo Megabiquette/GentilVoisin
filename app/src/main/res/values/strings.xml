@@ -80,4 +80,8 @@
 
     <string name="error_no_messages_yet">Vous n\'avez aucun message pour l\'instant</string>
 
+    <string name="profile_change_email">Changer d\'email</string>
+    <string name="profile_change_password">Changer de mot de passe</string>
+    <string name="profile_my_rating">Ma note:</string>
+    <string name="profile_see_ratings_on_me">Voir les avis sur moi</string>
 </resources>

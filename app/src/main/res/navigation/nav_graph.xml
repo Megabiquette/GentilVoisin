@@ -40,4 +40,9 @@
         android:name="com.albanfontaine.gentilvoisin.jobs.jobcard.JobCardFragment"
         android:label="@string/job_card_title"
         tools:layout="@layout/fragment_job_card"/>
+    <fragment
+        android:id="@+id/menuProfile"
+        android:name="com.albanfontaine.gentilvoisin.user.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile"/>
 </navigation>

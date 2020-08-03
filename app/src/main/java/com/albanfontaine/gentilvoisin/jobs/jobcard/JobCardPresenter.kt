@@ -14,20 +14,16 @@ class JobCardPresenter(
     private lateinit var jobPoster: User
 
     override fun getJob(jobUid: String) {
-        jobRepository.getJob(jobUid).addOnCompleteListener  {task ->
-            if (task.isSuccessful) {
-                job = task.result?.toObject(Job::class.java)!!
-                getPoster(job.posterUid)
-            }
+        jobRepository.getJob(jobUid).addOnSuccessListener  { document ->
+            job = document.toObject(Job::class.java)!!
+            getPoster(job.posterUid)
         }
     }
 
     private fun getPoster(posterUid: String) {
-        userRepository.getUser(posterUid).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                jobPoster = task.result?.toObject(User::class.java)!!
-                view.configureViews(job, jobPoster)
-            }
+        userRepository.getUser(posterUid).addOnSuccessListener { document ->
+            jobPoster = document.toObject(User::class.java)!!
+            view.configureViews(job, jobPoster)
         }
     }
 }
