@@ -62,8 +62,7 @@ class JobViewHolder(
         }
         // Date
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        val dateString = dateFormat.format(job.postedAt)
-        date.text = dateString
+        date.text = dateFormat.format(job.postedAt)
         // Avatar
         userRepository.getUser(job.posterUid).addOnSuccessListener { document ->
             val user = document.toObject(User::class.java)

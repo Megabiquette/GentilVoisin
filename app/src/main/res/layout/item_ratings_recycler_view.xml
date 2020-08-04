@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_ratings_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/margin_small"
@@ -10,8 +9,10 @@
 
     <ImageView
         android:id="@+id/itemRatingsAvatar"
-        android:layout_width="@dimen/image_avatar_size_small"
-        android:layout_height="@dimen/image_avatar_size_small"
+        android:layout_width="@dimen/image_avatar_size_medium"
+        android:layout_height="@dimen/image_avatar_size_medium"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription"
@@ -21,12 +22,25 @@
         android:id="@+id/itemRatingsName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginStart="8dp"
         android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/itemRatingsAvatar"
         app:layout_constraintStart_toEndOf="@id/itemRatingsAvatar"
         app:layout_constraintTop_toTopOf="@id/itemRatingsAvatar"
+        app:layout_constraintVertical_bias="0.1"
         tools:text="John" />
+
+    <TextView
+        android:id="@+id/itemRatingsDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/itemRatingsAvatar"
+        app:layout_constraintStart_toStartOf="@id/itemRatingsName"
+        app:layout_constraintTop_toTopOf="@id/itemRatingsAvatar"
+        app:layout_constraintVertical_bias="0.9"
+        tools:text="Posté le 24/03/2017" />
 
     <ImageView
         android:id="@+id/itemRatingsStar1"

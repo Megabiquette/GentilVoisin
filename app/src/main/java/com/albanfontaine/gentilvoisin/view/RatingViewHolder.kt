@@ -13,6 +13,8 @@ import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_ratings_recycler_view.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RatingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -23,7 +25,8 @@ class RatingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val star2: ImageView = view.itemRatingsStar2
     private val star3: ImageView = view.itemRatingsStar3
     private val star4: ImageView = view.itemRatingsStar4
-    private val star5: ImageView=  view.itemRatingsStar5
+    private val star5: ImageView = view.itemRatingsStar5
+    private val date: TextView = view.itemRatingsDate
 
     fun updateWithRating(context: Context, rating: Rating, userRepository: UserRepository) {
         userRepository.getUser(rating.posterUid).addOnCompleteListener { task ->
@@ -48,5 +51,8 @@ class RatingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             star4,
             star5
         )
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val dateString = dateFormat.format(rating.postedAt)
+        date.text = context.resources.getString(R.string.ratings_date, dateString)
     }
 }

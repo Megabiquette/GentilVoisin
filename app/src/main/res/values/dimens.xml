@@ -14,7 +14,7 @@
     <dimen name="button_text_size">14sp</dimen>
 
     <!-- Recycler view job item -->
-    <dimen name="image_avatar_size">80dp</dimen>
+    <dimen name="image_avatar_size_medium">80dp</dimen>
     <dimen name="image_avatar_size_small">40dp</dimen>
     <dimen name="margin_small">10dp</dimen>
     <dimen name="margin_medium">20dp</dimen>

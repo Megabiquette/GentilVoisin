@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.helper.Helper
@@ -31,6 +32,13 @@ class ProfileFragment : Fragment(), ProfileContract.View {
     }
 
     override fun configureViews(user: User) {
+        FirebaseAuth.getInstance().currentUser?.let { firebaseUser ->
+            if (firebaseUser.providerData[1].providerId != "password") {
+                profileChangeEmail.isGone = true
+                profileChangePassword.isGone = true
+            }
+        }
+
         Glide.with(requireContext())
             .load(user.avatar)
             .centerCrop()

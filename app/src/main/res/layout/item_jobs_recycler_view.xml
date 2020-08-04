@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/itemJobsAvatar"
-        android:layout_width="@dimen/image_avatar_size"
-        android:layout_height="@dimen/image_avatar_size"
+        android:layout_width="@dimen/image_avatar_size_medium"
+        android:layout_height="@dimen/image_avatar_size_medium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:background="@color/colorPrimaryDark" />
