@@ -77,6 +77,7 @@
     <string name="ratings_add_rating_dialog_title">Laissez votre avis</string>
     <string name="ratings_add_rating_dialog_comment_hint">Ajoutez un commentaire</string>
     <string name="ratings_add_rating_dialog_no_star_clicked">Veuillez cliquer sur une étoile pour noter cet utilisateur</string>
+    <string name="ratings_add_rating_dialog_comment_too_short">Veuillez laissez un court commentaire</string>
 
     <string name="error_no_messages_yet">Vous n\'avez aucun message pour l\'instant</string>
 

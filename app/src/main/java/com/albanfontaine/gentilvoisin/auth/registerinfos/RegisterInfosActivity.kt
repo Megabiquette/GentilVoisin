@@ -130,18 +130,15 @@ class RegisterInfosActivity : AppCompatActivity(),
 
     private fun animateViews() {
         ObjectAnimator.ofFloat(registerInfosNameLayout, "translationX", -1000f).apply {
-            duration =
-                ANIMATION_DURATION
+            duration = ANIMATION_DURATION
             start()
         }
         ObjectAnimator.ofFloat(registerInfosZipcodeLayout, "translationX",  0f).apply {
-            duration =
-                ANIMATION_DURATION
+            duration = ANIMATION_DURATION
             start()
         }
         ObjectAnimator.ofFloat(registerInfosCityLayout, "translationX",  0f).apply {
-            duration =
-                ANIMATION_DURATION
+            duration = ANIMATION_DURATION
             start()
         }
     }

@@ -56,10 +56,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         findViewById<Toolbar>(R.id.toolbar)
             .setupWithNavController(navController, appBarConfiguration)
 
-        configurateDrawerHeader()
+        configureDrawerHeader()
     }
 
-    private fun configurateDrawerHeader() {
+    private fun configureDrawerHeader() {
         val user = FirebaseAuth.getInstance().currentUser!!
 
         headerView.drawerUsername.text = user.displayName

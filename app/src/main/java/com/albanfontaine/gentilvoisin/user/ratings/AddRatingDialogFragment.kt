@@ -33,7 +33,7 @@ class AddRatingDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity.let {
             val layout = requireActivity().layoutInflater.inflate(R.layout.dialog_add_rating, null)
-            configurateRatingStars(layout)
+            configureRatingStars(layout)
 
             val builder = AlertDialog.Builder(it, R.style.DialogTheme)
             builder
@@ -49,7 +49,7 @@ class AddRatingDialogFragment : DialogFragment() {
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-    private fun configurateRatingStars(view: View) {
+    private fun configureRatingStars(view: View) {
         starList = mutableListOf()
         starList.add(view.ratingStar1)
         starList.add(view.ratingStar2)
@@ -77,17 +77,19 @@ class AddRatingDialogFragment : DialogFragment() {
     }
 
     private fun onPositiveButtonClicked() {
-        if (ratingScore == 0) {
-            requireContext().toast(R.string.ratings_add_rating_dialog_no_star_clicked)
-        } else {
-            val rating = Rating(
-                posterUid = userUid,
-                userRatedUid = ratedUserUid,
-                score = ratingScore,
-                comment = comment
-            )
-            RatingRepository.createRating(rating)
-            requireActivity().finish()
+        when {
+            ratingScore == 0 -> requireContext().toast(R.string.ratings_add_rating_dialog_no_star_clicked)
+            comment.trim().length <= 5 -> requireContext().toast(R.string.ratings_add_rating_dialog_comment_too_short)
+            else -> {
+                val rating = Rating(
+                    posterUid = userUid,
+                    userRatedUid = ratedUserUid,
+                    score = ratingScore,
+                    comment = comment
+                )
+                RatingRepository.createRating(rating)
+                requireActivity().finish()
+            }
         }
     }
 }

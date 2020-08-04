@@ -17,24 +17,25 @@ class RatingsPresenter(
                 if (task.isSuccessful) {
                     val user = task.result?.toObject(User::class.java)
                     view.onUserRetrieved(user!!)
+                    getRatings(userUid)
                 }
             }
     }
 
-    override fun getRatings(userUid: String) {
+    private fun getRatings(userUid: String) {
         val ratingList = ArrayList<Rating>()
-        ratingRepository.getRatingsForUser(userUid).addOnSuccessListener { documents ->
+        ratingRepository.getRatingsForUser(userUid)
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val rating = document.toObject(Rating::class.java)
+                    ratingList.add(rating)
+                }
+                view.displayRatings(ratingList)
 
-            for (document in documents) {
-                val rating = document.toObject(Rating::class.java)
-                ratingList.add(rating)
+                if(ratingList.isEmpty()) {
+                    view.onEmptyRatingList()
+                }
             }
-            view.displayRatings(ratingList)
-
-            if(ratingList.isEmpty()) {
-                view.onEmptyRatingList()
-            }
-        }
             .addOnFailureListener {
                 it.printStackTrace()
             }

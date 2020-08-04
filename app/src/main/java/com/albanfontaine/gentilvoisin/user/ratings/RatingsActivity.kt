@@ -7,7 +7,6 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Constants
-import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.Rating
 import com.albanfontaine.gentilvoisin.model.User
@@ -31,7 +30,6 @@ class RatingsActivity : AppCompatActivity(), RatingsContract.View {
         presenter = RatingsPresenter(this, UserRepository, RatingRepository)
 
         presenter.getRatedUser(ratedUserUid)
-        presenter.getRatings(ratedUserUid)
 
         setContentView(R.layout.activity_ratings)
     }

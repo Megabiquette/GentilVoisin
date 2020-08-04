@@ -21,7 +21,7 @@ class LoginActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        configurateButtons()
+        configureButtons()
 
         presenter = LoginPresenter(
             this,
@@ -49,7 +49,7 @@ class LoginActivity : AppCompatActivity(),
         startActivity(Intent(this, RegisterInfosActivity::class.java))
     }
 
-    private fun configurateButtons() {
+    private fun configureButtons() {
         loginButtonEmail.setOnClickListener {
             connect(AuthUI.IdpConfig.EmailBuilder().build())
         }
