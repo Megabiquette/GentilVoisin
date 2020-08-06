@@ -8,6 +8,7 @@
     <!-- View paddings and margins -->
     <dimen name="padding_horizontal">40dp</dimen>
     <dimen name="margin_top">20dp</dimen>
+    <dimen name="padding_dialog">15dp</dimen>
 
     <!-- Buttons -->
     <dimen name="button_horizontal_padding">25dp</dimen>

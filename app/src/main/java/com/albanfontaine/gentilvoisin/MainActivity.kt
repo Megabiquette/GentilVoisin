@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }
-            .setNegativeButton(R.string.menu_logout_no) { _, _ ->
+            .setNegativeButton(R.string.common_cancel) { _, _ ->
                 // Cancel
             }
             .create()

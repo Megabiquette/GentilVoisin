@@ -29,6 +29,13 @@
         <item name="android:textSize">@dimen/button_text_size</item>
     </style>
 
+    <style name="Button.Primary">
+        <item name="android:textColor">@color/white</item>
+        <item name="background">@drawable/btn_shape_round_primary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+    </style>
+
     <style name="EditText">
         <item name="android:editTextColor">@color/white</item>
         <item name="android:textColorHint">@color/white</item>

@@ -42,7 +42,7 @@ class AddRatingDialogFragment : DialogFragment() {
                     comment = layout.dialogAddRatingCommentInput.text.toString().trim()
                     onPositiveButtonClicked()
                 }
-                .setNegativeButton(R.string.ratings_add_ratings_dialog_negative_button) { _, _ ->
+                .setNegativeButton(R.string.common_cancel) { _, _ ->
                     dialog?.cancel()
                 }
                 .create()

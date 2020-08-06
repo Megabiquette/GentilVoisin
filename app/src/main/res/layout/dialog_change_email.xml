@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:minWidth="300dp"
+    android:minHeight="300dp"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="@dimen/padding_dialog">
+
+    <EditText
+        android:id="@+id/changeEmailDialogEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/profile_change_email_dialog_hint"
+        android:backgroundTint="@color/colorPrimary" />
+
+    <Button
+        android:id="@+id/changeEmailDialogValidateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        style="@style/Button.Primary"
+        android:text="@string/common_validate"
+        android:background="@drawable/btn_shape_round_primary" />
+
+    <Button
+        android:id="@+id/changeEmailDialogCancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_top"
+        style="@style/Button.Primary"
+        android:text="@string/common_cancel"
+        android:background="@drawable/btn_shape_round_primary" />
+</LinearLayout>

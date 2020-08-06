@@ -3,6 +3,9 @@
     <string name="facebook_application_id" translatable="false">265526807801547</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb265526807801547</string>
 
+    <string name="common_validate">Valider</string>
+    <string name="common_cancel">Annuler</string>
+
     <string name="login_text_app_name">"{ Gentil Voisin }</string>
     <string name="login_email_edit_text_hint">Email</string>
     <string name="login_password_edit_text_hint">Mot de passe</string>
@@ -18,7 +21,6 @@
     <string name="register_infos_name">Votre nom d\'utilisateur: </string>
     <string name="register_infos_zipcode">Votre code postal: </string>
     <string name="register_infos_city">Sélectionnez votre ville: </string>
-    <string name="register_infos_button_validate">Valider</string>
     <string name="register_infos_button_register">S\'enregistrer</string>
     <string name="register_infos_empty_name">Vous devez saisir un nom.</string>
     <string name="register_infos_empty_zipcode">Vous devez saisir un code postal valide.</string>
@@ -37,7 +39,6 @@
 
     <string name="menu_logout_question">Souhaitez vous vous déconnecter ?</string>
     <string name="menu_logout_yes">Se déconnecter</string>
-    <string name="menu_logout_no">Annuler</string>
 
 
     <string name="job_type_offer">Offre</string>
@@ -74,7 +75,6 @@
     <string name="ratings_date">Posté le %1$s</string>
     <string name="ratings_add_rating_button">Laissez votre avis sur %1$s</string>
     <string name="ratings_add_ratings_dialog_positive_button">Ajouter votre avis</string>
-    <string name="ratings_add_ratings_dialog_negative_button">Annuler</string>
     <string name="ratings_add_rating_dialog_title">Laissez votre avis</string>
     <string name="ratings_add_rating_dialog_comment_hint">Ajoutez un commentaire</string>
     <string name="ratings_add_rating_dialog_no_star_clicked">Veuillez cliquer sur une étoile pour noter cet utilisateur</string>
@@ -86,4 +86,5 @@
     <string name="profile_change_password">Changer de mot de passe</string>
     <string name="profile_my_rating">Ma note:</string>
     <string name="profile_see_ratings_on_me">Voir les avis sur moi</string>
+    <string name="profile_change_email_dialog_hint">Entrez votre nouvel email</string>
 </resources>

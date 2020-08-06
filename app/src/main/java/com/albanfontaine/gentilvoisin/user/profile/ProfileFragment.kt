@@ -1,11 +1,13 @@
 package com.albanfontaine.gentilvoisin.user.profile
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import com.albanfontaine.gentilvoisin.R
@@ -59,7 +61,19 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         )
 
         profileChangeEmail.setOnClickListener {
+            val layout = requireActivity().layoutInflater.inflate(R.layout.dialog_change_email, null)
 
+            val builder = AlertDialog.Builder(requireActivity(), R.style.DialogTheme)
+            builder
+                .setView(layout)
+                .setPositiveButton("") { _, _ ->
+
+                }
+                .setNegativeButton("") { _, _ ->
+
+                }
+                .create()
+                .show()
         }
 
         profileChangePassword.setOnClickListener {
