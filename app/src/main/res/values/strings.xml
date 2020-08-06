@@ -87,4 +87,6 @@
     <string name="profile_my_rating">Ma note:</string>
     <string name="profile_see_ratings_on_me">Voir les avis sur moi</string>
     <string name="profile_change_email_dialog_hint">Entrez votre nouvel email</string>
+    <string name="profile_change_password_dialog_hint">Entrez votre nouveau mot de passe</string>
+    <string name="profile_confirm_password_dialog_hint">Confirmez votre nouveau mot de passe</string>
 </resources>

@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import com.albanfontaine.gentilvoisin.R
@@ -19,6 +18,8 @@ import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.user.ratings.RatingsActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.dialog_change_email.view.*
+import kotlinx.android.synthetic.main.dialog_change_password.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment(), ProfileContract.View {
@@ -61,23 +62,11 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         )
 
         profileChangeEmail.setOnClickListener {
-            val layout = requireActivity().layoutInflater.inflate(R.layout.dialog_change_email, null)
-
-            val builder = AlertDialog.Builder(requireActivity(), R.style.DialogTheme)
-            builder
-                .setView(layout)
-                .setPositiveButton("") { _, _ ->
-
-                }
-                .setNegativeButton("") { _, _ ->
-
-                }
-                .create()
-                .show()
+            showChangeEmailDialog()
         }
 
         profileChangePassword.setOnClickListener {
-
+            showChangePasswordDialog()
         }
 
         profileRatingsOnMe.setOnClickListener {
@@ -86,5 +75,41 @@ class ProfileFragment : Fragment(), ProfileContract.View {
             }
             startActivity(intent)
         }
+    }
+
+    private fun showChangeEmailDialog() {
+        val layout = requireActivity().layoutInflater.inflate(R.layout.dialog_change_email, null)
+        val dialog = AlertDialog.Builder(requireActivity(), R.style.DialogTheme)
+            .setView(layout)
+            .create()
+
+        layout.apply {
+            changeEmailDialogValidateButton.setOnClickListener {
+
+            }
+            changeEmailDialogCancelButton.setOnClickListener {
+                dialog.cancel()
+            }
+        }
+
+        dialog.show()
+    }
+
+    private fun showChangePasswordDialog() {
+        val layout = requireActivity().layoutInflater.inflate(R.layout.dialog_change_password, null)
+        val dialog = AlertDialog.Builder(requireActivity(), R.style.DialogTheme)
+            .setView(layout)
+            .create()
+
+        layout.apply {
+            changePasswordDialogValidateButton.setOnClickListener {
+
+            }
+            changePasswordDialogCancelButton.setOnClickListener {
+                dialog.cancel()
+            }
+        }
+
+        dialog.show()
     }
 }
