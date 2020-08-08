@@ -51,8 +51,10 @@ class JobViewHolder(
                 }
             }
         }
+
         // Category
         category.text = job.category
+
         // Description
         if (job.description.length > 107) {
             val descriptionExtract = job.description.substring(0, 104).trim() + "..."
@@ -60,9 +62,11 @@ class JobViewHolder(
         } else {
             description.text = job.description
         }
+
         // Date
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         date.text = dateFormat.format(job.postedAt)
+
         // Avatar
         userRepository.getUser(job.posterUid).addOnSuccessListener { document ->
             val user = document.toObject(User::class.java)

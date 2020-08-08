@@ -20,8 +20,7 @@ import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.view.JobAdapter
 import kotlinx.android.synthetic.main.fragment_jobs_list.*
 
-abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener,
-    JobsListContract.View {
+abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsListContract.View {
     private lateinit var jobAdapter: JobAdapter
     private lateinit var jobList: List<Job>
     private var userCity: String = ""
@@ -32,11 +31,7 @@ abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        presenter =
-            JobsListPresenter(
-                this,
-                JobRepository
-            )
+        presenter = JobsListPresenter(this, JobRepository)
 
         UserRepository.getUser(Helper.currentUserUid()).addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -51,9 +46,8 @@ abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener,
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_jobs_list, container, false)
-    }
+    ): View? = inflater.inflate(R.layout.fragment_jobs_list, container, false)
+
 
     override fun onResume() {
         super.onResume()
