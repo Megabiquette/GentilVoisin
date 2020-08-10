@@ -16,18 +16,17 @@ class DiscussionListPresenter(
                 discussionList.add(discussion)
             }
         }
-        discussionRepository.getDiscussionByInterlocutor(userUid).addOnSuccessListener { documents ->
+        discussionRepository.getDiscussionByApplicant(userUid).addOnSuccessListener { documents ->
             for (document in documents) {
                 val discussion = document.toObject(Discussion::class.java)
                 discussionList.add(discussion)
             }
         }
+        discussionList.sortByDescending { it.lastMessagePostedAt }
+        view.displayDiscussionList(discussionList)
+
         if (discussionList.isEmpty()) {
             view.onEmptyDiscussionList()
-        } else {
-            discussionList.sortByDescending { it.lastMessagePostedAt }
-            view.displayDiscussionList(discussionList)
         }
     }
-
 }

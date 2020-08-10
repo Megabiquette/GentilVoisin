@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Constants
@@ -23,7 +24,6 @@ class DiscussionListFragment : Fragment(), DiscussionListContract.View, Discussi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         presenter = DiscussionListPresenter(this, DiscussionRepository)
     }
 
@@ -59,7 +59,6 @@ class DiscussionListFragment : Fragment(), DiscussionListContract.View, Discussi
         val args = Bundle().apply {
             putString(Constants.DISCUSSION_UID, discussionUid)
         }
-        // TODO
-        // findNavController().navigate(R.id.???, args)
+        findNavController().navigate(R.id.messageList, args)
     }
 }

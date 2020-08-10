@@ -89,4 +89,7 @@
     <string name="profile_change_email_dialog_hint">Entrez votre nouvel email</string>
     <string name="profile_change_password_dialog_hint">Entrez votre nouveau mot de passe</string>
     <string name="profile_confirm_password_dialog_hint">Confirmez votre nouveau mot de passe</string>
+
+    <string name="message_label">Messages</string>
+    <string name="message_enter_message">Entrez votre message</string>
 </resources>

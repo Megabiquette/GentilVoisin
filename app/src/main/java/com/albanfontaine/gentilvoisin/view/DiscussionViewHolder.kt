@@ -43,10 +43,10 @@ class DiscussionViewHolder(
                 displayAvatar(context, jobPoster.avatar!!)
             }
         } else {
-            userRepository.getUser(discussion.interlocutorUid).addOnSuccessListener { document ->
-                val interlocutor = document.toObject(User::class.java)
-                username.text = interlocutor!!.username
-                displayAvatar(context, interlocutor.avatar!!)
+            userRepository.getUser(discussion.applicantUid).addOnSuccessListener { document ->
+                val applicant = document.toObject(User::class.java)
+                username.text = applicant!!.username
+                displayAvatar(context, applicant.avatar!!)
             }
         }
 

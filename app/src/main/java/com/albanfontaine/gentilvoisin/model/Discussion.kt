@@ -6,7 +6,7 @@ data class Discussion(
     val uid: String = "",
     val jobUid: String = "",
     val jobPosterUid: String = "",
-    val interlocutorUid: String = "",
+    val applicantUid: String = "",
     val lastMessageContent: String = "",
     val lastMessagePostedAt: Date
 )

@@ -23,7 +23,7 @@ object Constants {
     const val DB_FIELD_RECIPIENT_UID_UID = "recipientUid"
     const val DB_FIELD_JOB_UID = "jobUid"
     const val DB_FIELD_JOB_POSTER_UID = "jobPosterUid"
-    const val DB_FIELD_INTERLOCUTOR_UID = "interlocutorUid"
+    const val DB_FIELD_APPLICANT_UID = "applicantUid"
 
     // Bundle
     const val JOB_UID = "JOB_UID"

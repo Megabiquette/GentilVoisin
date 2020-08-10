@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/itemMessageDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Le 23/01/23 à 12:34" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/itemMessageAvatarInterlocutor"
+            android:layout_width="@dimen/image_avatar_size_small"
+            android:layout_height="@dimen/image_avatar_size_small"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_person_primary" />
+
+        <TextView
+            android:id="@+id/itemMessageContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            tools:background="@drawable/btn_shape_round_primary"
+            tools:text="Bonjour,\nLorem ipsum ?" />
+
+        <ImageView
+            android:id="@+id/itemMessageAvatarUser"
+            android:layout_width="@dimen/image_avatar_size_small"
+            android:layout_height="@dimen/image_avatar_size_small"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_person_primary" />
+
+    </LinearLayout>
+</LinearLayout>

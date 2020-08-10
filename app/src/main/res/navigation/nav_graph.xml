@@ -36,7 +36,7 @@
         android:label="@string/menu_my_jobs"
         tools:layout="@layout/fragment_jobs_list"/>
     <fragment
-        android:id="@+id/job_card"
+        android:id="@+id/jobCard"
         android:name="com.albanfontaine.gentilvoisin.jobs.jobcard.JobCardFragment"
         android:label="@string/job_card_title"
         tools:layout="@layout/fragment_job_card"/>
@@ -45,4 +45,14 @@
         android:name="com.albanfontaine.gentilvoisin.user.profile.ProfileFragment"
         android:label="@string/menu_profile"
         tools:layout="@layout/fragment_profile"/>
+    <fragment
+        android:id="@+id/menuMyMessages"
+        android:name="com.albanfontaine.gentilvoisin.user.discussion.DiscussionListFragment"
+        android:label="@string/message_label"
+        tools:layout="@layout/fragment_discussion_list"/>
+    <fragment
+        android:id="@+id/messageList"
+        android:name="com.albanfontaine.gentilvoisin.user.message.MessageListFragment"
+        android:label="@string/message_label"
+        tools:layout="@layout/fragment_message_list" />
 </navigation>

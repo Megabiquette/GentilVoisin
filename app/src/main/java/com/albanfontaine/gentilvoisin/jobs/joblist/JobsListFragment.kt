@@ -76,6 +76,6 @@ abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsLis
         val args = Bundle().apply {
             putString(Constants.JOB_UID, jobUid)
         }
-        findNavController().navigate(R.id.job_card, args)
+        findNavController().navigate(R.id.jobCard, args)
     }
 }
