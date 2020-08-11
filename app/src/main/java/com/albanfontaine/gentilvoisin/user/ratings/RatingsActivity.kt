@@ -21,7 +21,7 @@ class RatingsActivity : AppCompatActivity(), RatingsContract.View {
     private lateinit var ratedUserUid: String
     private lateinit var ratedUser: User
 
-    private lateinit var presenter: RatingsPresenter
+    private lateinit var presenter: RatingsContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -18,7 +18,7 @@ import com.albanfontaine.gentilvoisin.view.DiscussionAdapter
 import kotlinx.android.synthetic.main.fragment_discussion_list.*
 
 class DiscussionListFragment : Fragment(), DiscussionListContract.View, DiscussionAdapter.OnItemListener {
-    private lateinit var presenter: DiscussionListPresenter
+    private lateinit var presenter: DiscussionListContract.Presenter
     private lateinit var discussionList: List<Discussion>
     private lateinit var discussionAdapter: DiscussionAdapter
 

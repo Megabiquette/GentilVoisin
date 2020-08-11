@@ -26,7 +26,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MessageListFragment : Fragment(), MessageListContract.View {
-    private lateinit var presenter: MessageListPresenter
+    private lateinit var presenter: MessageListContract.Presenter
     private lateinit var messageList: List<Message>
     private lateinit var messageAdapter: MessageAdapter
     private val userRepository = UserRepository

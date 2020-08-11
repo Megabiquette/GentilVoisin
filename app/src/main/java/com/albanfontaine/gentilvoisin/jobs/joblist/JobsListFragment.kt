@@ -24,7 +24,7 @@ abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsLis
     private lateinit var jobAdapter: JobAdapter
     private lateinit var jobList: List<Job>
     private var userCity: String = ""
-    private lateinit var presenter: JobsListPresenter
+    private lateinit var presenter: JobsListContract.Presenter
 
     abstract val jobTypeQuery: JobRepository.JobTypeQuery
 

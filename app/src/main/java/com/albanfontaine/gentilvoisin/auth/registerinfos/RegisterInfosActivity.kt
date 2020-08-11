@@ -20,7 +20,7 @@ class RegisterInfosActivity : AppCompatActivity(),
     RegisterInfosContract.View {
     private var nameHasBeenChosen = false
 
-    private lateinit var presenter : RegisterInfosPresenter
+    private lateinit var presenter : RegisterInfosContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

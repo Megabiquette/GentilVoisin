@@ -16,7 +16,7 @@ import com.albanfontaine.gentilvoisin.repository.UserRepository
 import kotlinx.android.synthetic.main.fragment_add_job.*
 
 class AddJobFragment : Fragment(), AddJobContract.View {
-    private lateinit var presenter: AddJobPresenter
+    private lateinit var presenter: AddJobContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

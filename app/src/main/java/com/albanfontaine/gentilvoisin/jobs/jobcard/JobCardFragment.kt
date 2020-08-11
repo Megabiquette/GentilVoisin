@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_job_card.*
 
 class JobCardFragment : Fragment(), JobCardContract.View {
 
-    private lateinit var presenter: JobCardPresenter
+    private lateinit var presenter: JobCardContract.Presenter
 
     private var jobUid: String? = null
 

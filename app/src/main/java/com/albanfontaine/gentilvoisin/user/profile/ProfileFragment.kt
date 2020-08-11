@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment(), ProfileContract.View {
 
-    private lateinit var presenter: ProfilePresenter
+    private lateinit var presenter: ProfileContract.Presenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
