@@ -5,26 +5,41 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.albanfontaine.gentilvoisin.R
+import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.Message
+import com.albanfontaine.gentilvoisin.model.User
+import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.repository.MessageRepository
+import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.view.MessageAdapter
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_message_list.*
+import kotlinx.android.synthetic.main.item_jobs_recycler_view.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MessageListFragment : Fragment(), MessageListContract.View {
     private lateinit var presenter: MessageListPresenter
     private lateinit var messageList: List<Message>
     private lateinit var messageAdapter: MessageAdapter
+    private val userRepository = UserRepository
 
-    private lateinit var discussionUid: String
-    private lateinit var job: Job
+    private lateinit var jobUid: String
+    private var discussionUid: String? = null
+    private var interlocutorUid: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter = MessageListPresenter(this, MessageRepository)
+        interlocutorUid = arguments?.getString(Constants.INTERLOCUTOR_UID)
+        jobUid = arguments?.getString(Constants.JOB_UID)!!
+        discussionUid = arguments?.getString(Constants.DISCUSSION_UID)
     }
 
     override fun onCreateView(
@@ -32,6 +47,61 @@ class MessageListFragment : Fragment(), MessageListContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_message_list, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        presenter = MessageListPresenter(this, jobUid, MessageRepository, JobRepository)
+        presenter.getJob()
+    }
+
+    private fun sendMessage() {
+        // TODO in presenter
+    }
+
+    override fun displayJobItem(job: Job) {
+        val jobLayout = fragmentMessageListJobLayout
+        // Type
+        when (job.type) {
+            JobRepository.JobTypeQuery.OFFER.value -> {
+                jobLayout.itemJobsType.apply {
+                    background = ContextCompat.getDrawable(context, R.drawable.type_offer_circle)
+                    text = "O"
+                }
+            }
+            JobRepository.JobTypeQuery.DEMAND.value -> {
+                jobLayout.itemJobsType.apply {
+                    background = ContextCompat.getDrawable(context, R.drawable.type_demand_circle)
+                    text = "D"
+                }
+            }
+        }
+
+        // Category
+        jobLayout.itemJobsCategory.text = job.category
+
+        // Description
+        if (job.description.length > 107) {
+            val descriptionExtract = job.description.substring(0, 104).trim() + "..."
+            jobLayout.itemJobsDescription.text = descriptionExtract
+        } else {
+            jobLayout.itemJobsDescription.text = job.description
+        }
+
+        // Date
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        jobLayout.itemJobsDate.text = dateFormat.format(job.postedAt)
+
+        // Avatar
+        userRepository.getUser(job.posterUid).addOnSuccessListener { document ->
+            val user = document.toObject(User::class.java)
+            Glide.with(requireContext())
+                .load(user?.avatar)
+                .centerCrop()
+                .circleCrop()
+                .placeholder(ContextCompat.getDrawable(requireContext(), R.drawable.ic_person_primary))
+                .into(jobLayout.itemJobsAvatar)
+        }
+    }
 
     override fun displayMessageList(list: List<Message>) {
         messageList = list
@@ -45,11 +115,12 @@ class MessageListFragment : Fragment(), MessageListContract.View {
         }
     }
 
-    private fun sendMessage() {
+    override fun configureViews() {
+        if (discussionUid == null) {
+            fragmentMessageListRecyclerView.isGone = true
+            fragmentMessageNoMessageTextView.isVisible = true
+        }
 
-    }
-
-    fun configureViews() {
         fragmentMessageListInput.setOnEditorActionListener { _, actionId, _ ->
             when (actionId) {
                 EditorInfo.IME_ACTION_SEND -> {

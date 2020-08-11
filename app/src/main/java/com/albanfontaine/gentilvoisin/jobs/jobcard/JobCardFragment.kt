@@ -10,9 +10,11 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Constants
+import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
@@ -89,8 +91,15 @@ class JobCardFragment : Fragment(), JobCardContract.View {
         jobCardContactButton.apply {
             text = requireContext().getString(R.string.job_card_contact_button, jobPoster.username)
             setOnClickListener {
-                // TODO
-
+                if (jobPoster.uid == Helper.currentUserUid()) {
+                    requireActivity().toast(R.string.job_card_error_user_posted_the_job)
+                } else {
+                    val args = Bundle().apply {
+                        putString(Constants.INTERLOCUTOR_UID, jobPoster.uid)
+                        putString(Constants.JOB_UID, job.uid)
+                    }
+                    findNavController().navigate(R.id.messageList, args)
+                }
             }
         }
     }

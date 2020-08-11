@@ -66,6 +66,7 @@
     <string name="job_card_see_ratings">Lire les avis</string>
     <string name="job_card_contact_button">Contacter %1$s</string>
     <string name="job_card_description">Description de l\'annonce:</string>
+    <string name="job_card_error_user_posted_the_job">Vous avez posté cette annonce</string>
 
     <plurals name="ratings_number" tools:ignore="UnusedQuantity">
         <item quantity="zero">Aucun avis n\'a encore été laissé sur %2$s</item>
@@ -91,5 +92,6 @@
     <string name="profile_confirm_password_dialog_hint">Confirmez votre nouveau mot de passe</string>
 
     <string name="message_label">Messages</string>
+    <string name="message_no_message_yet">Cette discussion ne contient pas encore de message</string>
     <string name="message_enter_message">Entrez votre message</string>
 </resources>

@@ -30,4 +30,5 @@ object Constants {
     const val USER_UID = "USER_UID"
     const val RATED_USER_UID = "RATED_USER_UID"
     const val DISCUSSION_UID = "DISCUSSION_UID"
+    const val INTERLOCUTOR_UID = "INTERLOCUTOR_UID"
 }
