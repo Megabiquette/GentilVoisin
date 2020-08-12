@@ -6,41 +6,60 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <TextView
-        android:id="@+id/itemMessageDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="Le 23/01/23 à 12:34" />
-
     <LinearLayout
+        android:id="@+id/itemMessageRootLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/itemMessageAvatarInterlocutor"
-            android:layout_width="@dimen/image_avatar_size_small"
-            android:layout_height="@dimen/image_avatar_size_small"
-            tools:ignore="ContentDescription"
-            tools:src="@drawable/ic_person_primary" />
+        android:layout_gravity="start"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/itemMessageContent"
+            android:id="@+id/itemMessageUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="5dp"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            tools:background="@drawable/btn_shape_round_primary"
-            tools:text="Bonjour,\nLorem ipsum ?" />
+            android:layout_gravity="start"
+            tools:text="JohnDoe" />
 
-        <ImageView
-            android:id="@+id/itemMessageAvatarUser"
-            android:layout_width="@dimen/image_avatar_size_small"
-            android:layout_height="@dimen/image_avatar_size_small"
-            tools:ignore="ContentDescription"
-            tools:src="@drawable/ic_person_primary" />
+        <LinearLayout
+            android:id="@+id/itemMessageMessageLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/itemMessageAvatarInterlocutor"
+                android:layout_width="@dimen/image_avatar_size_small"
+                android:layout_height="@dimen/image_avatar_size_small"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/ic_person_primary" />
+
+            <TextView
+                android:id="@+id/itemMessageContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                tools:background="@drawable/btn_shape_round_primary"
+                tools:text="Bonjour,\nLorem ipsum ?" />
+
+            <ImageView
+                android:id="@+id/itemMessageAvatarUser"
+                android:layout_width="@dimen/image_avatar_size_small"
+                android:layout_height="@dimen/image_avatar_size_small"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/ic_person_primary" />
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/itemMessageDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:textSize="9sp"
+            tools:text="Le 23/01/23 à 12:34" />
 
     </LinearLayout>
 </LinearLayout>

@@ -10,23 +10,28 @@ class DiscussionListPresenter(
 
     override fun getDiscussionList(userUid: String) {
         val discussionList = mutableListOf<Discussion>()
-        discussionRepository.getDiscussionByJobPoster(userUid).addOnSuccessListener { documents ->
-            for (document in documents) {
-                val discussion = document.toObject(Discussion::class.java)
-                discussionList.add(discussion)
-            }
-        }
-        discussionRepository.getDiscussionByApplicant(userUid).addOnSuccessListener { documents ->
-            for (document in documents) {
-                val discussion = document.toObject(Discussion::class.java)
-                discussionList.add(discussion)
-            }
-        }
-        discussionList.sortByDescending { it.lastMessagePostedAt }
-        view.displayDiscussionList(discussionList)
 
-        if (discussionList.isEmpty()) {
-            view.onEmptyDiscussionList()
+        // Get discussions where user is jobPoster
+        discussionRepository.getDiscussionByJobPoster(userUid).addOnSuccessListener { firstDocuments ->
+            for (document in firstDocuments) {
+                val discussion = document.toObject(Discussion::class.java)
+                discussionList.add(discussion)
+            }
+
+            // Get discussions where user is applicant
+            discussionRepository.getDiscussionByApplicant(userUid).addOnSuccessListener {secondDocuments ->
+                for (document in secondDocuments) {
+                    val discussion = document.toObject(Discussion::class.java)
+                    discussionList.add(discussion)
+                }
+
+                discussionList.sortByDescending { it.lastMessagePostedAt }
+                view.displayDiscussionList(discussionList)
+
+                if (discussionList.isEmpty()) {
+                    view.onEmptyDiscussionList()
+                }
+            }
         }
     }
 }

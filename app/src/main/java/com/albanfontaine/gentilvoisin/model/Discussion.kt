@@ -8,5 +8,5 @@ data class Discussion(
     val jobPosterUid: String = "",
     val applicantUid: String = "",
     val lastMessageContent: String = "",
-    val lastMessagePostedAt: Date
+    val lastMessagePostedAt: Date? = null
 )

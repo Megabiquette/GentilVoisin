@@ -10,7 +10,7 @@ import com.google.firebase.firestore.QuerySnapshot
 
 object DiscussionRepository {
 
-    private fun getDiscussionCollection(): CollectionReference {
+    fun getDiscussionCollection(): CollectionReference {
         return FirebaseFirestore.getInstance().collection(COLLECTION_DISCUSSION)
     }
 

@@ -21,6 +21,7 @@ class DiscussionListFragment : Fragment(), DiscussionListContract.View, Discussi
     private lateinit var presenter: DiscussionListContract.Presenter
     private lateinit var discussionList: List<Discussion>
     private lateinit var discussionAdapter: DiscussionAdapter
+    private lateinit var interlocutorUid: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,9 +37,7 @@ class DiscussionListFragment : Fragment(), DiscussionListContract.View, Discussi
     override fun onResume() {
         super.onResume()
         presenter.getDiscussionList(Helper.currentUserUid())
-        discussionAdapter.notifyDataSetChanged()
     }
-
 
     override fun displayDiscussionList(list: List<Discussion>) {
         discussionList = list
@@ -55,9 +54,13 @@ class DiscussionListFragment : Fragment(), DiscussionListContract.View, Discussi
     }
 
     override fun onItemClicked(position: Int) {
-        val discussionUid = discussionList[position].uid
+        val discussion = discussionList[position]
+        interlocutorUid = if (discussion.jobPosterUid != Helper.currentUserUid()) discussion.jobPosterUid else discussion.applicantUid
+
         val args = Bundle().apply {
-            putString(Constants.DISCUSSION_UID, discussionUid)
+            putString(Constants.DISCUSSION_UID, discussion.uid)
+            putString(Constants.JOB_UID, discussion.jobUid)
+            putString(Constants.INTERLOCUTOR_UID, interlocutorUid)
         }
         findNavController().navigate(R.id.messageList, args)
     }

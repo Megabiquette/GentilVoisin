@@ -1,6 +1,7 @@
 package com.albanfontaine.gentilvoisin.user.message
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.Message
 import com.albanfontaine.gentilvoisin.model.User
+import com.albanfontaine.gentilvoisin.repository.DiscussionRepository
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.repository.MessageRepository
 import com.albanfontaine.gentilvoisin.repository.UserRepository
@@ -32,12 +34,12 @@ class MessageListFragment : Fragment(), MessageListContract.View {
     private val userRepository = UserRepository
 
     private lateinit var jobUid: String
+    private lateinit var interlocutorUid: String
     private var discussionUid: String? = null
-    private var interlocutorUid: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        interlocutorUid = arguments?.getString(Constants.INTERLOCUTOR_UID)
+        interlocutorUid = arguments?.getString(Constants.INTERLOCUTOR_UID)!!
         jobUid = arguments?.getString(Constants.JOB_UID)!!
         discussionUid = arguments?.getString(Constants.DISCUSSION_UID)
     }
@@ -50,12 +52,23 @@ class MessageListFragment : Fragment(), MessageListContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter = MessageListPresenter(this, jobUid, MessageRepository, JobRepository)
+
+        presenter = MessageListPresenter(this, jobUid, DiscussionRepository, MessageRepository, JobRepository)
         presenter.getJob()
+
+        fragmentMessageListInput.setOnEditorActionListener { _, actionId, _ ->
+            when (actionId) {
+                EditorInfo.IME_ACTION_SEND -> {
+                    presenter.sendMessage(interlocutorUid, fragmentMessageListInput.text.trim().toString(), discussionUid)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
-    private fun sendMessage() {
-        // TODO in presenter
+    override fun onMessageSent() {
+        messageAdapter.notifyDataSetChanged()
     }
 
     override fun displayJobItem(job: Job) {
@@ -101,6 +114,8 @@ class MessageListFragment : Fragment(), MessageListContract.View {
                 .placeholder(ContextCompat.getDrawable(requireContext(), R.drawable.ic_person_primary))
                 .into(jobLayout.itemJobsAvatar)
         }
+
+        presenter.getMessageList(discussionUid)
     }
 
     override fun displayMessageList(list: List<Message>) {
@@ -113,22 +128,11 @@ class MessageListFragment : Fragment(), MessageListContract.View {
                 reverseLayout
             }
         }
-    }
+        messageAdapter.notifyDataSetChanged()
 
-    override fun configureViews() {
-        if (discussionUid == null) {
+        if (messageList.isEmpty()) {
             fragmentMessageListRecyclerView.isGone = true
             fragmentMessageNoMessageTextView.isVisible = true
-        }
-
-        fragmentMessageListInput.setOnEditorActionListener { _, actionId, _ ->
-            when (actionId) {
-                EditorInfo.IME_ACTION_SEND -> {
-                    sendMessage()
-                    true
-                }
-                else -> false
-            }
         }
     }
 }

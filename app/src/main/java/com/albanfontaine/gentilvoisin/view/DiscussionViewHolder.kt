@@ -40,19 +40,19 @@ class DiscussionViewHolder(
             userRepository.getUser(discussion.jobPosterUid).addOnSuccessListener { document ->
                 val jobPoster = document.toObject(User::class.java)
                 username.text = jobPoster!!.username
-                displayAvatar(context, jobPoster.avatar!!)
+                displayAvatar(context, jobPoster.avatar)
             }
         } else {
             userRepository.getUser(discussion.applicantUid).addOnSuccessListener { document ->
                 val applicant = document.toObject(User::class.java)
                 username.text = applicant!!.username
-                displayAvatar(context, applicant.avatar!!)
+                displayAvatar(context, applicant.avatar)
             }
         }
 
         // Date
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        date.text = dateFormat.format(discussion.lastMessagePostedAt)
+        val dateFormat = SimpleDateFormat("'le' dd/MM/yyyy 'à' HH:mm", Locale.getDefault())
+        date.text = dateFormat.format(discussion.lastMessagePostedAt!!)
 
         // Content
         if (discussion.lastMessageContent.length > 107) {
@@ -63,7 +63,7 @@ class DiscussionViewHolder(
         }
     }
 
-    private fun displayAvatar(context: Context, avatar: String) {
+    private fun displayAvatar(context: Context, avatar: String?) {
         Glide.with(context)
             .load(avatar)
             .centerCrop()

@@ -54,7 +54,7 @@
         android:backgroundTint="@color/fui_transparent"
         android:hint="@string/message_enter_message"
         android:imeOptions="actionSend"
-        android:inputType="textMultiLine|textCapSentences"
+        android:inputType="textCapSentences"
         android:maxLength="350"
         android:maxLines="4"
         app:layout_constraintBottom_toBottomOf="parent"

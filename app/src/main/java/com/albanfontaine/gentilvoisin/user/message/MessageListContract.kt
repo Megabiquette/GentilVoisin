@@ -7,11 +7,12 @@ interface MessageListContract {
     interface View {
         fun displayMessageList(list: List<Message>)
         fun displayJobItem(job: Job)
-        fun configureViews()
+        fun onMessageSent()
     }
 
     interface Presenter {
         fun getJob()
-        fun getMessageList()
+        fun getMessageList(discussionUid: String?)
+        fun sendMessage(recipientUid: String, content: String, existingDiscussionUid: String?)
     }
 }

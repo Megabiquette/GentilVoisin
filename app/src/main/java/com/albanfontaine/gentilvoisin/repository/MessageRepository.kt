@@ -1,9 +1,9 @@
 package com.albanfontaine.gentilvoisin.repository
 
 import com.albanfontaine.gentilvoisin.helper.Constants.COLLECTION_MESSAGES
+import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_DISCUSSION_UID
 import com.google.android.gms.tasks.Task
-import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_SENDER_UID
-import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_RECIPIENT_UID_UID
+import com.albanfontaine.gentilvoisin.model.Message
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
@@ -14,15 +14,15 @@ object MessageRepository {
         return FirebaseFirestore.getInstance().collection(COLLECTION_MESSAGES)
     }
 
-    fun getMessagesBySender(userId: String): Task<QuerySnapshot> {
+    fun getMessagesByDiscussion(discussionUid: String): Task<QuerySnapshot> {
         return getMessageCollection()
-            .whereEqualTo(DB_FIELD_SENDER_UID, userId)
+            .whereEqualTo(DB_FIELD_DISCUSSION_UID, discussionUid)
             .get()
     }
 
-    fun getMessagesByRecipient(userId: String): Task<QuerySnapshot> {
+    fun createMessage(message: Message): Task<Void> {
         return getMessageCollection()
-            .whereEqualTo(DB_FIELD_RECIPIENT_UID_UID, userId)
-            .get()
+            .document()
+            .set(message)
     }
 }
