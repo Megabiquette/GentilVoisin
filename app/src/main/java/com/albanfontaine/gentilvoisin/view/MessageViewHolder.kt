@@ -68,6 +68,7 @@ class MessageViewHolder(val context: Context, view: View) : RecyclerView.ViewHol
             rootLayout.layoutParams = params
             messageLayout.layoutParams = params
             dateText.layoutParams = params
+            usernameText.layoutParams = params
         } else {
             Glide.with(context)
                 .load(user.avatar)

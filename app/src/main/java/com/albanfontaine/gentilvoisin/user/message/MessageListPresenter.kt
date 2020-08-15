@@ -27,7 +27,7 @@ class MessageListPresenter(
 
     override fun getMessageList(discussionUid: String?) {
         if (discussionUid.isNullOrEmpty()) {
-            view.displayMessageList(listOf())
+            view.displayMessageList(arrayListOf())
         } else {
             val messageList = ArrayList<Message>()
             messageRepository.getMessagesByDiscussion(discussionUid).addOnSuccessListener { documents ->
@@ -69,6 +69,6 @@ class MessageListPresenter(
             .document(discussionUid)
             .set(discussion)
 
-        view.onMessageSent()
+        view.onMessageSent(message)
     }
 }

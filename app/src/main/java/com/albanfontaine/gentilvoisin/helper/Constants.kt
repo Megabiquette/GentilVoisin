@@ -19,6 +19,7 @@ object Constants {
     const val DB_FIELD_DONE = "done"
     const val DB_FIELD_POSTED_AT = "postedAt"
     const val DB_FIELD_USER_RATED_UID = "userRatedUid"
+    const val DB_FIELD_JOB_UID = "jobUid"
     const val DB_FIELD_JOB_POSTER_UID = "jobPosterUid"
     const val DB_FIELD_APPLICANT_UID = "applicantUid"
     const val DB_FIELD_DISCUSSION_UID = "discussionUid"

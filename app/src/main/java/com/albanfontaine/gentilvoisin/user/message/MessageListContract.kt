@@ -5,9 +5,9 @@ import com.albanfontaine.gentilvoisin.model.Message
 
 interface MessageListContract {
     interface View {
-        fun displayMessageList(list: List<Message>)
+        fun displayMessageList(list: ArrayList<Message>)
         fun displayJobItem(job: Job)
-        fun onMessageSent()
+        fun onMessageSent(message: Message)
     }
 
     interface Presenter {

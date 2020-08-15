@@ -18,6 +18,7 @@ import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
+import com.albanfontaine.gentilvoisin.repository.DiscussionRepository
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.user.ratings.RatingsActivity
@@ -27,19 +28,20 @@ import kotlinx.android.synthetic.main.fragment_job_card.*
 class JobCardFragment : Fragment(), JobCardContract.View {
 
     private lateinit var presenter: JobCardContract.Presenter
-
-    private var jobUid: String? = null
+    private lateinit var jobUid: String
+    private lateinit var jobPosterUid: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter = JobCardPresenter(
             this,
             UserRepository,
-            JobRepository
+            JobRepository,
+            DiscussionRepository
         )
 
         arguments?.let {
-            jobUid = it.getString(Constants.JOB_UID)
+            jobUid = it.getString(Constants.JOB_UID)!!
             jobUid?.let { jobUid ->
                 presenter.getJob(jobUid)
             }
@@ -55,6 +57,8 @@ class JobCardFragment : Fragment(), JobCardContract.View {
     }
 
     override fun configureViews(job: Job, jobPoster: User) {
+        jobPosterUid = jobPoster.uid
+
         jobCardCategory.text = job.category
         jobCardName.text = jobPoster.username
         jobCardDescription.text = job.description
@@ -94,14 +98,21 @@ class JobCardFragment : Fragment(), JobCardContract.View {
                 if (jobPoster.uid == Helper.currentUserUid()) {
                     requireActivity().toast(R.string.job_card_error_user_posted_the_job)
                 } else {
-                    val args = Bundle().apply {
-                        putString(Constants.INTERLOCUTOR_UID, jobPoster.uid)
-                        putString(Constants.JOB_UID, job.uid)
-                    }
-                    findNavController().navigate(R.id.messageList, args)
+                    presenter.discussionAlreadyExists(job.uid)
                 }
             }
         }
+    }
+
+    override fun onDiscussionExistenceChecked(discussionUid: String) {
+        val args = Bundle().apply {
+            putString(Constants.INTERLOCUTOR_UID, jobPosterUid)
+            putString(Constants.JOB_UID, jobUid)
+        }
+        if (discussionUid != "0") {
+            args.putString(Constants.DISCUSSION_UID, discussionUid)
+        }
+        findNavController().navigate(R.id.messageList, args)
     }
 
     private fun configureRatingStars(context: Context, jobPoster: User) {
