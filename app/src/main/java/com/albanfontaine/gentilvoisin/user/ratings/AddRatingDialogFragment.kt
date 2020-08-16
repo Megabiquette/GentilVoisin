@@ -84,7 +84,7 @@ class AddRatingDialogFragment : DialogFragment() {
                 val rating = Rating(
                     posterUid = userUid,
                     userRatedUid = ratedUserUid,
-                    score = ratingScore,
+                    note = ratingScore,
                     comment = comment
                 )
                 RatingRepository.createRating(rating)

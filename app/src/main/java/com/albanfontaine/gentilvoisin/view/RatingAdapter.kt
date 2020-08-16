@@ -6,11 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.model.Rating
+import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 
 class RatingAdapter(
     private val context: Context,
     private val ratingList: List<Rating>,
+    private val ratedUser: User,
     private val userRepository: UserRepository
 ) : RecyclerView.Adapter<RatingViewHolder>() {
 
@@ -23,7 +25,7 @@ class RatingAdapter(
     override fun getItemCount(): Int = ratingList.size
 
     override fun onBindViewHolder(holder: RatingViewHolder, position: Int) {
-        holder.updateWithRating(context, ratingList[position], userRepository)
+        holder.updateWithRating(context, ratingList[position], ratedUser, userRepository)
     }
 
 }

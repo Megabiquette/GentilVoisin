@@ -24,7 +24,7 @@ class RatingsPresenter(
 
     private fun getRatings(userUid: String) {
         val ratingList = ArrayList<Rating>()
-        ratingRepository.getRatingsForUser(userUid)
+        ratingRepository.getRatingsForUserToDisplay(userUid)
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     val rating = document.toObject(Rating::class.java)

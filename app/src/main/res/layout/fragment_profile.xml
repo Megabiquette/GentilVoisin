@@ -75,23 +75,34 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
             android:gravity="center"
-            android:layout_marginTop="15dp">
+            android:orientation="horizontal">
 
             <TextView
                 style="@style/Text"
-                android:layout_gravity="center_vertical"
-                android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/profile_my_rating" />
+                android:layout_gravity="center_vertical"
+                android:text="@string/profile_my_rating"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/profileNotEnoughRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:textSize="18sp"
+                android:theme="@style/Text"
+                android:visibility="gone"
+                tools:text="Pas assez d'avis" />
 
             <ImageView
                 android:id="@+id/ratingStar1"
-                android:layout_marginStart="@dimen/margin_medium"
                 android:layout_width="@dimen/rating_star_size_big"
                 android:layout_height="@dimen/rating_star_size_big"
+                android:layout_marginStart="@dimen/margin_medium"
                 android:src="@drawable/ic_star_border"
                 tools:ignore="ContentDescription" />
 

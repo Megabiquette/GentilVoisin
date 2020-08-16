@@ -28,7 +28,7 @@ class RatingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val star5: ImageView = view.itemRatingsStar5
     private val date: TextView = view.itemRatingsDate
 
-    fun updateWithRating(context: Context, rating: Rating, userRepository: UserRepository) {
+    fun updateWithRating(context: Context, rating: Rating, ratedUser: User, userRepository: UserRepository) {
         userRepository.getUser(rating.posterUid).addOnCompleteListener { task ->
             if(task.isSuccessful) {
                 val user = task.result?.toObject(User::class.java)
@@ -44,12 +44,15 @@ class RatingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         comment.text = rating.comment
         Helper.displayRatingStars(
             context,
-            rating.score.toDouble(),
+            ratedUser,
             star1,
             star2,
             star3,
             star4,
-            star5
+            star5,
+            null,
+            null,
+            rating
         )
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         val dateString = dateFormat.format(rating.postedAt)

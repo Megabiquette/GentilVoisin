@@ -53,12 +53,15 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         profileEmail.text = FirebaseAuth.getInstance().currentUser?.email
         Helper.displayRatingStars(
             requireContext(),
-            user.rating,
+            user,
             ratingStar1,
             ratingStar2,
             ratingStar3,
             ratingStar4,
-            ratingStar5
+            ratingStar5,
+            profileNotEnoughRating,
+            this.getString(R.string.profile_not_enough_ratings),
+            null
         )
 
         profileChangeEmail.setOnClickListener {
@@ -91,7 +94,6 @@ class ProfileFragment : Fragment(), ProfileContract.View {
                 dialog.cancel()
             }
         }
-
         dialog.show()
     }
 
@@ -109,7 +111,6 @@ class ProfileFragment : Fragment(), ProfileContract.View {
                 dialog.cancel()
             }
         }
-
         dialog.show()
     }
 }

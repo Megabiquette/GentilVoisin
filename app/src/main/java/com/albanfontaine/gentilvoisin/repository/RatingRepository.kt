@@ -15,7 +15,13 @@ object RatingRepository {
         return FirebaseFirestore.getInstance().collection(Constants.COLLECTION_RATINGS)
     }
 
-    fun getRatingsForUser(userId: String): Task<QuerySnapshot> {
+    fun getRatingsForUserToGetNote(userId: String): Task<QuerySnapshot> {
+        return getRatingCollection()
+            .whereEqualTo(DB_FIELD_USER_RATED_UID, userId)
+            .get()
+    }
+
+    fun getRatingsForUserToDisplay(userId: String): Task<QuerySnapshot> {
         return getRatingCollection()
             .whereEqualTo(DB_FIELD_USER_RATED_UID, userId)
             .orderBy(DB_FIELD_POSTED_AT, Query.Direction.DESCENDING)

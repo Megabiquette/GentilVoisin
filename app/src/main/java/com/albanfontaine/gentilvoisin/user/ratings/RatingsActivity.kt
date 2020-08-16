@@ -40,7 +40,7 @@ class RatingsActivity : AppCompatActivity(), RatingsContract.View {
 
     override fun displayRatings(ratings: List<Rating>) {
         ratingList = ratings
-        ratingAdapter = RatingAdapter(this, ratingList, UserRepository)
+        ratingAdapter = RatingAdapter(this, ratingList, ratedUser, UserRepository)
         activityRatingsRecyclerView.apply {
             adapter = ratingAdapter
             layoutManager = LinearLayoutManager(this@RatingsActivity)

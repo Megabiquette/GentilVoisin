@@ -39,12 +39,9 @@ class JobCardFragment : Fragment(), JobCardContract.View {
             JobRepository,
             DiscussionRepository
         )
-
         arguments?.let {
             jobUid = it.getString(Constants.JOB_UID)!!
-            jobUid?.let { jobUid ->
-                presenter.getJob(jobUid)
-            }
+            presenter.getJob(jobUid)
         }
     }
 
@@ -84,7 +81,18 @@ class JobCardFragment : Fragment(), JobCardContract.View {
             .placeholder(ContextCompat.getDrawable(requireContext(), R.drawable.ic_person_white))
             .into(jobCardAvatar)
 
-        configureRatingStars(requireContext(), jobPoster)
+        Helper.displayRatingStars(
+            requireContext(),
+            jobPoster,
+            jobCardStar1,
+            jobCardStar2,
+            jobCardStar3,
+            jobCardStar4,
+            jobCardStar5,
+            jobCardNotEnoughRating,
+            this.getString(R.string.job_card_not_enough_ratings, jobPoster.username),
+            null
+        )
 
         jobCardSeeRatingsButton.setOnClickListener {
             val intent = Intent(activity, RatingsActivity::class.java)
@@ -113,21 +121,5 @@ class JobCardFragment : Fragment(), JobCardContract.View {
             args.putString(Constants.DISCUSSION_UID, discussionUid)
         }
         findNavController().navigate(R.id.messageList, args)
-    }
-
-    private fun configureRatingStars(context: Context, jobPoster: User) {
-        val rating = jobPoster.rating
-        if (rating == 0.0) {
-            jobCardStar1.isGone = true
-            jobCardStar2.isGone = true
-            jobCardStar3.isGone = true
-            jobCardStar4.isGone = true
-            jobCardStar5.isGone = true
-            jobCardNotEnoughRating.isVisible = true
-            jobCardNotEnoughRating.text =
-                requireContext().getString(R.string.job_card_not_enough_ratings, jobPoster.username)
-        } else {
-            Helper.displayRatingStars(context, rating, jobCardStar1, jobCardStar2, jobCardStar3, jobCardStar4, jobCardStar5)
-        }
     }
 }
