@@ -5,7 +5,6 @@ import java.util.*
 data class User(
     val uid: String = "",
     val username: String = "",
-    val zipCode: Int = 0,
     val city: String = "",
     val registerDate: Date = Date(),
     val avatar: String? = null,

@@ -9,6 +9,7 @@ import androidx.core.widget.addTextChangedListener
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.MainActivity
 import com.albanfontaine.gentilvoisin.auth.login.LoginActivity
+import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.UserRepository
@@ -19,24 +20,25 @@ import java.util.*
 class RegisterInfosActivity : AppCompatActivity(),
     RegisterInfosContract.View {
     private var nameHasBeenChosen = false
+    private var changeCityForExistingUser = false
 
     private lateinit var presenter : RegisterInfosContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_infos)
-        configureViews()
+        changeCityForExistingUser = intent.getBooleanExtra(Constants.CHANGE_CITY_FOR_EXISTING_USER, false)
 
-        presenter =
-            RegisterInfosPresenter(
-                this,
-                UserRepository,
-                this
-            )
+        configureViews()
+        presenter = RegisterInfosPresenter(this, UserRepository, this)
     }
 
-    override fun goToMainActivity() {
-        toast(R.string.register_infos_success)
+    override fun goToMainActivity(changedCity: Boolean) {
+        if (changedCity) {
+            toast(R.string.register_infos_change_city_success)
+        } else {
+            toast(R.string.register_infos_success)
+        }
         startActivity(Intent(this, MainActivity::class.java))
     }
 
@@ -65,7 +67,7 @@ class RegisterInfosActivity : AppCompatActivity(),
 
 
         registerInfosButton.setOnClickListener {
-            if (nameHasBeenChosen.not()) {
+            if (nameHasBeenChosen.not() && changeCityForExistingUser.not()) {
                 // First part of the registration
                 if (isNameValid()) {
                     animateViews()
@@ -80,12 +82,15 @@ class RegisterInfosActivity : AppCompatActivity(),
                             val user = User(
                                 uid = currentUser.uid,
                                 username = registerInfosName.text.toString().trim(),
-                                zipCode = registerInfosZipcode.text.toString().trim().toInt(),
                                 city = registerInfosCity.selectedItem.toString().trim(),
                                 registerDate = Calendar.getInstance().time,
                                 avatar = if (currentUser.photoUrl != null) currentUser.photoUrl.toString() else null
                             )
-                            presenter.registerUser(user)
+                            if (changeCityForExistingUser) {
+                                presenter.updateUserCity(user, registerInfosCity.selectedItem.toString().trim())
+                            } else {
+                                presenter.registerUser(user)
+                            }
                         }
                 }
             }
@@ -94,6 +99,11 @@ class RegisterInfosActivity : AppCompatActivity(),
         // Moving the views offscreen for the animation
         registerInfosZipcodeLayout.x = 1000f
         registerInfosCityLayout.x = 1000f
+
+        if (changeCityForExistingUser) {
+           registerInfosSubtitle.text = this.getString(R.string.register_infos_subtitle_change_city)
+            animateViews()
+        }
     }
 
     override fun configureSpinner(possibleCities: List<String>) {

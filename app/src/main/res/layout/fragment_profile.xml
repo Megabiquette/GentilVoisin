@@ -31,7 +31,7 @@
                 style="@style/Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 android:textSize="22sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/profileAvatar"
@@ -43,11 +43,23 @@
                 style="@style/Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/profileAvatar"
                 app:layout_constraintTop_toBottomOf="@id/profileUsername"
                 tools:text="john.doe@gmail.com" />
+
+            <TextView
+                android:id="@+id/profileCity"
+                style="@style/Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/profileAvatar"
+                app:layout_constraintTop_toBottomOf="@id/profileEmail"
+                tools:text="Druye" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
@@ -70,6 +82,17 @@
             android:background="@drawable/btn_shape_round_white"
             android:paddingHorizontal="@dimen/margin_medium"
             android:text="@string/profile_change_password"
+            android:theme="@style/Button" />
+
+        <Button
+            android:id="@+id/profileChangeCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_top"
+            android:background="@drawable/btn_shape_round_white"
+            android:paddingHorizontal="@dimen/margin_medium"
+            android:text="@string/profile_change_city"
             android:theme="@style/Button" />
 
         <LinearLayout

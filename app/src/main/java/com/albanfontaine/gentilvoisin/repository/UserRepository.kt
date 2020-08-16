@@ -6,7 +6,6 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
 
 object UserRepository {
     private fun getUserCollection(): CollectionReference {
@@ -23,5 +22,11 @@ object UserRepository {
         return getUserCollection()
             .document(user.uid)
             .set(user)
+    }
+
+    fun updateUserCity(user: User, city: String): Task<Void> {
+        return getUserCollection()
+            .document(user.uid)
+            .update(Constants.DB_FIELD_CITY, city)
     }
 }

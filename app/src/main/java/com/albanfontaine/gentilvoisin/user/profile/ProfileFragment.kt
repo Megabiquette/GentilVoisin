@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import com.albanfontaine.gentilvoisin.R
+import com.albanfontaine.gentilvoisin.auth.registerinfos.RegisterInfosActivity
 import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.helper.Helper
@@ -53,6 +54,7 @@ class ProfileFragment : Fragment(), ProfileContract.View {
 
         profileUsername.text = user.username
         profileEmail.text = FirebaseAuth.getInstance().currentUser?.email
+        profileCity.text = user.city
         Helper.displayRatingStars(
             requireContext(),
             user,
@@ -72,6 +74,13 @@ class ProfileFragment : Fragment(), ProfileContract.View {
 
         profileChangePassword.setOnClickListener {
             showChangePasswordDialog()
+        }
+
+        profileChangeCity.setOnClickListener {
+            val intent = Intent(requireContext(), RegisterInfosActivity::class.java).apply {
+                putExtra(Constants.CHANGE_CITY_FOR_EXISTING_USER, true)
+            }
+            startActivity(intent)
         }
 
         profileRatingsOnMe.setOnClickListener {

@@ -18,6 +18,7 @@
     <string name="login_error_unknown">Une erreur inconnue est survenue</string>
 
     <string name="register_infos_subtitle">Enregistrement</string>
+    <string name="register_infos_subtitle_change_city">Changer de ville</string>
     <string name="register_infos_name">Votre nom d\'utilisateur: </string>
     <string name="register_infos_zipcode">Votre code postal: </string>
     <string name="register_infos_city">Sélectionnez votre ville: </string>
@@ -27,6 +28,7 @@
     <string name="register_infos_no_city_found">Désolé, aucune ville n\'a été trouvée pour ce code postal.</string>
     <string name="register_infos_success">Enregistrement réussi !</string>
     <string name="register_infos_error">Une erreur s\'est produite, veuillez réessayer.</string>
+    <string name="register_infos_change_city_success">Changement de ville effectué</string>
 
     <string name="menu_last_jobs">Dernières annonces</string>
     <string name="menu_offers">Offres</string>
@@ -100,6 +102,8 @@
     <string name="profile_change_password_error_same_password">Les deux mots de passe ne correspondent pas</string>
     <string name="profile_change_password_error_weak_password">Votre  mot de passe doit contenir au moins 6 caractères</string>
     <string name="profile_change_password_error_login_required">Veuillez vous réauthentifier pour pouvoir changer d\'email</string>
+    <string name="profile_change_city">Changer de ville</string>
+
 
     <string name="message_label">Messages</string>
     <string name="message_no_message_yet">Cette discussion ne contient pas encore de message</string>

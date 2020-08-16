@@ -4,7 +4,7 @@ import com.albanfontaine.gentilvoisin.model.User
 
 interface RegisterInfosContract {
     interface View {
-        fun goToMainActivity()
+        fun goToMainActivity(changedCity: Boolean = false)
         fun displayError()
         fun configureSpinner(possibleCities: List<String>)
         fun onPossibleCitiesLoaded(possibleCities: List<String>)
@@ -13,5 +13,6 @@ interface RegisterInfosContract {
     interface Presenter {
         fun registerUser(user: User)
         fun loadPossibleCities(userZipCode: String)
+        fun updateUserCity(user: User, city: String)
     }
 }

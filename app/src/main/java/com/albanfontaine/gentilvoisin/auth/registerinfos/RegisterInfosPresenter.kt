@@ -36,6 +36,17 @@ class RegisterInfosPresenter(
             }
     }
 
+    override fun updateUserCity(user: User, city: String) {
+        userRepository.updateUserCity(user, city)
+            .addOnCompleteListener {
+                view.goToMainActivity(true)
+            }
+            .addOnFailureListener {
+                it.printStackTrace()
+                view.displayError()
+            }
+    }
+
     /**
      * Looks for cities matching the zipcode entered by the user and makes them selectable
      * in the spinner in the view
