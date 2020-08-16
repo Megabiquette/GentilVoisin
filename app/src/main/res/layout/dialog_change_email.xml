@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top"
+        android:inputType="textEmailAddress"
         android:backgroundTint="@color/colorPrimary"
         android:hint="@string/profile_change_email_dialog_hint" />
 

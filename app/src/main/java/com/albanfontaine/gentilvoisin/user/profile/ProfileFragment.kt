@@ -3,6 +3,7 @@ package com.albanfontaine.gentilvoisin.user.profile
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,13 +12,14 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Constants
+import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.RatingRepository
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.user.ratings.RatingsActivity
 import com.bumptech.glide.Glide
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.*
 import kotlinx.android.synthetic.main.dialog_change_email.view.*
 import kotlinx.android.synthetic.main.dialog_change_password.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -30,7 +32,7 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        presenter = ProfilePresenter(this, UserRepository, RatingRepository)
+        presenter = ProfilePresenter(this, UserRepository)
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
@@ -88,7 +90,16 @@ class ProfileFragment : Fragment(), ProfileContract.View {
 
         layout.apply {
             changeEmailDialogValidateButton.setOnClickListener {
-
+                FirebaseAuth.getInstance().currentUser?.run {
+                    updateEmail(changeEmailDialogEditText.text.trim().toString())
+                        .addOnSuccessListener {
+                            requireActivity().toast(R.string.profile_change_email_success)
+                            dialog.cancel()
+                        }
+                        .addOnFailureListener { exception ->
+                            handleChangeException(exception, dialog)
+                        }
+                }
             }
             changeEmailDialogCancelButton.setOnClickListener {
                 dialog.cancel()
@@ -105,12 +116,47 @@ class ProfileFragment : Fragment(), ProfileContract.View {
 
         layout.apply {
             changePasswordDialogValidateButton.setOnClickListener {
-
+                if (changePasswordDialogEditText.text.trim().toString() != confirmPasswordDialogEditText.text.trim().toString()) {
+                    requireActivity().toast(R.string.profile_change_password_error_same_password)
+                    dialog.cancel()
+                } else {
+                    FirebaseAuth.getInstance().currentUser?.run {
+                        updatePassword(changePasswordDialogEditText.text.trim().toString())
+                            .addOnSuccessListener {
+                                requireActivity().toast(R.string.profile_change_password_success)
+                                dialog.cancel()
+                            }
+                            .addOnFailureListener { exception ->
+                                handleChangeException(exception, dialog, true)
+                            }
+                    }
+                }
             }
             changePasswordDialogCancelButton.setOnClickListener {
                 dialog.cancel()
             }
         }
         dialog.show()
+    }
+
+    private fun handleChangeException(exception: Exception, dialog: AlertDialog, isPassword: Boolean = false) {
+        when (exception) {
+            is FirebaseAuthInvalidCredentialsException ->
+                if (isPassword) {
+                    requireActivity().toast(R.string.profile_change_password_error_weak_password)
+                } else {
+                    requireActivity().toast(R.string.profile_change_email_error_email_malformatted)
+                }
+            is FirebaseAuthRecentLoginRequiredException ->
+                if (isPassword) {
+                    requireActivity().toast(R.string.profile_change_password_error_login_required)
+                } else {
+                    requireActivity().toast(R.string.profile_change_email_error_login_required)
+                }
+            is FirebaseAuthUserCollisionException ->
+                requireActivity().toast(R.string.profile_change_email_error_email_already_exists)
+            else -> requireActivity().toast(R.string.profile_change_email_error_other)
+        }
+        dialog.cancel()
     }
 }

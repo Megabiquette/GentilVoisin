@@ -1,14 +1,14 @@
 package com.albanfontaine.gentilvoisin.user.profile
 
+import android.util.Log
 import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.User
-import com.albanfontaine.gentilvoisin.repository.RatingRepository
 import com.albanfontaine.gentilvoisin.repository.UserRepository
+import com.google.firebase.auth.FirebaseAuth
 
 class ProfilePresenter(
     val view: ProfileContract.View,
-    private val userRepository : UserRepository,
-    private val ratingRepository : RatingRepository
+    private val userRepository : UserRepository
 ) : ProfileContract.Presenter {
 
     init {

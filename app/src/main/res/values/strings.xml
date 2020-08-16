@@ -89,8 +89,17 @@
     <string name="profile_not_enough_ratings">Pas encore assez d\'avis</string>
     <string name="profile_see_ratings_on_me">Voir les avis sur moi</string>
     <string name="profile_change_email_dialog_hint">Entrez votre nouvel email</string>
+    <string name="profile_change_email_success">Votre email a bien été modifié</string>
+    <string name="profile_change_email_error_email_malformatted">Erreur de format d\'email</string>
+    <string name="profile_change_email_error_email_already_exists">Cet email existe déjà</string>
+    <string name="profile_change_email_error_login_required">Veuillez vous réauthentifier pour pouvoir changer d\'email</string>
+    <string name="profile_change_email_error_other">Une erreur est survenue</string>
     <string name="profile_change_password_dialog_hint">Entrez votre nouveau mot de passe</string>
     <string name="profile_confirm_password_dialog_hint">Confirmez votre nouveau mot de passe</string>
+    <string name="profile_change_password_success">Votre mot de passe a bien été modifié</string>
+    <string name="profile_change_password_error_same_password">Les deux mots de passe ne correspondent pas</string>
+    <string name="profile_change_password_error_weak_password">Votre  mot de passe doit contenir au moins 6 caractères</string>
+    <string name="profile_change_password_error_login_required">Veuillez vous réauthentifier pour pouvoir changer d\'email</string>
 
     <string name="message_label">Messages</string>
     <string name="message_no_message_yet">Cette discussion ne contient pas encore de message</string>
