@@ -10,14 +10,14 @@ import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.Rating
 import com.albanfontaine.gentilvoisin.model.User
-import com.albanfontaine.gentilvoisin.repository.FirebaseUserCallback
+import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_ratings_recycler_view.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RatingViewHolder(view: View) : RecyclerView.ViewHolder(view), FirebaseUserCallback {
+class RatingViewHolder(view: View) : RecyclerView.ViewHolder(view), FirebaseCallbacks {
 
     private val avatarView: ImageView = view.itemRatingsAvatar
     private val name: TextView = view.itemRatingsName

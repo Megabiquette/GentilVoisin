@@ -15,12 +15,12 @@ import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
-import com.albanfontaine.gentilvoisin.repository.FirebaseUserCallback
+import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.view.JobAdapter
 import kotlinx.android.synthetic.main.fragment_jobs_list.*
 
-abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsListContract.View, FirebaseUserCallback {
+abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsListContract.View, FirebaseCallbacks {
     private lateinit var jobAdapter: JobAdapter
     private lateinit var jobList: List<Job>
     private var userCity: String = ""

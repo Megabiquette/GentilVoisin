@@ -9,14 +9,13 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 object UserRepository {
 
-    private fun getUserCollection(): CollectionReference
-            = FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS)
+    private fun getUserCollection(): CollectionReference = FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS)
 
-    fun getCurrentUser(callback: FirebaseUserCallback) {
+    fun getCurrentUser(callback: FirebaseCallbacks) {
         getUser(FirebaseAuth.getInstance().currentUser!!.uid, callback)
     }
 
-    fun getUser(uid: String, callback: FirebaseUserCallback) {
+    fun getUser(uid: String, callback: FirebaseCallbacks) {
         getUserCollection()
             .document(uid)
             .get()
@@ -28,8 +27,8 @@ object UserRepository {
             }
     }
 
-    fun isNewUser(callback: FirebaseUserCallback) {
-        var isNew: Boolean = false
+    fun isNewUser(callback: FirebaseCallbacks) {
+        var isNew = false
         getUserCollection()
             .document(FirebaseAuth.getInstance().currentUser!!.uid)
             .get()

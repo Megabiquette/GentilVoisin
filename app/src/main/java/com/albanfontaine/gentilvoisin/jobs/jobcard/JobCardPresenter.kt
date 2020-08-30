@@ -4,7 +4,7 @@ import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.DiscussionRepository
-import com.albanfontaine.gentilvoisin.repository.FirebaseUserCallback
+import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 
@@ -13,15 +13,11 @@ class JobCardPresenter(
     private val userRepository: UserRepository,
     private val jobRepository: JobRepository,
     private val discussionRepository: DiscussionRepository
-) : JobCardContract.Presenter, FirebaseUserCallback {
+) : JobCardContract.Presenter, FirebaseCallbacks {
     private lateinit var job: Job
-    private lateinit var jobPoster: User
 
     override fun getJob(jobUid: String) {
-        jobRepository.getJob(jobUid).addOnSuccessListener  { document ->
-            job = document.toObject(Job::class.java)!!
-            getPoster(job.posterUid)
-        }
+        jobRepository.getJob(jobUid, this)
     }
 
     private fun getPoster(posterUid: String) {
@@ -37,6 +33,11 @@ class JobCardPresenter(
                 }
                 view.onDiscussionExistenceChecked(discussionUid)
             }
+    }
+
+    override fun onJobRetrieved(job: Job) {
+        this.job = job
+        getPoster(job.posterUid)
     }
 
     override fun onUserRetrieved(user: User) {

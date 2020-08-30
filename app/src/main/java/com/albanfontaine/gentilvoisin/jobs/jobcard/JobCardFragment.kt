@@ -53,10 +53,6 @@ class JobCardFragment : Fragment(), JobCardContract.View {
         return inflater.inflate(R.layout.fragment_job_card, container, false)
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     override fun configureViews(job: Job, jobPoster: User) {
         jobPosterUid = jobPoster.uid
 

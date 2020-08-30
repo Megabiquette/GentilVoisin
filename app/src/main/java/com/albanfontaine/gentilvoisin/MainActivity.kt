@@ -3,7 +3,6 @@ package com.albanfontaine.gentilvoisin
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -17,13 +16,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.albanfontaine.gentilvoisin.auth.login.LoginActivity
-import com.albanfontaine.gentilvoisin.helper.Helper
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_job_card.*
-import kotlinx.android.synthetic.main.nav_menu_header.*
 import kotlinx.android.synthetic.main.nav_menu_header.view.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -35,7 +31,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.e("MainAct", "onCreateStart")
 
         drawerLayout = drawer_layout
         navController = findNavController(R.id.navHostFragment)
@@ -59,7 +54,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .setupWithNavController(navController, appBarConfiguration)
 
         configureDrawerHeader()
-        Log.e("MainAct", "onCreateEnd")
     }
 
     private fun configureDrawerHeader() {

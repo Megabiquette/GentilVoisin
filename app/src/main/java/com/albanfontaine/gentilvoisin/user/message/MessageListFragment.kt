@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.item_jobs_recycler_view.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MessageListFragment : Fragment(), MessageListContract.View, FirebaseUserCallback {
+class MessageListFragment : Fragment(), MessageListContract.View, FirebaseCallbacks {
     private lateinit var presenter: MessageListContract.Presenter
     private lateinit var messageList: ArrayList<Message>
     private lateinit var messageAdapter: MessageAdapter

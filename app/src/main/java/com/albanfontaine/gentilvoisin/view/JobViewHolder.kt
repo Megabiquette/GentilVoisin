@@ -10,7 +10,7 @@ import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
-import com.albanfontaine.gentilvoisin.repository.FirebaseUserCallback
+import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_jobs_recycler_view.view.*
@@ -20,7 +20,7 @@ import java.util.*
 class JobViewHolder(
     view: View,
     private val onItemListener: JobAdapter.OnItemListener
-) : RecyclerView.ViewHolder(view), View.OnClickListener, FirebaseUserCallback {
+) : RecyclerView.ViewHolder(view), View.OnClickListener, FirebaseCallbacks {
 
     private val avatarView: ImageView = view.itemJobsAvatar
     private val type: TextView = view.itemJobsType

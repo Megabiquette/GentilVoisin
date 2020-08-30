@@ -2,7 +2,7 @@ package com.albanfontaine.gentilvoisin.jobs.addjob
 
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
-import com.albanfontaine.gentilvoisin.repository.FirebaseUserCallback
+import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import java.util.*
@@ -12,7 +12,7 @@ class AddJobPresenter(
     private val userUid: String,
     private val userRepository: UserRepository,
     private val jobRepository: JobRepository
-) : AddJobContract.Presenter, FirebaseUserCallback {
+) : AddJobContract.Presenter, FirebaseCallbacks {
 
     private var user: User? = null
 

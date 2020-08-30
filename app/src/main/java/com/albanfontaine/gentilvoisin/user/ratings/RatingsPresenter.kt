@@ -2,7 +2,7 @@ package com.albanfontaine.gentilvoisin.user.ratings
 
 import com.albanfontaine.gentilvoisin.model.Rating
 import com.albanfontaine.gentilvoisin.model.User
-import com.albanfontaine.gentilvoisin.repository.FirebaseUserCallback
+import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.RatingRepository
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 
@@ -10,7 +10,7 @@ class RatingsPresenter(
     val view: RatingsContract.View,
     private val userRepository: UserRepository,
     private val ratingRepository: RatingRepository
-) : RatingsContract.Presenter, FirebaseUserCallback {
+) : RatingsContract.Presenter, FirebaseCallbacks {
 
     override fun getRatedUser(userUid: String) {
         userRepository.getUser(userUid, this)

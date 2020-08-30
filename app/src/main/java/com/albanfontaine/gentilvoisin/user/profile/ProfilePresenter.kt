@@ -1,13 +1,13 @@
 package com.albanfontaine.gentilvoisin.user.profile
 
 import com.albanfontaine.gentilvoisin.model.User
-import com.albanfontaine.gentilvoisin.repository.FirebaseUserCallback
+import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 
 class ProfilePresenter(
     val view: ProfileContract.View,
     private val userRepository : UserRepository
-) : ProfileContract.Presenter, FirebaseUserCallback {
+) : ProfileContract.Presenter, FirebaseCallbacks {
 
     init {
         userRepository.getCurrentUser(this)

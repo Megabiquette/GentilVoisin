@@ -10,7 +10,7 @@ import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.Discussion
 import com.albanfontaine.gentilvoisin.model.User
-import com.albanfontaine.gentilvoisin.repository.FirebaseUserCallback
+import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_discussion_recycler_view.view.*
@@ -20,7 +20,7 @@ import java.util.*
 class DiscussionViewHolder(
     view: View,
     private val onItemListener: DiscussionAdapter.OnItemListener
-) : RecyclerView.ViewHolder(view), View.OnClickListener, FirebaseUserCallback {
+) : RecyclerView.ViewHolder(view), View.OnClickListener, FirebaseCallbacks {
 
     private val avatarView: ImageView = view.itemDiscussionAvatar
     private val username: TextView = view.itemDiscussionUsername

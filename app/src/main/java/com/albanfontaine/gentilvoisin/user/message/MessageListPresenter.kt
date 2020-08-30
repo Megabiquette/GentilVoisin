@@ -5,6 +5,7 @@ import com.albanfontaine.gentilvoisin.model.Discussion
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.Message
 import com.albanfontaine.gentilvoisin.repository.DiscussionRepository
+import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.repository.MessageRepository
 
@@ -14,15 +15,16 @@ class MessageListPresenter(
     private val discussionRepository: DiscussionRepository,
     private val messageRepository: MessageRepository,
     private val jobRepository: JobRepository
-) : MessageListContract.Presenter {
+) : MessageListContract.Presenter, FirebaseCallbacks {
 
     private lateinit var job: Job
 
     override fun getJob() {
-        jobRepository.getJob(jobUid).addOnSuccessListener  { document ->
-            job = document.toObject(Job::class.java)!!
-            view.displayJobItem(job)
-        }
+        jobRepository.getJob(jobUid, this)
+    }
+
+    override fun onJobRetrieved(job: Job) {
+        view.displayJobItem(job)
     }
 
     override fun getMessageList(discussionUid: String?) {
