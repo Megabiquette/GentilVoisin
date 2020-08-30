@@ -10,7 +10,6 @@ import com.albanfontaine.gentilvoisin.MainActivity
 import com.albanfontaine.gentilvoisin.auth.registerinfos.RegisterInfosActivity
 import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
-import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
@@ -31,7 +30,7 @@ class LoginActivity : AppCompatActivity(),
             UserRepository
         )
 
-        // Iif user is already logged in, go to main
+        // If user is already logged in, go to main
         if (FirebaseAuth.getInstance().currentUser != null) {
             goToMainActivity()
         }

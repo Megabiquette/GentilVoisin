@@ -9,13 +9,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 object UserRepository {
 
-    val currentUserUid = FirebaseAuth.getInstance().currentUser!!.uid
-
     private fun getUserCollection(): CollectionReference
             = FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS)
 
     fun getCurrentUser(callback: FirebaseUserCallback) {
-        getUser(currentUserUid, callback)
+        getUser(FirebaseAuth.getInstance().currentUser!!.uid, callback)
     }
 
     fun getUser(uid: String, callback: FirebaseUserCallback) {
@@ -23,22 +21,23 @@ object UserRepository {
             .document(uid)
             .get()
             .addOnSuccessListener { document ->
-                val user = document.toObject(User::class.java)!!
-                callback.onUserRetrieved(user)
+                if (document.exists()) {
+                    val user = document.toObject(User::class.java)!!
+                    callback.onUserRetrieved(user)
+                }
             }
     }
 
     fun isNewUser(callback: FirebaseUserCallback) {
-        var isNew: Boolean
+        var isNew: Boolean = false
         getUserCollection()
-            .document(currentUserUid)
+            .document(FirebaseAuth.getInstance().currentUser!!.uid)
             .get()
             .addOnCompleteListener { document ->
                 if (document.result!!.getString("username") == null) {
                     isNew = true
-                    callback.isNewUser(isNew)
                 }
-
+                callback.isNewUser(isNew)
             }
     }
 

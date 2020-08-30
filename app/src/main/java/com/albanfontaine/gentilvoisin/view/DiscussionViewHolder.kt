@@ -10,6 +10,7 @@ import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.Discussion
 import com.albanfontaine.gentilvoisin.model.User
+import com.albanfontaine.gentilvoisin.repository.FirebaseUserCallback
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_discussion_recycler_view.view.*
@@ -19,12 +20,13 @@ import java.util.*
 class DiscussionViewHolder(
     view: View,
     private val onItemListener: DiscussionAdapter.OnItemListener
-) : RecyclerView.ViewHolder(view), View.OnClickListener{
+) : RecyclerView.ViewHolder(view), View.OnClickListener, FirebaseUserCallback {
 
     private val avatarView: ImageView = view.itemDiscussionAvatar
     private val username: TextView = view.itemDiscussionUsername
     private val date: TextView = view.itemDiscussionDate
     private val content: TextView = view.itemDiscussionContent
+    private lateinit var context: Context
 
     init {
         view.setOnClickListener(this)
@@ -35,19 +37,12 @@ class DiscussionViewHolder(
     }
 
     fun updateWithDiscussion(context: Context, discussion: Discussion, userRepository: UserRepository) {
+        this.context = context
         // Avatar and username
         if (Helper.currentUserUid() != discussion.jobPosterUid) {
-            userRepository.getUser(discussion.jobPosterUid).addOnSuccessListener { document ->
-                val jobPoster = document.toObject(User::class.java)
-                username.text = jobPoster!!.username
-                displayAvatar(context, jobPoster.avatar)
-            }
+            userRepository.getUser(discussion.jobPosterUid, this)
         } else {
-            userRepository.getUser(discussion.applicantUid).addOnSuccessListener { document ->
-                val applicant = document.toObject(User::class.java)
-                username.text = applicant!!.username
-                displayAvatar(context, applicant.avatar)
-            }
+            userRepository.getUser(discussion.applicantUid, this)
         }
 
         // Date
@@ -61,6 +56,11 @@ class DiscussionViewHolder(
         } else {
             content.text = discussion.lastMessageContent
         }
+    }
+
+    override fun onUserRetrieved(user: User) {
+        username.text = user.username
+        displayAvatar(context, user.avatar)
     }
 
     private fun displayAvatar(context: Context, avatar: String?) {

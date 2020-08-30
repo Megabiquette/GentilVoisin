@@ -37,17 +37,13 @@ class LoginPresenterTest {
         // Arrange
         val resultCode = Activity.RESULT_OK
         val userId = "123"
-        val documentSnapshot: Task<DocumentSnapshot>
 
-        every { FirebaseAuth.getInstance().currentUser!!.uid } returns userId
-        //every { userRepository.getUser(userId) } returns documentSnapshot
 
         // Act
         presenter.handleConnectionResult(requestCode, resultCode, null)
 
         // Assert
         verifySequence {
-            userRepository.getUser(any())
             view.goToMainActivity()
         }
 

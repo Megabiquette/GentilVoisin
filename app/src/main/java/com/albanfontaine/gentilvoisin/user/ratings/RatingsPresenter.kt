@@ -2,6 +2,7 @@ package com.albanfontaine.gentilvoisin.user.ratings
 
 import com.albanfontaine.gentilvoisin.model.Rating
 import com.albanfontaine.gentilvoisin.model.User
+import com.albanfontaine.gentilvoisin.repository.FirebaseUserCallback
 import com.albanfontaine.gentilvoisin.repository.RatingRepository
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 
@@ -9,17 +10,15 @@ class RatingsPresenter(
     val view: RatingsContract.View,
     private val userRepository: UserRepository,
     private val ratingRepository: RatingRepository
-) : RatingsContract.Presenter {
+) : RatingsContract.Presenter, FirebaseUserCallback {
 
     override fun getRatedUser(userUid: String) {
-        userRepository.getUser(userUid)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val user = task.result?.toObject(User::class.java)
-                    view.onUserRetrieved(user!!)
-                    getRatings(userUid)
-                }
-            }
+        userRepository.getUser(userUid, this)
+    }
+
+    override fun onUserRetrieved(user: User) {
+        view.onUserRetrieved(user)
+        getRatings(user.uid)
     }
 
     private fun getRatings(userUid: String) {

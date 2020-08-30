@@ -11,16 +11,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Constants
-import com.albanfontaine.gentilvoisin.helper.Helper
 
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
+import com.albanfontaine.gentilvoisin.repository.FirebaseUserCallback
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.view.JobAdapter
 import kotlinx.android.synthetic.main.fragment_jobs_list.*
 
-abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsListContract.View {
+abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsListContract.View, FirebaseUserCallback {
     private lateinit var jobAdapter: JobAdapter
     private lateinit var jobList: List<Job>
     private var userCity: String = ""
@@ -33,13 +33,7 @@ abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsLis
 
         presenter = JobsListPresenter(this, JobRepository)
 
-        UserRepository.getUser(Helper.currentUserUid()).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val user = task.result?.toObject(User::class.java)
-                userCity = user?.city.toString()
-                presenter.getJobs(userCity, jobTypeQuery)
-            }
-        }
+        UserRepository.getCurrentUser(this)
     }
 
     override fun onCreateView(
@@ -55,6 +49,11 @@ abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsLis
             presenter.getJobs(userCity, jobTypeQuery)
             jobAdapter.notifyDataSetChanged()
         }
+    }
+
+    override fun onUserRetrieved(user: User) {
+        userCity = user.city
+        presenter.getJobs(userCity, jobTypeQuery)
     }
 
     override fun displayJobs(jobs: List<Job>) {

@@ -10,13 +10,14 @@ import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.Rating
 import com.albanfontaine.gentilvoisin.model.User
+import com.albanfontaine.gentilvoisin.repository.FirebaseUserCallback
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_ratings_recycler_view.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RatingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class RatingViewHolder(view: View) : RecyclerView.ViewHolder(view), FirebaseUserCallback {
 
     private val avatarView: ImageView = view.itemRatingsAvatar
     private val name: TextView = view.itemRatingsName
@@ -28,19 +29,14 @@ class RatingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val star5: ImageView = view.itemRatingsStar5
     private val date: TextView = view.itemRatingsDate
 
+    private lateinit var context: Context
+    private lateinit var rating: Rating
+
     fun updateWithRating(context: Context, rating: Rating, ratedUser: User, userRepository: UserRepository) {
-        userRepository.getUser(rating.posterUid).addOnCompleteListener { task ->
-            if(task.isSuccessful) {
-                val user = task.result?.toObject(User::class.java)
-                name.text = user?.username
-                Glide.with(context)
-                    .load(user?.avatar)
-                    .centerCrop()
-                    .circleCrop()
-                    .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_person_white))
-                    .into(avatarView)
-            }
-        }
+        this.context = context
+        this.rating = rating
+        userRepository.getUser(rating.posterUid, this)
+
         comment.text = rating.comment
         Helper.displayRatingStars(
             context,
@@ -57,5 +53,15 @@ class RatingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         val dateString = dateFormat.format(rating.postedAt)
         date.text = context.resources.getString(R.string.ratings_date, dateString)
+    }
+
+    override fun onUserRetrieved(user: User) {
+        name.text = user.username
+        Glide.with(context)
+            .load(user.avatar)
+            .centerCrop()
+            .circleCrop()
+            .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_person_white))
+            .into(avatarView)
     }
 }

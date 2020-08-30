@@ -10,6 +10,7 @@ import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
+import com.albanfontaine.gentilvoisin.repository.FirebaseUserCallback
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_jobs_recycler_view.view.*
@@ -19,13 +20,14 @@ import java.util.*
 class JobViewHolder(
     view: View,
     private val onItemListener: JobAdapter.OnItemListener
-) : RecyclerView.ViewHolder(view), View.OnClickListener {
+) : RecyclerView.ViewHolder(view), View.OnClickListener, FirebaseUserCallback {
 
     private val avatarView: ImageView = view.itemJobsAvatar
     private val type: TextView = view.itemJobsType
     private val category: TextView = view.itemJobsCategory
     private val description: TextView = view.itemJobsDescription
     private val date: TextView = view.itemJobsDate
+    private lateinit var context: Context
 
     init {
         view.setOnClickListener(this)
@@ -36,6 +38,7 @@ class JobViewHolder(
     }
 
     fun updateWithJob(context: Context, job: Job, userRepository: UserRepository) {
+        this.context = context
         // Type
         when (job.type) {
             JobRepository.JobTypeQuery.OFFER.value -> {
@@ -68,14 +71,15 @@ class JobViewHolder(
         date.text = dateFormat.format(job.postedAt)
 
         // Avatar
-        userRepository.getUser(job.posterUid).addOnSuccessListener { document ->
-            val user = document.toObject(User::class.java)
-            Glide.with(context)
-                .load(user?.avatar)
-                .centerCrop()
-                .circleCrop()
-                .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_person_primary))
-                .into(avatarView)
-        }
+        userRepository.getUser(job.posterUid, this)
+    }
+
+    override fun onUserRetrieved(user: User) {
+        Glide.with(context)
+            .load(user.avatar)
+            .centerCrop()
+            .circleCrop()
+            .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_person_primary))
+            .into(avatarView)
     }
 }

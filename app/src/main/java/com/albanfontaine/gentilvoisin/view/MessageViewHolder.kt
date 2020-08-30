@@ -13,13 +13,14 @@ import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.Message
 import com.albanfontaine.gentilvoisin.model.User
+import com.albanfontaine.gentilvoisin.repository.FirebaseUserCallback
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_message_recycler_view.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MessageViewHolder(val context: Context, view: View) : RecyclerView.ViewHolder(view) {
+class MessageViewHolder(val context: Context, view: View) : RecyclerView.ViewHolder(view), FirebaseUserCallback {
 
     private val usernameText: TextView = view.itemMessageUsername
     private val dateText: TextView = view.itemMessageDate
@@ -28,13 +29,15 @@ class MessageViewHolder(val context: Context, view: View) : RecyclerView.ViewHol
     private val avatarInterlocutorView: ImageView = view.itemMessageAvatarInterlocutor
     private val rootLayout: LinearLayout = view.itemMessageRootLayout
     private val messageLayout: LinearLayout = view.itemMessageMessageLayout
+    private lateinit var message: Message
 
     fun getUser(message: Message, userRepository: UserRepository) {
-        var user: User
-        userRepository.getUser(message.senderUid).addOnSuccessListener { document ->
-            user = document.toObject(User::class.java)!!
-            updateWithMessage(user, message)
-        }
+        this.message = message
+        userRepository.getUser(message.senderUid, this)
+    }
+
+    override fun onUserRetrieved(user: User) {
+        updateWithMessage(user, message)
     }
 
     private fun updateWithMessage(user: User, message: Message) {

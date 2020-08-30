@@ -3,6 +3,7 @@ package com.albanfontaine.gentilvoisin
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Log.e("MainAct", "onCreateStart")
 
         drawerLayout = drawer_layout
         navController = findNavController(R.id.navHostFragment)
@@ -57,6 +59,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .setupWithNavController(navController, appBarConfiguration)
 
         configureDrawerHeader()
+        Log.e("MainAct", "onCreateEnd")
     }
 
     private fun configureDrawerHeader() {
