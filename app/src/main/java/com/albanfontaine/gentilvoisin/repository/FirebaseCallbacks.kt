@@ -1,6 +1,7 @@
 package com.albanfontaine.gentilvoisin.repository
 
 import com.albanfontaine.gentilvoisin.model.Job
+import com.albanfontaine.gentilvoisin.model.Rating
 import com.albanfontaine.gentilvoisin.model.User
 
 interface FirebaseCallbacks {
@@ -12,4 +13,11 @@ interface FirebaseCallbacks {
     // JobRepository
     fun onJobRetrieved(job: Job) { }
     fun onJobListRetrieved(jobList: ArrayList<Job>) { }
+
+    // RatingRepository
+    fun onRatingListRetrieved(ratingList: ArrayList<Rating>) { }
+
+    // DiscussionRepository
+
+    // MessageRepository
 }

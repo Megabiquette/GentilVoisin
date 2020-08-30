@@ -13,18 +13,33 @@ import com.google.firebase.firestore.QuerySnapshot
 object RatingRepository {
     private fun getRatingCollection(): CollectionReference = FirebaseFirestore.getInstance().collection(Constants.COLLECTION_RATINGS)
 
-    fun getRatingsForUserToGetNote(userId: String): Task<QuerySnapshot> {
-        return getRatingCollection()
+    fun getRatingsForUserToGetNote(userId: String, callback: FirebaseCallbacks) {
+        getRatingCollection()
             .whereEqualTo(DB_FIELD_USER_RATED_UID, userId)
             .get()
+            .addOnSuccessListener { documents ->
+                returnRatingList(documents, callback)
+            }
     }
 
-    fun getRatingsForUserToDisplay(userId: String): Task<QuerySnapshot> {
-        return getRatingCollection()
+    fun getRatingsForUserToDisplay(userId: String, callback: FirebaseCallbacks) {
+        getRatingCollection()
             .whereEqualTo(DB_FIELD_USER_RATED_UID, userId)
             .orderBy(DB_FIELD_POSTED_AT, Query.Direction.DESCENDING)
             .limit(30)
             .get()
+            .addOnSuccessListener { documents ->
+                returnRatingList(documents, callback)
+            }
+    }
+
+    private fun returnRatingList(documents: QuerySnapshot, callback: FirebaseCallbacks) {
+        val ratingList = ArrayList<Rating>()
+        for (document in documents) {
+            val rating = document.toObject(Rating::class.java)
+            ratingList.add(rating)
+        }
+        callback.onRatingListRetrieved(ratingList)
     }
 
     fun createRating(rating: Rating): Task<Void> {

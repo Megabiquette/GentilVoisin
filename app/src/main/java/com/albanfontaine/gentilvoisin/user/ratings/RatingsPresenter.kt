@@ -22,21 +22,16 @@ class RatingsPresenter(
     }
 
     private fun getRatings(userUid: String) {
-        val ratingList = ArrayList<Rating>()
-        ratingRepository.getRatingsForUserToDisplay(userUid)
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val rating = document.toObject(Rating::class.java)
-                    ratingList.add(rating)
-                }
-                view.displayRatings(ratingList)
+        ratingRepository.getRatingsForUserToDisplay(userUid, this)
+    }
 
-                if(ratingList.isEmpty()) {
-                    view.onEmptyRatingList()
-                }
+    override fun onRatingListRetrieved(ratingList: ArrayList<Rating>) {
+        for (rating in ratingList) {
+            view.displayRatings(ratingList)
+
+            if(ratingList.isEmpty()) {
+                view.onEmptyRatingList()
             }
-            .addOnFailureListener {
-                it.printStackTrace()
-            }
+        }
     }
 }
