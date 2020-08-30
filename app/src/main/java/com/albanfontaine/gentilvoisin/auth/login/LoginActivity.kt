@@ -9,6 +9,7 @@ import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.MainActivity
 import com.albanfontaine.gentilvoisin.auth.registerinfos.RegisterInfosActivity
 import com.albanfontaine.gentilvoisin.helper.Constants
+import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.firebase.ui.auth.AuthUI
@@ -43,7 +44,7 @@ class LoginActivity : AppCompatActivity(),
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        presenter.handleConnectionResult(requestCode, resultCode, data, this)
+        presenter.handleConnectionResult(requestCode, resultCode, data)
     }
 
     override fun goToMainActivity() {
@@ -52,6 +53,10 @@ class LoginActivity : AppCompatActivity(),
 
     override fun goToRegisterActivity() {
         startActivity(Intent(this, RegisterInfosActivity::class.java))
+    }
+
+    override fun displayErrorToast(errorMessage: Int) {
+        this.toast(errorMessage)
     }
 
     private fun configureButtons() {

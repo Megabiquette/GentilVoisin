@@ -19,7 +19,7 @@ class DiscussionListPresenter(
             }
 
             // Get discussions where user is applicant
-            discussionRepository.getDiscussionByApplicant(userUid).addOnSuccessListener {secondDocuments ->
+            discussionRepository.getDiscussionByApplicant(userUid).addOnSuccessListener { secondDocuments ->
                 for (document in secondDocuments) {
                     val discussion = document.toObject(Discussion::class.java)
                     discussionList.add(discussion)

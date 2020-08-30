@@ -19,8 +19,8 @@
 
             <ImageView
                 android:id="@+id/profileAvatar"
-                android:layout_width="@dimen/image_avatar_size_big"
-                android:layout_height="@dimen/image_avatar_size_big"
+                android:layout_width="@dimen/image_avatar_size_medium"
+                android:layout_height="@dimen/image_avatar_size_medium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription"
@@ -31,9 +31,8 @@
                 style="@style/Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textSize="22sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@id/profileAvatar"
                 app:layout_constraintTop_toTopOf="@id/profileAvatar"
                 tools:text="JohnDoe" />
@@ -43,8 +42,8 @@
                 style="@style/Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_medium"
                 android:layout_marginTop="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/profileAvatar"
                 app:layout_constraintTop_toBottomOf="@id/profileUsername"
                 tools:text="john.doe@gmail.com" />
@@ -54,9 +53,9 @@
                 style="@style/Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_medium"
                 android:layout_marginTop="5dp"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="17sp"
                 app:layout_constraintStart_toEndOf="@id/profileAvatar"
                 app:layout_constraintTop_toBottomOf="@id/profileEmail"
                 tools:text="Druye" />
@@ -69,6 +68,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin_top"
             android:background="@drawable/btn_shape_round_white"
+            android:minWidth="230dp"
             android:paddingHorizontal="@dimen/margin_medium"
             android:text="@string/profile_change_email"
             android:theme="@style/Button" />
@@ -80,6 +80,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin_top"
             android:background="@drawable/btn_shape_round_white"
+            android:minWidth="230dp"
             android:paddingHorizontal="@dimen/margin_medium"
             android:text="@string/profile_change_password"
             android:theme="@style/Button" />
@@ -91,6 +92,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin_top"
             android:background="@drawable/btn_shape_round_white"
+            android:minWidth="230dp"
             android:paddingHorizontal="@dimen/margin_medium"
             android:text="@string/profile_change_city"
             android:theme="@style/Button" />
@@ -165,6 +167,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin_top"
             android:background="@drawable/btn_shape_round_white"
+            android:minWidth="230dp"
             android:paddingHorizontal="@dimen/margin_medium"
             android:text="@string/profile_see_ratings_on_me"
             android:theme="@style/Button" />

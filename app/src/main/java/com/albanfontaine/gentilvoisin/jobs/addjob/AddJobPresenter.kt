@@ -12,6 +12,7 @@ class AddJobPresenter(
     private val userRepository: UserRepository,
     private val jobRepository: JobRepository
 ) : AddJobContract.Presenter {
+
     private var user: User? = null
 
     override fun getUser() {

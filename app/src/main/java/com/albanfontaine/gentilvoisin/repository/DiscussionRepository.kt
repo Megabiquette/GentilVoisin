@@ -11,9 +11,7 @@ import com.google.firebase.firestore.QuerySnapshot
 
 object DiscussionRepository {
 
-    fun getDiscussionCollection(): CollectionReference {
-        return FirebaseFirestore.getInstance().collection(COLLECTION_DISCUSSION)
-    }
+    fun getDiscussionCollection(): CollectionReference = FirebaseFirestore.getInstance().collection(COLLECTION_DISCUSSION)
 
     fun getDiscussionByJobPoster(jobPosterUid: String): Task<QuerySnapshot> {
         return getDiscussionCollection()

@@ -12,9 +12,7 @@ import com.google.firebase.firestore.*
 
 object JobRepository {
 
-    fun getJobCollection(): CollectionReference {
-        return FirebaseFirestore.getInstance().collection(COLLECTION_JOBS)
-    }
+    fun getJobCollection(): CollectionReference = FirebaseFirestore.getInstance().collection(COLLECTION_JOBS)
 
     fun getJob(uid: String): Task<DocumentSnapshot> {
         return getJobCollection()

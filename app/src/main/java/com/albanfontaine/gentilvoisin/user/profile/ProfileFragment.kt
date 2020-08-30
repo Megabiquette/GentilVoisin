@@ -100,8 +100,10 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         layout.apply {
             changeEmailDialogValidateButton.setOnClickListener {
                 FirebaseAuth.getInstance().currentUser?.run {
-                    updateEmail(changeEmailDialogEditText.text.trim().toString())
+                    val newMail = changeEmailDialogEditText.text.trim().toString()
+                    updateEmail(newMail)
                         .addOnSuccessListener {
+                            profileEmail.text = newMail
                             requireActivity().toast(R.string.profile_change_email_success)
                             dialog.cancel()
                         }

@@ -10,9 +10,7 @@ import com.google.firebase.firestore.QuerySnapshot
 
 object MessageRepository {
 
-    private fun getMessageCollection(): CollectionReference {
-        return FirebaseFirestore.getInstance().collection(COLLECTION_MESSAGES)
-    }
+    private fun getMessageCollection(): CollectionReference = FirebaseFirestore.getInstance().collection(COLLECTION_MESSAGES)
 
     fun getMessagesByDiscussion(discussionUid: String): Task<QuerySnapshot> {
         return getMessageCollection()

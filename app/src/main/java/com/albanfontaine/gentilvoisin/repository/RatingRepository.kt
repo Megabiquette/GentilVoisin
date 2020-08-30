@@ -11,9 +11,7 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 
 object RatingRepository {
-    private fun getRatingCollection(): CollectionReference {
-        return FirebaseFirestore.getInstance().collection(Constants.COLLECTION_RATINGS)
-    }
+    private fun getRatingCollection(): CollectionReference = FirebaseFirestore.getInstance().collection(Constants.COLLECTION_RATINGS)
 
     fun getRatingsForUserToGetNote(userId: String): Task<QuerySnapshot> {
         return getRatingCollection()

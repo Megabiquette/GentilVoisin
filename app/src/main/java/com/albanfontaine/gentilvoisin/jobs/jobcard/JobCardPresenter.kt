@@ -40,5 +40,4 @@ class JobCardPresenter(
                 view.onDiscussionExistenceChecked(discussionUid)
             }
     }
-
 }
