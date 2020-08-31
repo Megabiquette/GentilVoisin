@@ -8,7 +8,6 @@ import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_POSTED_AT
 import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_POSTER_UID
 import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_TYPE
 import com.albanfontaine.gentilvoisin.model.Job
-import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.*
 
 object JobRepository {

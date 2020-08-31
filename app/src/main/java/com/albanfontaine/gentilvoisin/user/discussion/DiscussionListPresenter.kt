@@ -2,35 +2,37 @@ package com.albanfontaine.gentilvoisin.user.discussion
 
 import com.albanfontaine.gentilvoisin.model.Discussion
 import com.albanfontaine.gentilvoisin.repository.DiscussionRepository
+import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 
 class DiscussionListPresenter(
     val view: DiscussionListContract.View,
     private val discussionRepository: DiscussionRepository
-) : DiscussionListContract.Presenter {
+) : DiscussionListContract.Presenter, FirebaseCallbacks {
+
+    private val discussionList = mutableListOf<Discussion>()
+    private var firstDiscussionAdded = false
 
     override fun getDiscussionList(userUid: String) {
-        val discussionList = mutableListOf<Discussion>()
 
         // Get discussions where user is jobPoster
-        discussionRepository.getDiscussionByJobPoster(userUid).addOnSuccessListener { firstDocuments ->
-            for (document in firstDocuments) {
-                val discussion = document.toObject(Discussion::class.java)
-                discussionList.add(discussion)
-            }
+        discussionRepository.getDiscussionByJobPoster(userUid, this)
+        discussionRepository.getDiscussionByApplicant(userUid, this)
+    }
 
-            // Get discussions where user is applicant
-            discussionRepository.getDiscussionByApplicant(userUid).addOnSuccessListener { secondDocuments ->
-                for (document in secondDocuments) {
-                    val discussion = document.toObject(Discussion::class.java)
-                    discussionList.add(discussion)
-                }
+    override fun onDiscussionListRetrieved(discussionList: ArrayList<Discussion>) {
+        for (discussion in discussionList) {
+            this.discussionList.add(discussion)
+        }
 
-                discussionList.sortByDescending { it.lastMessagePostedAt }
-                view.displayDiscussionList(discussionList)
+        // We make sure both discussions list were added
+        if (firstDiscussionAdded.not()) {
+            firstDiscussionAdded = true
+        } else {
+            discussionList.sortByDescending { it.lastMessagePostedAt }
+            view.displayDiscussionList(discussionList)
 
-                if (discussionList.isEmpty()) {
-                    view.onEmptyDiscussionList()
-                }
+            if (discussionList.isEmpty()) {
+                view.onEmptyDiscussionList()
             }
         }
     }

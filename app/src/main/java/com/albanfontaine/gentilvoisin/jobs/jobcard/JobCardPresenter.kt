@@ -25,14 +25,7 @@ class JobCardPresenter(
     }
 
     override fun discussionAlreadyExists(jobUid: String) {
-        discussionRepository.checkDiscussionExists(jobUid, Helper.currentUserUid())
-            .addOnSuccessListener { documents ->
-                var discussionUid = "0" // Discussion doesn't already exists
-                if (documents.size() > 1) {
-                    discussionUid = documents.documents[0].id
-                }
-                view.onDiscussionExistenceChecked(discussionUid)
-            }
+        discussionRepository.getDiscussionUidForJob(jobUid, Helper.currentUserUid(), this)
     }
 
     override fun onJobRetrieved(job: Job) {
@@ -42,5 +35,9 @@ class JobCardPresenter(
 
     override fun onUserRetrieved(user: User) {
         view.configureViews(job, user)
+    }
+
+    override fun onDiscussionUidRetrieved(discussionUid: String) {
+        view.onDiscussionExistenceChecked(discussionUid)
     }
 }
