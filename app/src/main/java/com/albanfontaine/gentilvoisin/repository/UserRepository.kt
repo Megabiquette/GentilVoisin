@@ -6,38 +6,41 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
 
 object UserRepository {
 
     private fun getUserCollection(): CollectionReference = FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS)
 
-    fun getCurrentUser(callback: FirebaseCallbacks) {
-        getUser(FirebaseAuth.getInstance().currentUser!!.uid, callback)
+    suspend fun getCurrentUser(): User {
+        return getUser(FirebaseAuth.getInstance().currentUser!!.uid)
     }
 
-    fun getUser(uid: String, callback: FirebaseCallbacks) {
+    suspend fun getUser(uid: String): User {
+        var user: User? = null
         getUserCollection()
             .document(uid)
             .get()
-            .addOnSuccessListener { document ->
-                if (document.exists()) {
-                    val user = document.toObject(User::class.java)!!
-                    callback.onUserRetrieved(user)
+            .continueWith { task ->
+                if (task.isSuccessful) {
+                    user = task.result!!.toObject(User::class.java)
                 }
             }
+            .await()
+        return user!!
     }
 
-    fun isNewUser(callback: FirebaseCallbacks) {
-        var isNew = false
-        getUserCollection()
+    suspend fun isNewUser(): Boolean {
+        return getUserCollection()
             .document(FirebaseAuth.getInstance().currentUser!!.uid)
             .get()
-            .addOnCompleteListener { document ->
-                if (document.result!!.getString("username") == null) {
-                    isNew = true
+            .continueWith { task ->
+                if (task.isSuccessful) {
+                    return@continueWith task.result!!.getString("username") == null
                 }
-                callback.isNewUser(isNew)
+                return@continueWith false
             }
+            .await()
     }
 
     fun createUser(user: User): Task<Void> {

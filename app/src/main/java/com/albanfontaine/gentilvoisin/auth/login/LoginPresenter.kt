@@ -8,6 +8,9 @@ import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
+import com.google.android.gms.tasks.Tasks
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class LoginPresenter(
     val view: LoginContract.View,
@@ -36,14 +39,13 @@ class LoginPresenter(
     }
 
     private fun onConnectionSuccess() {
-        userRepository.isNewUser(this)
-    }
-
-    override fun isNewUser(isNew: Boolean) {
-        if (isNew) {
-            view.goToRegisterActivity()
-        } else {
-            view.goToMainActivity()
+        GlobalScope.launch {
+            if (userRepository.isNewUser()) {
+                view.goToRegisterActivity()
+            } else {
+                view.goToMainActivity()
+            }
         }
     }
+
 }

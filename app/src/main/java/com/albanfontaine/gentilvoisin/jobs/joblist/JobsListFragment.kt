@@ -19,21 +19,28 @@ import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.view.JobAdapter
 import kotlinx.android.synthetic.main.fragment_jobs_list.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsListContract.View, FirebaseCallbacks {
+abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsListContract.View {
     private lateinit var jobAdapter: JobAdapter
     private lateinit var jobList: List<Job>
     private var userCity: String = ""
     private lateinit var presenter: JobsListContract.Presenter
+    private val jobRepository = JobRepository
+    private val userRepository = UserRepository
 
     abstract val jobTypeQuery: JobRepository.JobTypeQuery
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        presenter = JobsListPresenter(this, JobRepository)
+        presenter = JobsListPresenter(this, jobRepository)
 
-        UserRepository.getCurrentUser(this)
+        GlobalScope.launch {
+            userCity = userRepository.getCurrentUser().city
+            presenter.getJobs(userCity, jobTypeQuery)
+        }
     }
 
     override fun onCreateView(
@@ -49,11 +56,6 @@ abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsLis
             presenter.getJobs(userCity, jobTypeQuery)
             jobAdapter.notifyDataSetChanged()
         }
-    }
-
-    override fun onUserRetrieved(user: User) {
-        userCity = user.city
-        presenter.getJobs(userCity, jobTypeQuery)
     }
 
     override fun displayJobs(jobs: List<Job>) {

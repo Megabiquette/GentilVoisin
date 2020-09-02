@@ -6,7 +6,7 @@ import com.albanfontaine.gentilvoisin.repository.UserRepository
 
 class ProfilePresenter(
     val view: ProfileContract.View,
-    private val userRepository : UserRepository
+    val userRepository : UserRepository
 ) : ProfileContract.Presenter, FirebaseCallbacks {
 
     init {

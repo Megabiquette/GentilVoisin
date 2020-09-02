@@ -8,6 +8,10 @@ import com.albanfontaine.gentilvoisin.repository.DiscussionRepository
 import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.repository.MessageRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MessageListPresenter(
     val view: MessageListContract.View,
@@ -20,25 +24,24 @@ class MessageListPresenter(
     private lateinit var job: Job
 
     override fun getJob() {
-        jobRepository.getJob(jobUid, this)
-    }
-
-    override fun onJobRetrieved(job: Job) {
-        view.displayJobItem(job)
+        GlobalScope.launch {
+            job = jobRepository.getJob(jobUid)
+            withContext(Dispatchers.Main) {
+                view.displayJobItem(job)
+            }
+        }
     }
 
     override fun getMessageList(discussionUid: String?) {
         if (discussionUid.isNullOrEmpty()) {
             view.displayMessageList(arrayListOf())
         } else {
-            val messageList = ArrayList<Message>()
-            messageRepository.getMessagesByDiscussion(discussionUid).addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val message = document.toObject(Message::class.java)
-                    messageList.add(message)
+            GlobalScope.launch {
+                val messageList = messageRepository.getMessagesByDiscussion(discussionUid)
+                messageList.sortedBy { it.postedAt }
+                withContext(Dispatchers.Main) {
+                    view.displayMessageList(messageList)
                 }
-                messageList.sortBy { it.postedAt }
-                view.displayMessageList(messageList)
             }
         }
     }

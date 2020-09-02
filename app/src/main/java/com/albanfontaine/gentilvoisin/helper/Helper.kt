@@ -9,9 +9,12 @@ import androidx.core.view.isVisible
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.model.Rating
 import com.albanfontaine.gentilvoisin.model.User
-import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.RatingRepository
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 object Helper {
 
@@ -40,22 +43,24 @@ object Helper {
             return
         }
 
-        RatingRepository.getRatingsForUserToGetNote(user.uid, object : FirebaseCallbacks {
-            override fun onRatingListRetrieved(ratingList: ArrayList<Rating>) {
-                var ratingNote = 0.0
-                var ratingsNumber = 0
+        GlobalScope.launch {
+            val ratingList = RatingRepository.getRatingsForUserToGetNote(user.uid)
+            var ratingNote = 0.0
+            var ratingsNumber = 0
 
-                for (ratingItem in ratingList) {
-                    ratingNote += ratingItem.note.toDouble()
-                    ratingsNumber++
-                }
+            for (ratingItem in ratingList) {
+                ratingNote += ratingItem.note.toDouble()
+                ratingsNumber++
+            }
 
-                if (ratingsNumber != 0) {
-                    ratingNote /= ratingsNumber
-                }
+            if (ratingsNumber != 0) {
+                ratingNote /= ratingsNumber
+            }
 
-                ratingNote = rating.note.toDouble()
+            ratingNote = rating.note.toDouble()
 
+            // Set views
+            withContext(Dispatchers.Main) {
                 if (ratingNote > 4.5) {
                     star5.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))
                 } else {
@@ -92,6 +97,6 @@ object Helper {
                     notEnoughRatingsTextView?.text = notEnoughRatingsText
                 }
             }
-        })
+        }
     }
 }

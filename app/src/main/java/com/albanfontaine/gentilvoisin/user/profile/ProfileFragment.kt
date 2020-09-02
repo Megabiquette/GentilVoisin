@@ -28,12 +28,13 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 class ProfileFragment : Fragment(), ProfileContract.View {
 
     private lateinit var presenter: ProfileContract.Presenter
+    private val userRepository = UserRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        presenter = ProfilePresenter(this, UserRepository)
+        presenter = ProfilePresenter(this, userRepository)
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 

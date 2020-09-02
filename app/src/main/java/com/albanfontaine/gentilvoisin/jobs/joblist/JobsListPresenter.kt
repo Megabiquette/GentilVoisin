@@ -1,28 +1,33 @@
 package com.albanfontaine.gentilvoisin.jobs.joblist
 
 import com.albanfontaine.gentilvoisin.helper.Helper
-import com.albanfontaine.gentilvoisin.model.Job
-import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.JobRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class JobsListPresenter(
     val view: JobsListContract.View,
     private val jobRepository: JobRepository
-) : JobsListContract.Presenter, FirebaseCallbacks {
+) : JobsListContract.Presenter {
 
     override fun getJobs(userCity: String, jobTypeQuery: JobRepository.JobTypeQuery) {
-        when (jobTypeQuery) {
-            JobRepository.JobTypeQuery.LAST_JOBS -> jobRepository.getLastJobs(userCity, this)
-            JobRepository.JobTypeQuery.MY_JOBS -> jobRepository.getJobsByPoster(userCity, Helper.currentUserUid(), this)
-            else -> jobRepository.getJobsByType(userCity, jobTypeQuery, this)
-        }
-    }
+        GlobalScope.launch {
+            val jobList = when (jobTypeQuery) {
+                JobRepository.JobTypeQuery.LAST_JOBS -> jobRepository.getLastJobs(userCity)
+                JobRepository.JobTypeQuery.MY_JOBS -> jobRepository.getJobsByPoster(userCity, Helper.currentUserUid())
+                else -> jobRepository.getJobsByType(userCity, jobTypeQuery)
+            }
 
-    override fun onJobListRetrieved(jobList: ArrayList<Job>) {
-        view.displayJobs(jobList)
+            withContext(Dispatchers.Main) {
+                view.displayJobs(jobList)
 
-        if (jobList.isEmpty()) {
-            view.onEmptyJobList()
+                if (jobList.isEmpty()) {
+                    view.onEmptyJobList()
+                }
+            }
         }
+
     }
 }

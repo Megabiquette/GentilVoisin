@@ -1,26 +1,10 @@
 package com.albanfontaine.gentilvoisin.repository
 
-import com.albanfontaine.gentilvoisin.model.Discussion
-import com.albanfontaine.gentilvoisin.model.Job
-import com.albanfontaine.gentilvoisin.model.Rating
-import com.albanfontaine.gentilvoisin.model.User
+import com.albanfontaine.gentilvoisin.model.*
 
 interface FirebaseCallbacks {
 
     // UserRepository
     fun onUserRetrieved(user: User) { }
-    fun isNewUser(isNew: Boolean) { }
 
-    // JobRepository
-    fun onJobRetrieved(job: Job) { }
-    fun onJobListRetrieved(jobList: ArrayList<Job>) { }
-
-    // RatingRepository
-    fun onRatingListRetrieved(ratingList: ArrayList<Rating>) { }
-
-    // DiscussionRepository
-    fun onDiscussionListRetrieved(discussionList: ArrayList<Discussion>) { }
-    fun onDiscussionUidRetrieved(discussionUid: String) { }
-
-    // MessageRepository
 }

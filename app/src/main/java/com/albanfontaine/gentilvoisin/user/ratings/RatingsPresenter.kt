@@ -1,10 +1,13 @@
 package com.albanfontaine.gentilvoisin.user.ratings
 
-import com.albanfontaine.gentilvoisin.model.Rating
 import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.RatingRepository
 import com.albanfontaine.gentilvoisin.repository.UserRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class RatingsPresenter(
     val view: RatingsContract.View,
@@ -22,15 +25,15 @@ class RatingsPresenter(
     }
 
     private fun getRatings(userUid: String) {
-        ratingRepository.getRatingsForUserToDisplay(userUid, this)
-    }
+        GlobalScope.launch {
+            val ratingList = ratingRepository.getRatingsForUserToDisplay(userUid)
 
-    override fun onRatingListRetrieved(ratingList: ArrayList<Rating>) {
-        for (rating in ratingList) {
-            view.displayRatings(ratingList)
+            withContext(Dispatchers.Main) {
+                view.displayRatings(ratingList)
 
-            if(ratingList.isEmpty()) {
-                view.onEmptyRatingList()
+                if(ratingList.isEmpty()) {
+                    view.onEmptyRatingList()
+                }
             }
         }
     }

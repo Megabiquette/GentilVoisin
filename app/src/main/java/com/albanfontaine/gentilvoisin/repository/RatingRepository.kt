@@ -8,38 +8,43 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QuerySnapshot
+import kotlinx.coroutines.tasks.await
 
 object RatingRepository {
     private fun getRatingCollection(): CollectionReference = FirebaseFirestore.getInstance().collection(Constants.COLLECTION_RATINGS)
 
-    fun getRatingsForUserToGetNote(userId: String, callback: FirebaseCallbacks) {
+    suspend fun getRatingsForUserToGetNote(userId: String): ArrayList<Rating> {
+        val ratingList = ArrayList<Rating>()
         getRatingCollection()
             .whereEqualTo(DB_FIELD_USER_RATED_UID, userId)
             .get()
-            .addOnSuccessListener { documents ->
-                returnRatingList(documents, callback)
+            .continueWith { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result!!) {
+                        ratingList.add(document.toObject(Rating::class.java))
+                    }
+                }
             }
+            .await()
+        return ratingList
     }
 
-    fun getRatingsForUserToDisplay(userId: String, callback: FirebaseCallbacks) {
+    suspend fun getRatingsForUserToDisplay(userId: String): ArrayList<Rating> {
+        val ratingList = ArrayList<Rating>()
         getRatingCollection()
             .whereEqualTo(DB_FIELD_USER_RATED_UID, userId)
             .orderBy(DB_FIELD_POSTED_AT, Query.Direction.DESCENDING)
             .limit(30)
             .get()
-            .addOnSuccessListener { documents ->
-                returnRatingList(documents, callback)
+            .continueWith { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result!!) {
+                        ratingList.add(document.toObject(Rating::class.java))
+                    }
+                }
             }
-    }
-
-    private fun returnRatingList(documents: QuerySnapshot, callback: FirebaseCallbacks) {
-        val ratingList = ArrayList<Rating>()
-        for (document in documents) {
-            val rating = document.toObject(Rating::class.java)
-            ratingList.add(rating)
-        }
-        callback.onRatingListRetrieved(ratingList)
+            .await()
+        return ratingList
     }
 
     fun createRating(rating: Rating): Task<Void> {

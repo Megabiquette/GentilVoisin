@@ -9,74 +9,96 @@ import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_POSTER_UID
 import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_TYPE
 import com.albanfontaine.gentilvoisin.model.Job
 import com.google.firebase.firestore.*
+import kotlinx.coroutines.tasks.await
 
 object JobRepository {
 
     fun getJobCollection(): CollectionReference = FirebaseFirestore.getInstance().collection(COLLECTION_JOBS)
 
-    fun getJob(uid: String, callback: FirebaseCallbacks) {
+    suspend fun getJob(uid: String): Job {
+        var job: Job? = null
         getJobCollection()
             .document(uid)
             .get()
-            .addOnSuccessListener { document ->
-                if (document.exists()) {
-                    val job = document.toObject(Job::class.java)!!
-                    callback.onJobRetrieved(job)
+            .continueWith { task ->
+                if (task.isSuccessful) {
+                    job = task.result!!.toObject(Job::class.java)!!
                 }
             }
+            .await()
+        return job!!
     }
 
-    fun getLastJobs(city: String, callback: FirebaseCallbacks) {
+    suspend fun getLastJobs(city: String): ArrayList<Job> {
+        val jobList = ArrayList<Job>()
         getJobCollection()
             .whereEqualTo(DB_FIELD_CITY, city)
             .whereEqualTo(DB_FIELD_DONE, false)
             .orderBy(DB_FIELD_POSTED_AT, Query.Direction.DESCENDING)
             .limit(30)
             .get()
-            .addOnSuccessListener { documents ->
-                returnJobList(documents, callback)
+            .continueWith { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result!!) {
+                        jobList.add(document.toObject(Job::class.java))
+                    }
+                }
             }
+            .await()
+        return jobList
     }
 
-    fun getJobsByType(city: String, type: JobTypeQuery, callback: FirebaseCallbacks) {
-         getJobCollection()
+    suspend fun getJobsByType(city: String, type: JobTypeQuery): ArrayList<Job> {
+        val jobList = ArrayList<Job>()
+        getJobCollection()
             .whereEqualTo(DB_FIELD_CITY, city)
             .whereEqualTo(DB_FIELD_TYPE, type.value)
             .whereEqualTo(DB_FIELD_DONE, false)
             .get()
-            .addOnSuccessListener { documents ->
-                returnJobList(documents, callback)
+            .continueWith { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result!!) {
+                        jobList.add(document.toObject(Job::class.java))
+                    }
+                }
             }
+            .await()
+        return jobList
     }
 
-    fun getJobsByPoster(city: String, posterUid: String, callback: FirebaseCallbacks) {
-         getJobCollection()
+    suspend fun getJobsByPoster(city: String, posterUid: String): ArrayList<Job> {
+        val jobList = ArrayList<Job>()
+        getJobCollection()
             .whereEqualTo(DB_FIELD_CITY, city)
             .whereEqualTo(DB_FIELD_POSTER_UID, posterUid)
             .get()
-            .addOnSuccessListener { documents ->
-                returnJobList(documents, callback)
+            .continueWith { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result!!) {
+                        jobList.add(document.toObject(Job::class.java))
+                    }
+                }
             }
+            .await()
+        return jobList
     }
 
-    fun getJobsByCategory(city: String, category: String, callback: FirebaseCallbacks) {
-         getJobCollection()
+    suspend fun getJobsByCategory(city: String, category: String): ArrayList<Job> {
+        val jobList = ArrayList<Job>()
+        getJobCollection()
             .whereEqualTo(DB_FIELD_CITY, city)
             .whereEqualTo(DB_FIELD_CATEGORY, category)
             .whereEqualTo(DB_FIELD_DONE, false)
             .get()
-            .addOnSuccessListener { documents ->
-                returnJobList(documents, callback)
+            .continueWith { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result!!) {
+                        jobList.add(document.toObject(Job::class.java))
+                    }
+                }
             }
-    }
-
-    private fun returnJobList(documents: QuerySnapshot, callback: FirebaseCallbacks) {
-        val jobList = ArrayList<Job>()
-        for (document in documents) {
-            val job = document.toObject(Job::class.java)
-            jobList.add(job)
-        }
-        callback.onJobListRetrieved(jobList)
+            .await()
+        return jobList
     }
 
     enum class JobTypeQuery(val value: String) {
