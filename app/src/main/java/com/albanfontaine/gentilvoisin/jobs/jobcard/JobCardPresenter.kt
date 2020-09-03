@@ -1,10 +1,7 @@
 package com.albanfontaine.gentilvoisin.jobs.jobcard
 
 import com.albanfontaine.gentilvoisin.helper.Helper
-import com.albanfontaine.gentilvoisin.model.Job
-import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.DiscussionRepository
-import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
@@ -17,18 +14,17 @@ class JobCardPresenter(
     private val userRepository: UserRepository,
     private val jobRepository: JobRepository,
     private val discussionRepository: DiscussionRepository
-) : JobCardContract.Presenter, FirebaseCallbacks {
-    private lateinit var job: Job
+) : JobCardContract.Presenter {
 
     override fun getJob(jobUid: String) {
         GlobalScope.launch {
-            job = jobRepository.getJob(jobUid)
-            getPoster(job.posterUid)
-        }
-    }
+            val job = jobRepository.getJob(jobUid)
+            val jobPoster = userRepository.getUser(job.posterUid)
 
-    private fun getPoster(posterUid: String) {
-        userRepository.getUser(posterUid, this)
+            withContext(Dispatchers.Main) {
+                view.configureViews(job, jobPoster)
+            }
+        }
     }
 
     override fun discussionAlreadyExists(jobUid: String) {
@@ -39,9 +35,5 @@ class JobCardPresenter(
                 view.onDiscussionExistenceChecked(discussionUid)
             }
         }
-    }
-
-    override fun onUserRetrieved(user: User) {
-        view.configureViews(job, user)
     }
 }

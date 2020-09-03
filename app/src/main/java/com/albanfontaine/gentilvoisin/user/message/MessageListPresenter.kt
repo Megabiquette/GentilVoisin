@@ -5,7 +5,6 @@ import com.albanfontaine.gentilvoisin.model.Discussion
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.Message
 import com.albanfontaine.gentilvoisin.repository.DiscussionRepository
-import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.repository.MessageRepository
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +18,7 @@ class MessageListPresenter(
     private val discussionRepository: DiscussionRepository,
     private val messageRepository: MessageRepository,
     private val jobRepository: JobRepository
-) : MessageListContract.Presenter, FirebaseCallbacks {
+) : MessageListContract.Presenter {
 
     private lateinit var job: Job
 

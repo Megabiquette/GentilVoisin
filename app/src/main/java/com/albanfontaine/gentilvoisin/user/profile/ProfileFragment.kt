@@ -3,7 +3,6 @@ package com.albanfontaine.gentilvoisin.user.profile
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,6 @@ import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.User
-import com.albanfontaine.gentilvoisin.repository.RatingRepository
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.user.ratings.RatingsActivity
 import com.bumptech.glide.Glide
@@ -24,21 +22,33 @@ import com.google.firebase.auth.*
 import kotlinx.android.synthetic.main.dialog_change_email.view.*
 import kotlinx.android.synthetic.main.dialog_change_password.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class ProfileFragment : Fragment(), ProfileContract.View {
+class ProfileFragment : Fragment() {
 
-    private lateinit var presenter: ProfileContract.Presenter
     private val userRepository = UserRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        presenter = ProfilePresenter(this, userRepository)
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
-    override fun configureViews(user: User) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        GlobalScope.launch {
+            val currentUser = userRepository.getCurrentUser()
+
+            withContext(Dispatchers.Main) {
+                configureViews(currentUser)
+            }
+        }
+    }
+
+    private fun configureViews(user: User) {
         FirebaseAuth.getInstance().currentUser?.let { firebaseUser ->
             if (firebaseUser.providerData[1].providerId != "password") {
                 profileChangeEmail.isGone = true

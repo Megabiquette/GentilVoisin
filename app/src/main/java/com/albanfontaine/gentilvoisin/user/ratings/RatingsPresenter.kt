@@ -1,7 +1,5 @@
 package com.albanfontaine.gentilvoisin.user.ratings
 
-import com.albanfontaine.gentilvoisin.model.User
-import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.RatingRepository
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
@@ -13,15 +11,18 @@ class RatingsPresenter(
     val view: RatingsContract.View,
     private val userRepository: UserRepository,
     private val ratingRepository: RatingRepository
-) : RatingsContract.Presenter, FirebaseCallbacks {
+) : RatingsContract.Presenter {
 
     override fun getRatedUser(userUid: String) {
-        userRepository.getUser(userUid, this)
-    }
+        GlobalScope.launch {
+            val user = userRepository.getUser(userUid)
 
-    override fun onUserRetrieved(user: User) {
-        view.onUserRetrieved(user)
-        getRatings(user.uid)
+            withContext(Dispatchers.Main) {
+                view.onUserRetrieved(user)
+            }
+
+            getRatings(user.uid)
+        }
     }
 
     private fun getRatings(userUid: String) {

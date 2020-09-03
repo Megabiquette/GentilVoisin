@@ -16,16 +16,19 @@ import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.Message
-import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.*
 import com.albanfontaine.gentilvoisin.view.MessageAdapter
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_message_list.*
 import kotlinx.android.synthetic.main.item_jobs_recycler_view.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MessageListFragment : Fragment(), MessageListContract.View, FirebaseCallbacks {
+class MessageListFragment : Fragment(), MessageListContract.View {
     private lateinit var presenter: MessageListContract.Presenter
     private lateinit var messageList: ArrayList<Message>
     private lateinit var messageAdapter: MessageAdapter
@@ -108,18 +111,19 @@ class MessageListFragment : Fragment(), MessageListContract.View, FirebaseCallba
         jobLayout.itemJobsDate.text = dateFormat.format(job.postedAt)
 
         // Avatar
-        userRepository.getUser(job.posterUid, this)
+        GlobalScope.launch {
+            val user = userRepository.getUser(job.posterUid)
+            withContext(Dispatchers.Main) {
+                Glide.with(requireContext())
+                    .load(user.avatar)
+                    .centerCrop()
+                    .circleCrop()
+                    .placeholder(ContextCompat.getDrawable(requireContext(), R.drawable.ic_person_primary))
+                    .into(fragmentMessageListJobLayout.itemJobsAvatar)
+            }
+        }
 
         presenter.getMessageList(discussionUid)
-    }
-
-    override fun onUserRetrieved(user: User) {
-        Glide.with(requireContext())
-            .load(user.avatar)
-            .centerCrop()
-            .circleCrop()
-            .placeholder(ContextCompat.getDrawable(requireContext(), R.drawable.ic_person_primary))
-            .into(fragmentMessageListJobLayout.itemJobsAvatar)
     }
 
     override fun displayMessageList(list: ArrayList<Message>) {

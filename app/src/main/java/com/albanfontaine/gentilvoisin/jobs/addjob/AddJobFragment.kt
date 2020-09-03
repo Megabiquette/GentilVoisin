@@ -23,11 +23,9 @@ class AddJobFragment : Fragment(), AddJobContract.View {
 
         presenter = AddJobPresenter(
             this,
-            Helper.currentUserUid(),
             UserRepository,
             JobRepository
         )
-        presenter.getUser()
     }
 
     override fun onCreateView(

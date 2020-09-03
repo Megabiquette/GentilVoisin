@@ -6,7 +6,6 @@ interface AddJobContract {
     }
 
     interface Presenter {
-        fun getUser()
         fun addJob(category: String, type: String, description: String)
     }
 }

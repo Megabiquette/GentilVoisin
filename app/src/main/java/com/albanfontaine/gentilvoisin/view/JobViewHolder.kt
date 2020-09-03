@@ -9,18 +9,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.model.Job
-import com.albanfontaine.gentilvoisin.model.User
-import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_jobs_recycler_view.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
 class JobViewHolder(
     view: View,
     private val onItemListener: JobAdapter.OnItemListener
-) : RecyclerView.ViewHolder(view), View.OnClickListener, FirebaseCallbacks {
+) : RecyclerView.ViewHolder(view), View.OnClickListener {
 
     private val avatarView: ImageView = view.itemJobsAvatar
     private val type: TextView = view.itemJobsType
@@ -71,15 +73,16 @@ class JobViewHolder(
         date.text = dateFormat.format(job.postedAt)
 
         // Avatar
-        userRepository.getUser(job.posterUid, this)
-    }
-
-    override fun onUserRetrieved(user: User) {
-        Glide.with(context)
-            .load(user.avatar)
-            .centerCrop()
-            .circleCrop()
-            .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_person_primary))
-            .into(avatarView)
+        GlobalScope.launch {
+            val user = userRepository.getUser(job.posterUid)
+            withContext(Dispatchers.Main) {
+                Glide.with(context)
+                    .load(user.avatar)
+                    .centerCrop()
+                    .circleCrop()
+                    .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_person_primary))
+                    .into(avatarView)
+            }
+        }
     }
 }

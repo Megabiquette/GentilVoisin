@@ -1,31 +1,34 @@
 package com.albanfontaine.gentilvoisin.jobs.addjob
 
+import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.User
-import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.JobRepository
 import com.albanfontaine.gentilvoisin.repository.UserRepository
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.*
 
 class AddJobPresenter(
     val view: AddJobContract.View,
-    private val userUid: String,
     private val userRepository: UserRepository,
     private val jobRepository: JobRepository
-) : AddJobContract.Presenter, FirebaseCallbacks {
+) : AddJobContract.Presenter {
 
-    private var user: User? = null
+    private lateinit var user: User
 
-    override fun getUser() {
-        userRepository.getUser(userUid, this)
+    init {
+        GlobalScope.launch {
+            user = userRepository.getUser(Helper.currentUserUid())
+        }
     }
 
     override fun addJob(category: String, type: String, description: String) {
         val jobDocumentReference = jobRepository.getJobCollection().document()
         val job = Job(
             uid = jobDocumentReference.id,
-            posterUid = user!!.uid,
-            city = user!!.city,
+            posterUid = user.uid,
+            city = user.city,
             category = category,
             type = type,
             description = description,
@@ -34,9 +37,5 @@ class AddJobPresenter(
         )
         jobDocumentReference.set(job)
         view.onJobAdded()
-    }
-
-    override fun onUserRetrieved(user: User) {
-        this.user = user
     }
 }

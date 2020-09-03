@@ -4,18 +4,16 @@ import android.app.Activity
 import android.content.Intent
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Constants
-import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
-import com.google.android.gms.tasks.Tasks
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class LoginPresenter(
     val view: LoginContract.View,
     private val userRepository: UserRepository
-) : LoginContract.Presenter, FirebaseCallbacks {
+) : LoginContract.Presenter {
 
     override fun handleConnectionResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val response: IdpResponse? = IdpResponse.fromResultIntent(data)

@@ -13,14 +13,17 @@ import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.Message
 import com.albanfontaine.gentilvoisin.model.User
-import com.albanfontaine.gentilvoisin.repository.FirebaseCallbacks
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_message_recycler_view.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MessageViewHolder(val context: Context, view: View) : RecyclerView.ViewHolder(view), FirebaseCallbacks {
+class MessageViewHolder(val context: Context, view: View) : RecyclerView.ViewHolder(view) {
 
     private val usernameText: TextView = view.itemMessageUsername
     private val dateText: TextView = view.itemMessageDate
@@ -33,11 +36,14 @@ class MessageViewHolder(val context: Context, view: View) : RecyclerView.ViewHol
 
     fun getUser(message: Message, userRepository: UserRepository) {
         this.message = message
-        userRepository.getUser(message.senderUid, this)
-    }
 
-    override fun onUserRetrieved(user: User) {
-        updateWithMessage(user, message)
+        GlobalScope.launch {
+            val user = userRepository.getUser(message.senderUid)
+
+            withContext(Dispatchers.Main) {
+                updateWithMessage(user, message)
+            }
+        }
     }
 
     private fun updateWithMessage(user: User, message: Message) {
