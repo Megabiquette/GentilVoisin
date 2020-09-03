@@ -5,15 +5,16 @@ import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_APPLICANT_UID
 import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_JOB_POSTER_UID
 import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_JOB_UID
 import com.albanfontaine.gentilvoisin.model.Discussion
+import com.albanfontaine.gentilvoisin.repository.`interface`.DiscussionRepositoryInterface
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
-object DiscussionRepository {
+object DiscussionRepository : DiscussionRepositoryInterface {
 
-    fun getDiscussionCollection(): CollectionReference = FirebaseFirestore.getInstance().collection(COLLECTION_DISCUSSION)
+    override fun getDiscussionCollection(): CollectionReference = FirebaseFirestore.getInstance().collection(COLLECTION_DISCUSSION)
 
-    suspend fun getDiscussionByJobPoster(jobPosterUid: String): ArrayList<Discussion> {
+    override suspend fun getDiscussionByJobPoster(jobPosterUid: String): ArrayList<Discussion> {
         val discussionList = ArrayList<Discussion>()
         getDiscussionCollection()
             .whereEqualTo(DB_FIELD_JOB_POSTER_UID, jobPosterUid)
@@ -29,7 +30,7 @@ object DiscussionRepository {
         return discussionList
     }
 
-    suspend fun getDiscussionByApplicant(jobPosterUid: String): ArrayList<Discussion> {
+    override suspend fun getDiscussionByApplicant(jobPosterUid: String): ArrayList<Discussion> {
         val discussionList = ArrayList<Discussion>()
         getDiscussionCollection()
             .whereEqualTo(DB_FIELD_APPLICANT_UID, jobPosterUid)
@@ -45,7 +46,7 @@ object DiscussionRepository {
         return discussionList
     }
 
-    suspend fun getDiscussionUidForJob(jobUid: String, applicantUid: String): String {
+    override suspend fun getDiscussionUidForJob(jobUid: String, applicantUid: String): String {
         var discussionUid = "0"
         getDiscussionCollection()
             .whereEqualTo(DB_FIELD_JOB_UID, jobUid)

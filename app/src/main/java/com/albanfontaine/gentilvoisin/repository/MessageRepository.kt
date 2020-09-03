@@ -4,15 +4,16 @@ import com.albanfontaine.gentilvoisin.helper.Constants.COLLECTION_MESSAGES
 import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_DISCUSSION_UID
 import com.google.android.gms.tasks.Task
 import com.albanfontaine.gentilvoisin.model.Message
+import com.albanfontaine.gentilvoisin.repository.`interface`.MessageRepositoryInterface
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
-object MessageRepository {
+object MessageRepository : MessageRepositoryInterface {
 
     private fun getMessageCollection(): CollectionReference = FirebaseFirestore.getInstance().collection(COLLECTION_MESSAGES)
 
-    suspend fun getMessagesByDiscussion(discussionUid: String): ArrayList<Message> {
+    override suspend fun getMessagesByDiscussion(discussionUid: String): ArrayList<Message> {
         val messageList = ArrayList<Message>()
         getMessageCollection()
             .whereEqualTo(DB_FIELD_DISCUSSION_UID, discussionUid)
@@ -28,7 +29,7 @@ object MessageRepository {
         return messageList
     }
 
-    fun createMessage(message: Message): Task<Void> {
+    override fun createMessage(message: Message): Task<Void> {
         return getMessageCollection()
             .document()
             .set(message)

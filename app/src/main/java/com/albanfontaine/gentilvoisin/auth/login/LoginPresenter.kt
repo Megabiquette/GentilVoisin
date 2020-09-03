@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Constants
-import com.albanfontaine.gentilvoisin.repository.UserRepository
+import com.albanfontaine.gentilvoisin.repository.`interface`.UserRepositoryInterface
 import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
 import kotlinx.coroutines.GlobalScope
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class LoginPresenter(
     val view: LoginContract.View,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepositoryInterface
 ) : LoginContract.Presenter {
 
     override fun handleConnectionResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -45,5 +45,4 @@ class LoginPresenter(
             }
         }
     }
-
 }

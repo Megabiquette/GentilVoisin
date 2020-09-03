@@ -8,14 +8,15 @@ import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_POSTED_AT
 import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_POSTER_UID
 import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_TYPE
 import com.albanfontaine.gentilvoisin.model.Job
+import com.albanfontaine.gentilvoisin.repository.`interface`.JobRepositoryInterface
 import com.google.firebase.firestore.*
 import kotlinx.coroutines.tasks.await
 
-object JobRepository {
+object JobRepository : JobRepositoryInterface {
 
-    fun getJobCollection(): CollectionReference = FirebaseFirestore.getInstance().collection(COLLECTION_JOBS)
+    override fun getJobCollection(): CollectionReference = FirebaseFirestore.getInstance().collection(COLLECTION_JOBS)
 
-    suspend fun getJob(uid: String): Job {
+    override suspend fun getJob(uid: String): Job {
         var job: Job? = null
         getJobCollection()
             .document(uid)
@@ -29,7 +30,7 @@ object JobRepository {
         return job!!
     }
 
-    suspend fun getLastJobs(city: String): ArrayList<Job> {
+    override suspend fun getLastJobs(city: String): ArrayList<Job> {
         val jobList = ArrayList<Job>()
         getJobCollection()
             .whereEqualTo(DB_FIELD_CITY, city)
@@ -48,7 +49,7 @@ object JobRepository {
         return jobList
     }
 
-    suspend fun getJobsByType(city: String, type: JobTypeQuery): ArrayList<Job> {
+    override suspend fun getJobsByType(city: String, type: JobTypeQuery): ArrayList<Job> {
         val jobList = ArrayList<Job>()
         getJobCollection()
             .whereEqualTo(DB_FIELD_CITY, city)
@@ -66,7 +67,7 @@ object JobRepository {
         return jobList
     }
 
-    suspend fun getJobsByPoster(city: String, posterUid: String): ArrayList<Job> {
+    override suspend fun getJobsByPoster(city: String, posterUid: String): ArrayList<Job> {
         val jobList = ArrayList<Job>()
         getJobCollection()
             .whereEqualTo(DB_FIELD_CITY, city)
@@ -83,7 +84,7 @@ object JobRepository {
         return jobList
     }
 
-    suspend fun getJobsByCategory(city: String, category: String): ArrayList<Job> {
+    override suspend fun getJobsByCategory(city: String, category: String): ArrayList<Job> {
         val jobList = ArrayList<Job>()
         getJobCollection()
             .whereEqualTo(DB_FIELD_CITY, city)
