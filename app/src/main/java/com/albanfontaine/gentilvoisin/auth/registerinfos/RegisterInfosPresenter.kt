@@ -4,14 +4,19 @@ import android.content.Context
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.UserRepository
+import com.albanfontaine.gentilvoisin.repository.`interface`.UserRepositoryInterface
 import com.google.common.collect.ArrayListMultimap
 import com.google.common.collect.Multimap
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
 
 class RegisterInfosPresenter(
     val view: RegisterInfosContract.View,
-    private val userRepository: UserRepository,
+    private val userRepository: UserRepositoryInterface,
     val context: Context
 ) : RegisterInfosContract.Presenter{
     private lateinit var citiesMultiMap: Multimap<String, String>
@@ -26,25 +31,23 @@ class RegisterInfosPresenter(
      * @param user the user to register
      */
     override fun registerUser(user: User) {
-        userRepository.createUser(user)
-            .addOnCompleteListener {
-                view.goToMainActivity()
+        GlobalScope.launch {
+            if (userRepository.createUser(user)) {
+                withContext(Dispatchers.Main) { view.goToMainActivity() }
+            } else {
+                withContext(Dispatchers.Main) { view.displayError() }
             }
-            .addOnFailureListener {
-                it.printStackTrace()
-                view.displayError()
-            }
+        }
     }
 
     override fun updateUserCity(user: User, city: String) {
-        userRepository.updateUserCity(user, city)
-            .addOnCompleteListener {
-                view.goToMainActivity(true)
-            }
-            .addOnFailureListener {
-                it.printStackTrace()
+        GlobalScope.launch {
+            if (userRepository.updateUserCity(user, city)) {
+                view.goToMainActivity()
+            } else {
                 view.displayError()
             }
+        }
     }
 
     /**

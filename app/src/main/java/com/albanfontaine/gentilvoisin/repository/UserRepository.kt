@@ -44,15 +44,23 @@ object UserRepository : UserRepositoryInterface {
             .await()
     }
 
-    override fun createUser(user: User): Task<Void> {
+    override suspend fun createUser(user: User): Boolean {
         return getUserCollection()
             .document(user.uid)
             .set(user)
+            .continueWith { task ->
+                return@continueWith task.isSuccessful
+            }
+            .await()
     }
 
-    override fun updateUserCity(user: User, city: String): Task<Void> {
+    override suspend fun updateUserCity(user: User, city: String): Boolean {
         return getUserCollection()
             .document(user.uid)
             .update(Constants.DB_FIELD_CITY, city)
+            .continueWith { task ->
+                return@continueWith task.isSuccessful
+            }
+            .await()
     }
 }

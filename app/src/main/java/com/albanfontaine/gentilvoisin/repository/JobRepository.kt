@@ -8,9 +8,12 @@ import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_POSTED_AT
 import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_POSTER_UID
 import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_TYPE
 import com.albanfontaine.gentilvoisin.model.Job
+import com.albanfontaine.gentilvoisin.model.User
 import com.albanfontaine.gentilvoisin.repository.`interface`.JobRepositoryInterface
 import com.google.firebase.firestore.*
 import kotlinx.coroutines.tasks.await
+import java.util.*
+import kotlin.collections.ArrayList
 
 object JobRepository : JobRepositoryInterface {
 
@@ -100,6 +103,25 @@ object JobRepository : JobRepositoryInterface {
             }
             .await()
         return jobList
+    }
+
+    override suspend fun createJob(user: User, category: String, type: String, description: String): Boolean {
+        val jobDocumentReference = getJobCollection().document()
+        val job = Job(
+            uid = jobDocumentReference.id,
+            posterUid = user.uid,
+            city = user.city,
+            category = category,
+            type = type,
+            description = description,
+            postedAt = Date(),
+            isDone = false
+        )
+        return jobDocumentReference.set(job)
+            .continueWith { task ->
+                return@continueWith task.isSuccessful
+            }
+            .await()
     }
 
     enum class JobTypeQuery(val value: String) {

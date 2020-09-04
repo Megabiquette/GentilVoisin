@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Constants
+import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.repository.UserRepository
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.repository.JobRepository
@@ -20,22 +21,22 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsListContract.View {
+
     private lateinit var jobAdapter: JobAdapter
     private lateinit var jobList: List<Job>
     private var userCity: String = ""
+
     private lateinit var presenter: JobsListContract.Presenter
-    private val jobRepository = JobRepository
-    private val userRepository = UserRepository
 
     abstract val jobTypeQuery: JobRepository.JobTypeQuery
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        presenter = JobsListPresenter(this, jobRepository)
+        presenter = JobsListPresenter(this, JobRepository, Helper)
 
         GlobalScope.launch {
-            userCity = userRepository.getCurrentUser().city
+            userCity = UserRepository.getCurrentUser().city
             presenter.getJobs(userCity, jobTypeQuery)
         }
     }

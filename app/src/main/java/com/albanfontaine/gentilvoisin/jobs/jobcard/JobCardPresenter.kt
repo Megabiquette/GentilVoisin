@@ -1,9 +1,9 @@
 package com.albanfontaine.gentilvoisin.jobs.jobcard
 
 import com.albanfontaine.gentilvoisin.helper.Helper
-import com.albanfontaine.gentilvoisin.repository.DiscussionRepository
-import com.albanfontaine.gentilvoisin.repository.JobRepository
-import com.albanfontaine.gentilvoisin.repository.UserRepository
+import com.albanfontaine.gentilvoisin.repository.`interface`.DiscussionRepositoryInterface
+import com.albanfontaine.gentilvoisin.repository.`interface`.JobRepositoryInterface
+import com.albanfontaine.gentilvoisin.repository.`interface`.UserRepositoryInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -11,9 +11,9 @@ import kotlinx.coroutines.withContext
 
 class JobCardPresenter(
     val view: JobCardContract.View,
-    private val userRepository: UserRepository,
-    private val jobRepository: JobRepository,
-    private val discussionRepository: DiscussionRepository
+    private val userRepository: UserRepositoryInterface,
+    private val jobRepository: JobRepositoryInterface,
+    private val discussionRepository: DiscussionRepositoryInterface
 ) : JobCardContract.Presenter {
 
     override fun getJob(jobUid: String) {

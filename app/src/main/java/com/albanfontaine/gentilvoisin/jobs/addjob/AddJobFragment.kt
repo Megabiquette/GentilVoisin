@@ -45,6 +45,10 @@ class AddJobFragment : Fragment(), AddJobContract.View {
         findNavController().navigate(R.id.menuLastJobsList)
     }
 
+    override fun displayErrorToast(errorMessage: Int) {
+        requireContext().toast(errorMessage)
+    }
+
     private fun configureViews() {
         ArrayAdapter.createFromResource(
             requireContext(),

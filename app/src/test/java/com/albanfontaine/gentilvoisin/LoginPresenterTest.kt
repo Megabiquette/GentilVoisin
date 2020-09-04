@@ -20,17 +20,15 @@ class LoginPresenterTest {
 
     @RelaxedMockK
     private lateinit var view: LoginContract.View
-
     @MockK
     private lateinit var userRepository: UserRepositoryInterface
-
     @MockK
     private var data: Intent? = null
 
     private val requestCode = Constants.RC_SIGN_IN
 
     @Before
-    fun setUp() {
+    fun setup() {
         MockKAnnotations.init(this)
         presenter = LoginPresenter(view, userRepository)
     }

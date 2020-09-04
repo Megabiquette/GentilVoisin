@@ -16,11 +16,11 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-object Helper {
+object Helper : HelperInterface {
 
-    fun currentUserUid(): String  = FirebaseAuth.getInstance().currentUser!!.uid
+    override fun currentUserUid(): String = FirebaseAuth.getInstance().currentUser!!.uid
 
-    fun displayRatingStars(
+    override fun displayRatingStars(
         context: Context,
         user: User,
         star1: ImageView,
