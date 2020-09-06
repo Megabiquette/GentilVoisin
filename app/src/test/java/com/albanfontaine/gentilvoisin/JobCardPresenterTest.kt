@@ -1,5 +1,6 @@
 package com.albanfontaine.gentilvoisin
 
+import com.albanfontaine.gentilvoisin.helper.HelperInterface
 import com.albanfontaine.gentilvoisin.jobs.jobcard.JobCardContract
 import com.albanfontaine.gentilvoisin.jobs.jobcard.JobCardPresenter
 import com.albanfontaine.gentilvoisin.model.Job
@@ -36,13 +37,15 @@ class JobCardPresenterTest {
     private lateinit var jobRepository: JobRepositoryInterface
     @MockK
     private lateinit var discussionRepository: DiscussionRepositoryInterface
+    @MockK
+    private lateinit var helper: HelperInterface
 
     @ExperimentalCoroutinesApi
     @Before
     fun setup(){
         Dispatchers.setMain(testDispatcher)
         MockKAnnotations.init(this)
-        presenter = JobCardPresenter(view, userRepository, jobRepository, discussionRepository)
+        presenter = JobCardPresenter(view, userRepository, jobRepository, discussionRepository, helper)
     }
 
     @ExperimentalCoroutinesApi
@@ -77,6 +80,7 @@ class JobCardPresenterTest {
         val jobUid = "1"
         val discussionUid = "2"
 
+        coEvery { helper.currentUserUid() } returns "3"
         coEvery { discussionRepository.getDiscussionUidForJob(jobUid, any()) } returns discussionUid
 
         // Act
@@ -84,7 +88,6 @@ class JobCardPresenterTest {
 
         // Assert
         verify {
-            // TODO
             view.onDiscussionExistenceChecked(discussionUid)
         }
 

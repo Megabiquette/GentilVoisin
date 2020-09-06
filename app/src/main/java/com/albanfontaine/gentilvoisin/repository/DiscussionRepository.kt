@@ -55,7 +55,7 @@ object DiscussionRepository : DiscussionRepositoryInterface {
             .continueWith { task ->
                 if (task.isSuccessful) {
                     val documents = task.result!!
-                    if (documents.size() > 1) {
+                    if (documents.size() > 0) {
                         discussionUid = documents.documents[0].id
                     }
                 }

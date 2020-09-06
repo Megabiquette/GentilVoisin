@@ -1,5 +1,6 @@
 package com.albanfontaine.gentilvoisin.user.message
 
+import android.util.Log
 import com.albanfontaine.gentilvoisin.helper.HelperInterface
 import com.albanfontaine.gentilvoisin.model.Discussion
 import com.albanfontaine.gentilvoisin.model.Job

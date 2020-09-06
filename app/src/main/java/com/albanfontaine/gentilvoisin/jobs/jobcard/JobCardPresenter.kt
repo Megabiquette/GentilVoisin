@@ -1,6 +1,7 @@
 package com.albanfontaine.gentilvoisin.jobs.jobcard
 
 import com.albanfontaine.gentilvoisin.helper.Helper
+import com.albanfontaine.gentilvoisin.helper.HelperInterface
 import com.albanfontaine.gentilvoisin.repository.`interface`.DiscussionRepositoryInterface
 import com.albanfontaine.gentilvoisin.repository.`interface`.JobRepositoryInterface
 import com.albanfontaine.gentilvoisin.repository.`interface`.UserRepositoryInterface
@@ -13,7 +14,8 @@ class JobCardPresenter(
     val view: JobCardContract.View,
     private val userRepository: UserRepositoryInterface,
     private val jobRepository: JobRepositoryInterface,
-    private val discussionRepository: DiscussionRepositoryInterface
+    private val discussionRepository: DiscussionRepositoryInterface,
+    private val helper: HelperInterface
 ) : JobCardContract.Presenter {
 
     override fun getJob(jobUid: String) {
@@ -29,7 +31,7 @@ class JobCardPresenter(
 
     override fun discussionAlreadyExists(jobUid: String) {
         GlobalScope.launch {
-            val discussionUid = discussionRepository.getDiscussionUidForJob(jobUid, Helper.currentUserUid())
+            val discussionUid = discussionRepository.getDiscussionUidForJob(jobUid, helper.currentUserUid())
 
             withContext(Dispatchers.Main) {
                 view.onDiscussionExistenceChecked(discussionUid)

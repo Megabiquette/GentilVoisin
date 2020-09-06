@@ -28,26 +28,27 @@ class JobCardFragment : Fragment(), JobCardContract.View {
     private lateinit var jobUid: String
     private lateinit var jobPosterUid: String
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        presenter = JobCardPresenter(
-            this,
-            UserRepository,
-            JobRepository,
-            DiscussionRepository
-        )
-        arguments?.let {
-            jobUid = it.getString(Constants.JOB_UID)!!
-            presenter.getJob(jobUid)
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_job_card, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        presenter = JobCardPresenter(
+            this,
+            UserRepository,
+            JobRepository,
+            DiscussionRepository,
+            Helper
+        )
+        arguments?.let {
+            jobUid = it.getString(Constants.JOB_UID)!!
+            presenter.getJob(jobUid)
+        }
     }
 
     override fun configureViews(job: Job, jobPoster: User) {

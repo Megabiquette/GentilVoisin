@@ -2,6 +2,7 @@ package com.albanfontaine.gentilvoisin.user.message
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,13 +40,6 @@ class MessageListFragment : Fragment(), MessageListContract.View {
     private lateinit var interlocutorUid: String
     private var discussionUid: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        interlocutorUid = arguments?.getString(Constants.INTERLOCUTOR_UID)!!
-        jobUid = arguments?.getString(Constants.JOB_UID)!!
-        discussionUid = arguments?.getString(Constants.DISCUSSION_UID)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,6 +48,12 @@ class MessageListFragment : Fragment(), MessageListContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        interlocutorUid = arguments?.getString(Constants.INTERLOCUTOR_UID)!!
+        jobUid = arguments?.getString(Constants.JOB_UID)!!
+        discussionUid = arguments?.getString(Constants.DISCUSSION_UID)
+
+        Log.e("discussion uid: ", discussionUid!!)
 
         presenter = MessageListPresenter(this, jobUid, DiscussionRepository, MessageRepository, JobRepository, Helper)
         presenter.getJob()
@@ -76,6 +76,25 @@ class MessageListFragment : Fragment(), MessageListContract.View {
         messageList.add(message)
         messageAdapter.notifyDataSetChanged()
         fragmentMessageListRecyclerView.smoothScrollToPosition(messageList.size - 1)
+    }
+
+    override fun displayMessageList(list: ArrayList<Message>) {
+        messageList = list
+        messageAdapter = MessageAdapter(requireContext(), messageList)
+        fragmentMessageListRecyclerView.apply {
+            adapter = messageAdapter
+            val linearLayoutManager = LinearLayoutManager(activity)
+            layoutManager = linearLayoutManager.apply {
+                reverseLayout
+            }
+        }
+
+        if (messageList.isEmpty()) {
+            fragmentMessageListRecyclerView.isGone = true
+            fragmentMessageNoMessageTextView.isVisible = true
+        } else {
+            fragmentMessageListRecyclerView.smoothScrollToPosition(messageList.size - 1)
+        }
     }
 
     override fun displayJobItem(job: Job) {
@@ -125,24 +144,5 @@ class MessageListFragment : Fragment(), MessageListContract.View {
         }
 
         presenter.getMessageList(discussionUid)
-    }
-
-    override fun displayMessageList(list: ArrayList<Message>) {
-        messageList = list
-        messageAdapter = MessageAdapter(requireContext(), messageList)
-        fragmentMessageListRecyclerView.apply {
-            adapter = messageAdapter
-            val linearLayoutManager = LinearLayoutManager(activity)
-            layoutManager = linearLayoutManager.apply {
-                reverseLayout
-            }
-        }
-
-        if (messageList.isEmpty()) {
-            fragmentMessageListRecyclerView.isGone = true
-            fragmentMessageNoMessageTextView.isVisible = true
-        } else {
-            fragmentMessageListRecyclerView.smoothScrollToPosition(messageList.size - 1)
-        }
     }
 }
