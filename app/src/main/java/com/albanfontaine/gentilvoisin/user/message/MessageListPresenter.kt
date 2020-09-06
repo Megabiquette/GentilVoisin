@@ -1,12 +1,12 @@
 package com.albanfontaine.gentilvoisin.user.message
 
-import com.albanfontaine.gentilvoisin.helper.Helper
+import com.albanfontaine.gentilvoisin.helper.HelperInterface
 import com.albanfontaine.gentilvoisin.model.Discussion
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.Message
-import com.albanfontaine.gentilvoisin.repository.DiscussionRepository
-import com.albanfontaine.gentilvoisin.repository.JobRepository
-import com.albanfontaine.gentilvoisin.repository.MessageRepository
+import com.albanfontaine.gentilvoisin.repository.`interface`.DiscussionRepositoryInterface
+import com.albanfontaine.gentilvoisin.repository.`interface`.JobRepositoryInterface
+import com.albanfontaine.gentilvoisin.repository.`interface`.MessageRepositoryInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -15,9 +15,10 @@ import kotlinx.coroutines.withContext
 class MessageListPresenter(
     val view: MessageListContract.View,
     private val jobUid: String,
-    private val discussionRepository: DiscussionRepository,
-    private val messageRepository: MessageRepository,
-    private val jobRepository: JobRepository
+    private val discussionRepository: DiscussionRepositoryInterface,
+    private val messageRepository: MessageRepositoryInterface,
+    private val jobRepository: JobRepositoryInterface,
+    private val helper: HelperInterface
 ) : MessageListContract.Presenter {
 
     private lateinit var job: Job
@@ -50,17 +51,22 @@ class MessageListPresenter(
             val discussionUid = existingDiscussionUid ?: discussionRepository.getDiscussionCollection().document().id
             val message = Message(
                 discussionUid = discussionUid,
-                senderUid = Helper.currentUserUid(),
+                senderUid = helper.currentUserUid(),
                 recipientUid = recipientUid,
                 content = content
             )
-            messageRepository.createMessage(message)
-            updateDiscussion(discussionUid, message, recipientUid)
+            GlobalScope.launch {
+                messageRepository.createMessage(message)
+
+                withContext(Dispatchers.Main) {
+                    updateDiscussion(discussionUid, message, recipientUid)
+                }
+            }
         }
     }
 
     private fun updateDiscussion(discussionUid: String, message: Message, recipientUid: String) {
-        val applicantUid = if (job.posterUid != Helper.currentUserUid()) Helper.currentUserUid() else recipientUid
+        val applicantUid = if (job.posterUid != helper.currentUserUid()) helper.currentUserUid() else recipientUid
         val discussion = Discussion(
             uid = discussionUid,
             jobUid = jobUid,
@@ -69,10 +75,12 @@ class MessageListPresenter(
             lastMessageContent = message.content,
             lastMessagePostedAt = message.postedAt
         )
-        discussionRepository.getDiscussionCollection()
-            .document(discussionUid)
-            .set(discussion)
+        GlobalScope.launch {
+            discussionRepository.setDiscussion(discussionUid, discussion)
 
-        view.onMessageSent(message)
+            withContext(Dispatchers.Main) {
+                view.onMessageSent(message)
+            }
+        }
     }
 }

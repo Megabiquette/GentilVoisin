@@ -29,9 +29,13 @@ object MessageRepository : MessageRepositoryInterface {
         return messageList
     }
 
-    override fun createMessage(message: Message): Task<Void> {
+    override suspend fun createMessage(message: Message): Boolean {
         return getMessageCollection()
             .document()
             .set(message)
+            .continueWith { task ->
+                return@continueWith task.isSuccessful
+            }
+            .await()
     }
 }

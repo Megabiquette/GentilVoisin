@@ -12,5 +12,6 @@ interface RatingsContract {
 
     interface Presenter {
         fun getRatedUser(userUid: String)
+        fun getRatings(userUid: String)
     }
 }

@@ -36,6 +36,7 @@ class RatingsActivity : AppCompatActivity(), RatingsContract.View {
 
     override fun onUserRetrieved(user: User) {
         ratedUser = user
+        presenter.getRatings(user.uid)
     }
 
     override fun displayRatings(ratings: List<Rating>) {

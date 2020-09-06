@@ -63,4 +63,11 @@ object DiscussionRepository : DiscussionRepositoryInterface {
             .await()
         return discussionUid
     }
+
+    override suspend fun setDiscussion(discussionUid: String, discussion: Discussion) {
+        getDiscussionCollection()
+            .document(discussionUid)
+            .set(discussion)
+            .await()
+    }
 }

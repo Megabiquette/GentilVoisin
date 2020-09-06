@@ -1,7 +1,7 @@
 package com.albanfontaine.gentilvoisin.user.ratings
 
-import com.albanfontaine.gentilvoisin.repository.RatingRepository
-import com.albanfontaine.gentilvoisin.repository.UserRepository
+import com.albanfontaine.gentilvoisin.repository.`interface`.RatingRepositoryInterface
+import com.albanfontaine.gentilvoisin.repository.`interface`.UserRepositoryInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -9,8 +9,8 @@ import kotlinx.coroutines.withContext
 
 class RatingsPresenter(
     val view: RatingsContract.View,
-    private val userRepository: UserRepository,
-    private val ratingRepository: RatingRepository
+    private val userRepository: UserRepositoryInterface,
+    private val ratingRepository: RatingRepositoryInterface
 ) : RatingsContract.Presenter {
 
     override fun getRatedUser(userUid: String) {
@@ -20,12 +20,10 @@ class RatingsPresenter(
             withContext(Dispatchers.Main) {
                 view.onUserRetrieved(user)
             }
-
-            getRatings(user.uid)
         }
     }
 
-    private fun getRatings(userUid: String) {
+    override fun getRatings(userUid: String) {
         GlobalScope.launch {
             val ratingList = ratingRepository.getRatingsForUserToDisplay(userUid)
 

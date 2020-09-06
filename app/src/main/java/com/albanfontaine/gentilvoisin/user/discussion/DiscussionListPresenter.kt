@@ -2,6 +2,7 @@ package com.albanfontaine.gentilvoisin.user.discussion
 
 import com.albanfontaine.gentilvoisin.model.Discussion
 import com.albanfontaine.gentilvoisin.repository.DiscussionRepository
+import com.albanfontaine.gentilvoisin.repository.`interface`.DiscussionRepositoryInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -9,13 +10,12 @@ import kotlinx.coroutines.withContext
 
 class DiscussionListPresenter(
     val view: DiscussionListContract.View,
-    private val discussionRepository: DiscussionRepository
+    private val discussionRepository: DiscussionRepositoryInterface
 ) : DiscussionListContract.Presenter {
 
-    private val discussionList = mutableListOf<Discussion>()
-    private var firstDiscussionAdded = false
-
     override fun getDiscussionList(userUid: String) {
+        val discussionList = mutableListOf<Discussion>()
+
         GlobalScope.launch {
             for (discussion in discussionRepository.getDiscussionByJobPoster(userUid)) {
                 discussionList.add(discussion)

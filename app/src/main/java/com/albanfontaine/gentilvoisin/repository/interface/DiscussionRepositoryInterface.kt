@@ -8,4 +8,5 @@ interface DiscussionRepositoryInterface {
     suspend fun getDiscussionByJobPoster(jobPosterUid: String): ArrayList<Discussion>
     suspend fun getDiscussionByApplicant(jobPosterUid: String): ArrayList<Discussion>
     suspend fun getDiscussionUidForJob(jobUid: String, applicantUid: String): String
+    suspend fun setDiscussion(discussionUid: String, discussion: Discussion)
 }

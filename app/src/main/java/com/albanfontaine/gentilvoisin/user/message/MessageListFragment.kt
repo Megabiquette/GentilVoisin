@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Constants
+import com.albanfontaine.gentilvoisin.helper.Helper
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.Message
 import com.albanfontaine.gentilvoisin.repository.*
@@ -54,7 +55,7 @@ class MessageListFragment : Fragment(), MessageListContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        presenter = MessageListPresenter(this, jobUid, DiscussionRepository, MessageRepository, JobRepository)
+        presenter = MessageListPresenter(this, jobUid, DiscussionRepository, MessageRepository, JobRepository, Helper)
         presenter.getJob()
         fragmentMessageListInput.setOnEditorActionListener { _, actionId, _ ->
             when (actionId) {

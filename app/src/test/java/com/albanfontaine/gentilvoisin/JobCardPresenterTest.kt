@@ -84,6 +84,7 @@ class JobCardPresenterTest {
 
         // Assert
         verify {
+            // TODO
             view.onDiscussionExistenceChecked(discussionUid)
         }
 
