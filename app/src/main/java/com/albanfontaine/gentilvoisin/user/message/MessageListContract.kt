@@ -14,5 +14,6 @@ interface MessageListContract {
         fun getJob()
         fun getMessageList(discussionUid: String?)
         fun sendMessage(recipientUid: String, content: String, existingDiscussionUid: String?)
+        fun setJobCompleted()
     }
 }

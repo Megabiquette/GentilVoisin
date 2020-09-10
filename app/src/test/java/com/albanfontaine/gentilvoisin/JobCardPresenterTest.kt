@@ -70,7 +70,7 @@ class JobCardPresenterTest {
 
         // Assert
         verify {
-                view.configureViews(job, jobPoster)
+            view.configureViews(job, jobPoster)
         }
     }
 

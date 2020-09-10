@@ -101,22 +101,14 @@ class MessagListPresenterTest {
     fun getMessageList_nonEmptyNonNullDiscussionUid_displayMessageList() {
         // Arrange
         val discussionUid = "1"
-        val oldDate = Date(1)
-        val recentDate = Date(10000000)
-        val messageList = arrayListOf(
-            Message(postedAt = recentDate),
-            Message(postedAt = oldDate)
-        )
+
+        val messageList = arrayListOf(Message(), Message(), Message())
         coEvery { messageRepository.getMessagesByDiscussion(discussionUid) } returns messageList
 
         // Act
         presenter.getMessageList(discussionUid)
 
         // Assert
-        // TODO
-        // Assert that the list was sorted
-        Assert.assertEquals(oldDate, messageList[0].postedAt)
-
         verify {
             view.displayMessageList(messageList)
         }
@@ -163,6 +155,20 @@ class MessagListPresenterTest {
             discussionRepository.setDiscussion(any(), any())
             view.displayJobItem(any())
             view.onMessageSent(any())
+        }
+    }
+
+    @Test
+    fun setJobCompleted_success_setJobCompleted() {
+        // Arrange
+        every { jobRepository.setJobCompleted(any()) } returns Unit
+
+        // Act
+        presenter.setJobCompleted()
+
+        // Assert
+        verify {
+            jobRepository.setJobCompleted(any())
         }
     }
 }

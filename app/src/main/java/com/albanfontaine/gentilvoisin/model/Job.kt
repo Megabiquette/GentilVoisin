@@ -10,5 +10,5 @@ data class Job(
     val type: String = "",
     val description: String = "",
     val postedAt: Date = Date(),
-    val isDone: Boolean = false
+    val done: Boolean = false
 )

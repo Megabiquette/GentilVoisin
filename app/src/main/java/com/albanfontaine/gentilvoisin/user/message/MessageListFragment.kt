@@ -1,6 +1,7 @@
 package com.albanfontaine.gentilvoisin.user.message
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -16,9 +18,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.helper.Helper
+import com.albanfontaine.gentilvoisin.helper.HelperInterface
 import com.albanfontaine.gentilvoisin.model.Job
 import com.albanfontaine.gentilvoisin.model.Message
 import com.albanfontaine.gentilvoisin.repository.*
+import com.albanfontaine.gentilvoisin.user.ratings.RatingsActivity
 import com.albanfontaine.gentilvoisin.view.MessageAdapter
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_message_list.*
@@ -35,10 +39,12 @@ class MessageListFragment : Fragment(), MessageListContract.View {
     private lateinit var messageList: ArrayList<Message>
     private lateinit var messageAdapter: MessageAdapter
     private val userRepository = UserRepository
+    private val helper: HelperInterface = Helper
 
     private lateinit var jobUid: String
     private lateinit var interlocutorUid: String
     private var discussionUid: String? = null
+    private var jobIsCompleted = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,8 +59,6 @@ class MessageListFragment : Fragment(), MessageListContract.View {
         jobUid = arguments?.getString(Constants.JOB_UID)!!
         discussionUid = arguments?.getString(Constants.DISCUSSION_UID)
 
-        Log.e("discussion uid: ", discussionUid!!)
-
         presenter = MessageListPresenter(this, jobUid, DiscussionRepository, MessageRepository, JobRepository, Helper)
         presenter.getJob()
         fragmentMessageListInput.setOnEditorActionListener { _, actionId, _ ->
@@ -66,6 +70,31 @@ class MessageListFragment : Fragment(), MessageListContract.View {
                 else -> false
             }
         }
+
+        fragmentMessageListButtonJobCompleted.setOnClickListener {
+            if (jobIsCompleted.not()) {
+                completeJob()
+            } else {
+                val intent = Intent(activity, RatingsActivity::class.java)
+                intent.putExtra(Constants.USER_UID, interlocutorUid)
+                startActivity(intent)
+            }
+        }
+    }
+
+    private fun completeJob() {
+        AlertDialog.Builder(requireContext(), R.style.DialogTheme)
+            .setMessage(R.string.message_button_mark_job_completed_confirmation)
+            .setPositiveButton(R.string.common_validate) { _, _ ->
+                presenter.setJobCompleted()
+                fragmentMessageListButtonJobCompleted.text = resources.getString(R.string.message_button_add_rating)
+                jobIsCompleted = true
+            }
+            .setNegativeButton(R.string.common_cancel) { _, _ ->
+                // Cancel
+            }
+            .create()
+            .show()
     }
 
     override fun onMessageSent(message: Message) {
@@ -114,7 +143,6 @@ class MessageListFragment : Fragment(), MessageListContract.View {
                 }
             }
         }
-
         // Category
         jobLayout.itemJobsCategory.text = job.category
 
@@ -130,6 +158,12 @@ class MessageListFragment : Fragment(), MessageListContract.View {
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         jobLayout.itemJobsDate.text = dateFormat.format(job.postedAt)
 
+        // Job done or not
+        if (job.done) {
+            jobIsCompleted = true
+            fragmentMessageListButtonJobCompleted.text = resources.getString(R.string.message_button_add_rating)
+        }
+
         // Avatar
         GlobalScope.launch {
             val user = userRepository.getUser(job.posterUid)
@@ -141,6 +175,11 @@ class MessageListFragment : Fragment(), MessageListContract.View {
                     .placeholder(ContextCompat.getDrawable(requireContext(), R.drawable.ic_person_primary))
                     .into(fragmentMessageListJobLayout.itemJobsAvatar)
             }
+        }
+
+        // Show "complete job" button if user is the job poster
+        if (job.posterUid == helper.currentUserUid()) {
+            fragmentMessageListButtonJobCompleted.isVisible = true
         }
 
         presenter.getMessageList(discussionUid)

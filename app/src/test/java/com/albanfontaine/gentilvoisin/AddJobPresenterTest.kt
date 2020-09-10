@@ -54,11 +54,7 @@ class AddJobPresenterTest {
         val category = "category"
         val type = "type"
         val description = "description"
-
-        val user = User(
-            uid = "1",
-            city = "city"
-        )
+        val user = User()
 
         coEvery { userRepository.getCurrentUser() } returns user
         coEvery { jobRepository.createJob(user, category, type, description) } returns true
@@ -78,11 +74,7 @@ class AddJobPresenterTest {
         val category = "category"
         val type = "type"
         val description = "description"
-
-        val user = User(
-            uid = "1",
-            city = "city"
-        )
+        val user = User()
 
         coEvery { userRepository.getCurrentUser() } returns user
         coEvery { jobRepository.createJob(user, category, type, description) } returns false

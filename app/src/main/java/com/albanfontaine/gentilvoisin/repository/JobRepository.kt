@@ -115,13 +115,19 @@ object JobRepository : JobRepositoryInterface {
             type = type,
             description = description,
             postedAt = Date(),
-            isDone = false
+            done = false
         )
         return jobDocumentReference.set(job)
             .continueWith { task ->
                 return@continueWith task.isSuccessful
             }
             .await()
+    }
+
+    override fun setJobCompleted(uid: String) {
+        getJobCollection()
+            .document(uid)
+            .update("done", true)
     }
 
     enum class JobTypeQuery(val value: String) {

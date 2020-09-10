@@ -106,6 +106,9 @@
 
 
     <string name="message_label">Messages</string>
+    <string name="message_button_mark_job_completed">Marquer le travail comme terminé</string>
+    <string name="message_button_mark_job_completed_confirmation">Voulez vous marquer le travail comme terminé ?</string>
+    <string name="message_button_add_rating">Travail terminé, laissez un avis sur votre voisin !</string>
     <string name="message_no_message_yet">Cette discussion ne contient pas encore de message</string>
     <string name="message_enter_message">Entrez votre message</string>
 </resources>

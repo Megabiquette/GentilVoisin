@@ -15,6 +15,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/fragmentMessageListButtonJobCompleted"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/btn_shape_round_primary"
+        android:text="@string/message_button_mark_job_completed"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentMessageListJobLayout" />
+
     <TextView
         android:id="@+id/fragmentMessageNoMessageTextView"
         android:layout_width="wrap_content"
@@ -26,7 +41,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragmentMessageListJobLayout" />
+        app:layout_constraintTop_toBottomOf="@id/fragmentMessageListButtonJobCompleted" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragmentMessageListRecyclerView"
@@ -35,7 +50,7 @@
         app:layout_constraintBottom_toTopOf="@id/fragmentMessageListInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragmentMessageListJobLayout"
+        app:layout_constraintTop_toBottomOf="@id/fragmentMessageListButtonJobCompleted"
         tools:itemCount="10"
         tools:listitem="@layout/item_message_recycler_view" />
 

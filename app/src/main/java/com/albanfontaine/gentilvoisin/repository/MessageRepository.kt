@@ -17,6 +17,7 @@ object MessageRepository : MessageRepositoryInterface {
         val messageList = ArrayList<Message>()
         getMessageCollection()
             .whereEqualTo(DB_FIELD_DISCUSSION_UID, discussionUid)
+            .orderBy("postedAt")
             .get()
             .continueWith { task ->
                 if (task.isSuccessful) {

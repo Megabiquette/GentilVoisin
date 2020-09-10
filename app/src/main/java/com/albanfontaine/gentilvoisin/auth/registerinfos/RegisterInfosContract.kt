@@ -7,12 +7,12 @@ interface RegisterInfosContract {
         fun goToMainActivity(changedCity: Boolean = false)
         fun displayError()
         fun configureSpinner(possibleCities: List<String>)
-        fun onPossibleCitiesLoaded(possibleCities: List<String>)
+        fun loadPossibleCities(possibleCities: List<String>)
     }
 
     interface Presenter {
         fun registerUser(user: User)
-        fun loadPossibleCities(userZipCode: String)
+        fun displayPossibleCities(userZipCode: String)
         fun updateUserCity(user: User, city: String)
     }
 }

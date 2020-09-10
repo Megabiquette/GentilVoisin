@@ -1,6 +1,5 @@
 package com.albanfontaine.gentilvoisin.user.message
 
-import android.util.Log
 import com.albanfontaine.gentilvoisin.helper.HelperInterface
 import com.albanfontaine.gentilvoisin.model.Discussion
 import com.albanfontaine.gentilvoisin.model.Job
@@ -39,7 +38,6 @@ class MessageListPresenter(
         } else {
             GlobalScope.launch {
                 val messageList = messageRepository.getMessagesByDiscussion(discussionUid)
-                messageList.sortedBy { it.postedAt }
                 withContext(Dispatchers.Main) {
                     view.displayMessageList(messageList)
                 }
@@ -83,5 +81,9 @@ class MessageListPresenter(
                 view.onMessageSent(message)
             }
         }
+    }
+
+    override fun setJobCompleted() {
+        jobRepository.setJobCompleted(jobUid)
     }
 }

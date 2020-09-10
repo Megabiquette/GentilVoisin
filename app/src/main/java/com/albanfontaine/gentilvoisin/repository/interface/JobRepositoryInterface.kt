@@ -14,4 +14,5 @@ interface JobRepositoryInterface {
     suspend fun getJobsByPoster(city: String, posterUid: String): ArrayList<Job>
     suspend fun getJobsByCategory(city: String, category: String): ArrayList<Job>
     suspend fun createJob(user: User, category: String, type: String, description: String): Boolean
+    fun setJobCompleted(uid: String)
 }

@@ -9,6 +9,7 @@ import androidx.core.widget.addTextChangedListener
 import com.albanfontaine.gentilvoisin.R
 import com.albanfontaine.gentilvoisin.MainActivity
 import com.albanfontaine.gentilvoisin.auth.login.LoginActivity
+import com.albanfontaine.gentilvoisin.helper.CityMultimapHelper
 import com.albanfontaine.gentilvoisin.helper.Constants
 import com.albanfontaine.gentilvoisin.helper.Extensions.Companion.toast
 import com.albanfontaine.gentilvoisin.model.User
@@ -30,7 +31,7 @@ class RegisterInfosActivity : AppCompatActivity(),
         changeCityForExistingUser = intent.getBooleanExtra(Constants.CHANGE_CITY_FOR_EXISTING_USER, false)
 
         configureViews()
-        presenter = RegisterInfosPresenter(this, UserRepository, this)
+        presenter = RegisterInfosPresenter(this, UserRepository, CityMultimapHelper(), this)
     }
 
     override fun goToMainActivity(changedCity: Boolean) {
@@ -47,7 +48,7 @@ class RegisterInfosActivity : AppCompatActivity(),
         startActivity(Intent(this, LoginActivity::class.java))
     }
 
-    override fun onPossibleCitiesLoaded(possibleCities: List<String>) {
+    override fun loadPossibleCities(possibleCities: List<String>) {
         if (possibleCities.isNotEmpty()) {
             configureSpinner(possibleCities.toList())
         } else {
@@ -59,7 +60,7 @@ class RegisterInfosActivity : AppCompatActivity(),
     private fun configureViews() {
         registerInfosZipcode.addTextChangedListener {
             if (it.toString().length == 5) {
-                presenter.loadPossibleCities(registerInfosZipcode.text.toString())
+                presenter.displayPossibleCities(registerInfosZipcode.text.toString())
             } else {
                 configureSpinner(listOf())
             }
