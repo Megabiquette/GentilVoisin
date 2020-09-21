@@ -25,15 +25,13 @@ class DiscussionListPresenterTest {
     @ExperimentalCoroutinesApi
     private val testDispatcher = TestCoroutineDispatcher()
 
-    private lateinit var presenter: DiscussionListContract.Presenter
-
     @RelaxedMockK
     private lateinit var view: DiscussionListContract.View
     @MockK
     private lateinit var discussionRepository: DiscussionRepositoryInterface
 
+    private lateinit var presenter: DiscussionListContract.Presenter
     private val userUid = "1"
-
 
     @ExperimentalCoroutinesApi
     @Before
@@ -50,8 +48,6 @@ class DiscussionListPresenterTest {
         Dispatchers.resetMain()
         testDispatcher.cleanupTestCoroutines()
     }
-
-
 
     @Test
     fun getDiscussionList_notEmpty_displayDiscussionList() {

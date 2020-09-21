@@ -38,6 +38,7 @@
     <string name="menu_my_messages">Mes messages</string>
     <string name="menu_profile">Mon profil</string>
     <string name="menu_logout">Se déconnecter</string>
+    <string name="menu_toolbar_search">Rechercher</string>
 
     <string name="menu_logout_question">Souhaitez vous vous déconnecter ?</string>
     <string name="menu_logout_yes">Se déconnecter</string>
@@ -62,6 +63,8 @@
         <item>Cours</item>
         <item>Autre</item>
     </string-array>
+    <string name="categories_alert_title">Choisissez une catégorie</string>
+    <string name="categories_all">Toutes les catégories</string>
 
     <string name="job_card_title">Voir annonce</string>
     <string name="job_card_not_enough_ratings">Pas assez d\'avis sur %1$s</string>

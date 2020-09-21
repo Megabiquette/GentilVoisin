@@ -1,10 +1,9 @@
 package com.albanfontaine.gentilvoisin.jobs.joblist
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
@@ -25,6 +24,7 @@ abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsLis
     private lateinit var jobAdapter: JobAdapter
     private lateinit var jobList: List<Job>
     private var userCity: String = ""
+    private var categorySelected = ""
 
     private lateinit var presenter: JobsListContract.Presenter
 
@@ -32,7 +32,6 @@ abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsLis
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         presenter = JobsListPresenter(this, JobRepository, Helper)
 
         GlobalScope.launch {
@@ -45,8 +44,19 @@ abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsLis
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_jobs_list, container, false)
+    ): View? {
+        setHasOptionsMenu(true)
+        return inflater.inflate(R.layout.fragment_jobs_list, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        jobAdapter = JobAdapter(requireContext(), this)
+        fragmentJobsListRecyclerView.apply {
+            adapter = jobAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
+    }
 
     override fun onResume() {
         super.onResume()
@@ -56,13 +66,43 @@ abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsLis
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_toolbar, menu)
+        menu.findItem(R.id.toolbar_search).isVisible = true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.toolbar_search) {
+            // Keep the value of the last category in case the user cancels
+            val oldCategorySelected = categorySelected
+
+            categorySelected = ""
+            val categories = resources.getStringArray(R.array.job_categories)
+            AlertDialog.Builder(requireContext())
+                .setTitle(R.string.categories_alert_title)
+                .setSingleChoiceItems(categories, -1) { _, which ->
+                    categorySelected = categories[which]
+                }
+                .setPositiveButton(R.string.common_validate) { _, _ ->
+                    displayJobs(jobList)
+                }
+                .setNegativeButton(R.string.common_cancel) { _, _ ->
+                    categorySelected = oldCategorySelected
+                    displayJobs(jobList)
+                }
+                .create()
+                .show()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun displayJobs(jobs: List<Job>) {
         jobList = jobs
-        jobAdapter = JobAdapter(requireContext(), jobList, this)
-        fragmentJobsListRecyclerView.apply {
-            adapter = jobAdapter
-            layoutManager = LinearLayoutManager(activity)
+        var resultList = jobList.toList()
+        if (categorySelected.isEmpty().not()) {
+            resultList = jobList.filter { it.category == categorySelected }
         }
+        jobAdapter.updateJobList(resultList)
     }
 
     override fun onEmptyJobList() {
@@ -75,6 +115,6 @@ abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsLis
         val args = Bundle().apply {
             putString(Constants.JOB_UID, jobUid)
         }
-        findNavController().navigate(R.id.jobCard, args)
+        findNavController().navigate(R.id.menuJobCard, args)
     }
 }

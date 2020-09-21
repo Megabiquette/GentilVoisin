@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -21,6 +22,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_menu_header.view.*
+import kotlinx.android.synthetic.main.toolbar.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -32,12 +34,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        configureToolbar()
         drawerLayout = drawer_layout
         navController = findNavController(R.id.navHostFragment)
         findViewById<NavigationView>(R.id.navView).apply {
             setupWithNavController(navController)
             headerView = this.getHeaderView(0)
             setNavigationItemSelectedListener(this@MainActivity)
+
         }
 
         val topDestinations = setOf(
@@ -71,7 +75,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
+        return item.onNavDestinationSelected(navController)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -96,5 +100,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             .create()
             .show()
+    }
+
+    private fun configureToolbar(){
+        setSupportActionBar(toolbar as Toolbar)
+        val ab : ActionBar? = supportActionBar
+        ab?.setDisplayHomeAsUpEnabled(false)
     }
 }

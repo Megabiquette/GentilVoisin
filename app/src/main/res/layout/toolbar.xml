@@ -7,5 +7,5 @@
     android:background="?attr/colorPrimary"
     android:minHeight="?attr/actionBarSize"
     android:theme="@style/Toolbar"
-
+    app:menu="@menu/menu_toolbar"
     app:titleTextColor="@android:color/white" />

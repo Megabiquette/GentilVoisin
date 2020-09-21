@@ -36,7 +36,7 @@
         android:label="@string/menu_my_jobs"
         tools:layout="@layout/fragment_jobs_list"/>
     <fragment
-        android:id="@+id/jobCard"
+        android:id="@+id/menuJobCard"
         android:name="com.albanfontaine.gentilvoisin.jobs.jobcard.JobCardFragment"
         android:label="@string/job_card_title"
         tools:layout="@layout/fragment_job_card"/>
