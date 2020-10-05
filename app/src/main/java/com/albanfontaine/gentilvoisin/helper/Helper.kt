@@ -18,8 +18,29 @@ import kotlinx.coroutines.withContext
 
 object Helper : HelperInterface {
 
+    /**
+     * @return the Firebase UID of the current user
+     */
     override fun currentUserUid(): String = FirebaseAuth.getInstance().currentUser!!.uid
 
+    /**
+     * Displays the rating of a user from 1 to 5, using yellow stars
+     *
+     * This is used in 2 ways:
+     * - When param 'rating' is null, to display the average rating of an user
+     * - Otherwise, to display the note given by an user (in the RecyclerView)
+     *
+     * @param context A context
+     * @param user The user
+     * @param star1 A star ImageView  used to display the rating
+     * @param star2 A star ImageView used to display the rating
+     * @param star3 A star ImageView used to display the rating
+     * @param star4 A star ImageView used to display the rating
+     * @param star5 A star ImageView used to display the rating
+     * @param notEnoughRatingsTextView The TextView used when there is not enough ratings
+     * @param notEnoughRatingsText The text to use when there is not enough ratings
+     * @param rating if not null, the rating to display, else it will be calculated
+     */
     override fun displayRatingStars(
         context: Context,
         user: User,
@@ -32,17 +53,6 @@ object Helper : HelperInterface {
         notEnoughRatingsText: String?,
         rating: Rating?
     ) {
-        if (rating == null ) {
-            star1.isGone = true
-            star2.isGone = true
-            star3.isGone = true
-            star4.isGone = true
-            star5.isGone = true
-            notEnoughRatingsTextView?.isVisible = true
-            notEnoughRatingsTextView?.text = notEnoughRatingsText
-            return
-        }
-
         GlobalScope.launch {
             val ratingList = RatingRepository.getRatingsForUserToGetNote(user.uid)
             var ratingNote = 0.0
@@ -57,7 +67,9 @@ object Helper : HelperInterface {
                 ratingNote /= ratingsNumber
             }
 
-            ratingNote = rating.note.toDouble()
+            if (rating != null) {
+                ratingNote = rating.note.toDouble()
+            }
 
             // Set views
             withContext(Dispatchers.Main) {

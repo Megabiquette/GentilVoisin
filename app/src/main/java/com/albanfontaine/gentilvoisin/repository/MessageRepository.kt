@@ -2,7 +2,6 @@ package com.albanfontaine.gentilvoisin.repository
 
 import com.albanfontaine.gentilvoisin.helper.Constants.COLLECTION_MESSAGES
 import com.albanfontaine.gentilvoisin.helper.Constants.DB_FIELD_DISCUSSION_UID
-import com.google.android.gms.tasks.Task
 import com.albanfontaine.gentilvoisin.model.Message
 import com.albanfontaine.gentilvoisin.repository.`interface`.MessageRepositoryInterface
 import com.google.firebase.firestore.CollectionReference

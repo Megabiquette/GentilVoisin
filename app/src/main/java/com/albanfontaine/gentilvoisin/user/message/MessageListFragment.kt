@@ -104,11 +104,16 @@ class MessageListFragment : Fragment(), MessageListContract.View {
 
         messageList.add(message)
         messageAdapter.notifyDataSetChanged()
+        fragmentMessageListRecyclerView.isVisible = true
+        fragmentMessageNoMessageTextView.isGone = true
         fragmentMessageListRecyclerView.smoothScrollToPosition(messageList.size - 1)
     }
 
     override fun displayMessageList(list: ArrayList<Message>) {
         messageList = list
+        for (message in messageList) {
+            Log.e("message: ", message.content.toString())
+        }
         messageAdapter = MessageAdapter(requireContext(), messageList)
         fragmentMessageListRecyclerView.apply {
             adapter = messageAdapter

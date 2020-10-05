@@ -103,11 +103,22 @@ abstract class JobsListFragment : Fragment(), JobAdapter.OnItemListener, JobsLis
             resultList = jobList.filter { it.category == categorySelected }
         }
         jobAdapter.updateJobList(resultList)
+
+        if (resultList.isEmpty()) {
+            onEmptyJobList()
+        } else {
+            onNonEmptyJobList()
+        }
     }
 
     override fun onEmptyJobList() {
         fragmentJobsListRecyclerView.isGone = true
         fragmentJobsListNoJob.isVisible = true
+    }
+
+    private fun onNonEmptyJobList() {
+        fragmentJobsListRecyclerView.isVisible = true
+        fragmentJobsListNoJob.isGone = true
     }
 
     override fun onItemClicked(position: Int) {
