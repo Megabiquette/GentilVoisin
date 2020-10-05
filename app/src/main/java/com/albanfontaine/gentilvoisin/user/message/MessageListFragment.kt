@@ -75,6 +75,7 @@ class MessageListFragment : Fragment(), MessageListContract.View {
             if (jobIsCompleted.not()) {
                 completeJob()
             } else {
+                // Job is completed, the current user can rate the other user
                 val intent = Intent(activity, RatingsActivity::class.java)
                 intent.putExtra(Constants.USER_UID, interlocutorUid)
                 startActivity(intent)

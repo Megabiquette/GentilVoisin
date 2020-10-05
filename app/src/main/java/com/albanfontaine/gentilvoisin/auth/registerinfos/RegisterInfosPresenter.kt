@@ -20,11 +20,6 @@ class RegisterInfosPresenter(
 
     private var citiesMultiMap: Multimap<String, String> = cityMultimapHelper.createCitiesMultiMap(context)
 
-    /**
-     * Register a user in Firestore
-     *
-     * @param user the user to register
-     */
     override fun registerUser(user: User) {
         GlobalScope.launch {
             if (userRepository.createUser(user)) {

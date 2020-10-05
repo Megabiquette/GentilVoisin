@@ -104,7 +104,7 @@
     <string name="profile_change_password_success">Votre mot de passe a bien été modifié</string>
     <string name="profile_change_password_error_same_password">Les deux mots de passe ne correspondent pas</string>
     <string name="profile_change_password_error_weak_password">Votre  mot de passe doit contenir au moins 6 caractères</string>
-    <string name="profile_change_password_error_login_required">Veuillez vous réauthentifier pour pouvoir changer d\'email</string>
+    <string name="profile_change_password_error_login_required">Veuillez vous réauthentifier pour pouvoir changer de mot de passe</string>
     <string name="profile_change_city">Changer de ville</string>
 
 
