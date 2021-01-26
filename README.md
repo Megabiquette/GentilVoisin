@@ -1,5 +1,5 @@
 # GentilVoisin
 
-Final project for Openclassroom.com Android Developper course.
+Final project for Openclassroom.com's Android Developper course.
 
 TODO
