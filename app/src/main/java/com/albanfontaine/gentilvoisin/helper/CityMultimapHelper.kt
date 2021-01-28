@@ -22,7 +22,7 @@ class CityMultimapHelper() : CityMultimapHelperInterface {
         )
         var jsonObject: JSONObject
         val citiesMultiMap: Multimap<String, String> = ArrayListMultimap.create()
-        for(i in 0 until jsonArray.length()) {
+        for (i in 0 until jsonArray.length()) {
             jsonObject = jsonArray.getJSONObject(i)
             citiesMultiMap.put(jsonObject.getString("zipcode"), jsonObject.getString("city"))
         }
